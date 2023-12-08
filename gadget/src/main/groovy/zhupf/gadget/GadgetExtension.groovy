@@ -14,23 +14,24 @@ class GadgetExtension {
         this.project = target
         ServiceLoader.load(Gadget.class).each { gadget ->
             gadgets.put(gadget.name, gadget)
+            gadget.gadgetEx = this
         }
     }
 
-    def compose(Closure closure) {
+    void compose(Closure closure) {
         assert !this.project.buildscript.sourceFile.name.endsWith(".kts")
         assert closure.owner.project == this.project
 
         StringBuilder code = new StringBuilder()
             .append("package zhupf.gadget").append('\n')
             .append("class GadgetCompose {").append('\n')
-            .append("  final GadgetExtension gadget").append('\n')
-            .append("  GadgetCompose(GadgetExtension gadget) {").append('\n')
-            .append("    this.gadget = gadget").append('\n')
+            .append("  final GadgetExtension gadgetEx").append('\n')
+            .append("  GadgetCompose(GadgetExtension gadgetEx) {").append('\n')
+            .append("    this.gadgetEx = gadgetEx").append('\n')
             .append("  }").append('\n')
         gadgets.each { name, gadget -> code
             .append("  def ${name}(closure) {").append('\n')
-            .append("    gadget.gadgets.get(\"${name}\").closure(gadget, closure)").append('\n')
+            .append("    gadgetEx.gadgets.get(\"${name}\").closure(closure)").append('\n')
             .append("  }").append('\n')
         }
         code.append("}")

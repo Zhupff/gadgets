@@ -66,7 +66,7 @@ abstract class Configuration internal constructor(
                 compileSdk = 33
                 defaultConfig {
                     minSdk = 24
-                    if (this is ApplicationDefaultConfig) {
+                    if (gadget is GadgetApplication && this is ApplicationDefaultConfig) {
                         applicationId = this@AndroidConfiguration.namespace
                     }
                 }

@@ -4,24 +4,22 @@ abstract class Gadget {
 
     final String name
 
-    Gadget() {
-        this(getClass().simpleName)
-    }
+    GadgetExtension gadgetEx
 
     Gadget(String name) {
         this.name = name
     }
 
-    void beforeClosure(GadgetExtension gadget) {}
+    void beforeClosure() {}
 
-    void afterClosure(GadgetExtension gadget) {}
+    void afterClosure() {}
 
-    final void closure(GadgetExtension gadget, Closure closure) {
-        beforeClosure(gadget)
+    final void closure(Closure closure) {
+        beforeClosure()
         if (closure != null) {
             closure.delegate = this
             closure.call()
         }
-        afterClosure(gadget)
+        afterClosure()
     }
 }
