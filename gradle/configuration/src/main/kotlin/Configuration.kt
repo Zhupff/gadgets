@@ -109,7 +109,7 @@ fun GadgetApplication.configuration(
 ) {
     Configuration.AndroidConfiguration(this, namespace).apply {
         configure()
-        closure()
+        closure(this)
     }
 }
 
@@ -119,7 +119,7 @@ fun GadgetAndroid.configuration(
 ) {
     Configuration.AndroidConfiguration(this, namespace).apply {
         configure()
-        closure()
+        closure(this)
     }
 }
 
@@ -128,6 +128,6 @@ fun GadgetJvm.configuration(
 ) {
     Configuration.JvmConfiguration(this).apply {
         configure()
-        closure()
+        closure(this)
     }
 }

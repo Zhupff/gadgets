@@ -13,7 +13,7 @@ class GadgetExtension {
     GadgetExtension(Project target) {
         this.project = target
         ServiceLoader.load(Gadget.class).each { gadget ->
-            gadgets.put(gadget.class.canonicalName, gadget)
+            gadgets.put(gadget.name, gadget)
         }
     }
 

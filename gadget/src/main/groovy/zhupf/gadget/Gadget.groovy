@@ -2,7 +2,15 @@ package zhupf.gadget
 
 abstract class Gadget {
 
-    Gadget() {}
+    final String name
+
+    Gadget() {
+        this(getClass().simpleName)
+    }
+
+    Gadget(String name) {
+        this.name = name
+    }
 
     void beforeClosure(GadgetExtension gadget) {}
 

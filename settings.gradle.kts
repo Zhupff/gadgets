@@ -16,3 +16,4 @@ dependencyResolutionManagement {
 
 rootProject.name = "gadgets"
 include(":gadget")
+include(":gadget-basic")
