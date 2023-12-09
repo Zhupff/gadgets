@@ -38,7 +38,7 @@ class GadgetExtension {
 
         def gadgetCompose = new GroovyClassLoader()
             .parseClass(code.toString())
-            .getConstructor(Gadget.class)
+            .getConstructor(GadgetExtension.class)
             .newInstance(this)
         closure.delegate = gadgetCompose
         closure.call()
