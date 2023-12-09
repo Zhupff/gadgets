@@ -12,7 +12,7 @@ class Publication(
 
     fun publish() {
         gadget.project.pluginManager.apply("maven-publish")
-        afterEvaluate {
+        gadget.project.afterEvaluate {
             gadget.project.extensions.configure(PublishingExtension::class.java) {
                 repositories {
                     mavenLocal()
