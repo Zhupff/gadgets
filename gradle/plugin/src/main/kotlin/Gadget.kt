@@ -8,6 +8,10 @@ abstract class Gadget : Plugin<Project>, MutableMap<Any, Any> by ConcurrentHashM
 
     val configuration: Configuration?; get() = get(Configuration::class.java) as? Configuration
 
+    val publication: Publication?; get() = get(Publication::class.java) as? Publication
+
+    val dependency: Dependency?; get() = get(Dependency::class.java) as? Dependency
+
     override fun apply(target: Project) {
         clear()
         put(Project::class.java, target)
