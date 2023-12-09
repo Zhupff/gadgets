@@ -4,6 +4,9 @@ plugins {
 
 gadget {
     configuration("zhupf.gadget.basic") {
+        configure()
+    }
+    publication {
         publish()
     }
 }

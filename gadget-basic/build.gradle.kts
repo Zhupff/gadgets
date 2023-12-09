@@ -4,6 +4,9 @@ plugins {
 
 gadget {
     configuration {
+        configure()
+    }
+    publication {
         publish()
     }
 }
