@@ -64,6 +64,13 @@ class GadgetNameProcessor : AbstractProcessor() {
                                 .initializer("\"${publication.version}\"")
                                 .build()
                         )
+                        .addFunction(
+                            FunSpec.builder("dependency")
+                                .returns(STRING)
+                                .addParameter(ParameterSpec("name", STRING))
+                                .addCode("return \"${publication.group}.${publication.artifact}:\${name}:${publication.version}\"")
+                                .build()
+                        )
                         .build()
                     )
                     .addFunction(

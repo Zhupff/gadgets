@@ -21,7 +21,7 @@ dependencies {
 gradlePlugin {
     plugins {
         register("GadgetPlugin") {
-            id = "zhupf.gadget"
+            id = "zhupf.gadgets"
             implementationClass = "zhupf.gadget.GadgetPlugin"
         }
     }
