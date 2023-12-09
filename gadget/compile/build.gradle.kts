@@ -6,6 +6,9 @@ gadget {
     configuration {
         configure()
     }
+    publication {
+        publish()
+    }
 }
 
 dependencies {
