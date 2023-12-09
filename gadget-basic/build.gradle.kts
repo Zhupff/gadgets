@@ -1,5 +1,6 @@
 plugins {
     id("zhupf.gadget.jvm")
+    alias(libs.plugins.kotlin.kapt)
 }
 
 gadget {
@@ -13,4 +14,5 @@ gadget {
 
 dependencies {
     compileOnly(project(":gadget"))
+    kapt(project(":gadget:compile"))
 }

@@ -15,6 +15,7 @@ gadget {
 dependencies {
     compileOnly(gradleApi())
     compileOnly(libs.android.gradle.plugin)
+    api(project(":gadget:compile"))
 }
 
 gradlePlugin {

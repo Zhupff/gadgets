@@ -1,24 +1,16 @@
 package zhupf.gadget.basic
 
 import zhupf.gadget.Gadget
-import zhupf.gadget.GadgetExtension
+import zhupf.gadget.GadgetName
 
-private const val NAME = "Basic"
-
-class GadgetBasic : Gadget(NAME) {
+@GadgetName("Basic")
+class GadgetBasic : Gadget() {
 
     fun jvm(method: String = "implementation") {
-        gadgetEx.project.dependencies.add(method, "")
+        gadgetEx.project.dependencies.add(method, "${GadgetBasicPublication.GROUP}:basicJvm:${GadgetBasicPublication.VERSION}")
     }
 
     fun android(method: String = "implementation") {
-        gadgetEx.project.dependencies.add(method, "")
+        gadgetEx.project.dependencies.add(method, "${GadgetBasicPublication.GROUP}:basicAndroid:${GadgetBasicPublication.VERSION}")
     }
-}
-
-fun GadgetExtension.Basic(closure: GadgetBasic.() -> Unit = {}) {
-    val gadget = gadgets[NAME] as GadgetBasic
-    gadget.beforeClosure()
-    closure(gadget)
-    gadget.afterClosure()
 }

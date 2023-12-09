@@ -2,13 +2,9 @@ package zhupf.gadget
 
 abstract class Gadget {
 
-    final String name
+    final String name = this.getClass().getAnnotation(GadgetName.class).value()
 
     GadgetExtension gadgetEx
-
-    Gadget(String name) {
-        this.name = name
-    }
 
     void beforeClosure() {}
 
