@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <attr name="fitWindow" format="boolean"/>
+    <attr name="fitWindowHorizontal" format="boolean"/>
+    <attr name="fitWindowVertical" format="boolean"/>
+    <attr name="fitWindowLeft" format="boolean"/>
+    <attr name="fitWindowTop" format="boolean"/>
+    <attr name="fitWindowRight" format="boolean"/>
+    <attr name="fitWindowBottom" format="boolean"/>
+
+    <declare-styleable name="WindowFit">
+        <attr name="fitWindow"/>
+        <attr name="fitWindowHorizontal"/>
+        <attr name="fitWindowVertical"/>
+        <attr name="fitWindowLeft"/>
+        <attr name="fitWindowTop"/>
+        <attr name="fitWindowRight"/>
+        <attr name="fitWindowBottom"/>
+    </declare-styleable>
+</resources>

@@ -37,3 +37,8 @@ include(
     ":gadget-toast",
     ":gadget-toast:toastApi",
 )
+include(
+    ":gadget-widget",
+    ":gadget-widget:widgetAnnotation",
+    ":gadget-widget:widgetX",
+)
