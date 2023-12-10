@@ -12,5 +12,6 @@ gadget {
 }
 
 dependencies {
+    compileOnly(project(":gadget:gadgetApi"))
     implementation(libs.squareup.kotlinpoet)
 }

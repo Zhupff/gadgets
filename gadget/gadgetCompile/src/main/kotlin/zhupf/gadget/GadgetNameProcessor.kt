@@ -54,12 +54,6 @@ class GadgetNameProcessor : AbstractProcessor() {
                         )
                         .addProperty(
                             PropertySpec
-                                .builder("ARTIFACT", STRING, KModifier.CONST)
-                                .initializer("\"${publication.artifact}\"")
-                                .build()
-                        )
-                        .addProperty(
-                            PropertySpec
                                 .builder("VERSION", STRING, KModifier.CONST)
                                 .initializer("\"${publication.version}\"")
                                 .build()
@@ -68,7 +62,7 @@ class GadgetNameProcessor : AbstractProcessor() {
                             FunSpec.builder("dependency")
                                 .returns(STRING)
                                 .addParameter(ParameterSpec("name", STRING))
-                                .addCode("return \"${publication.group}.${publication.artifact}:\${name}:${publication.version}\"")
+                                .addCode("return \"${publication.group}:\${name}:${publication.version}\"")
                                 .build()
                         )
                         .build()
@@ -82,7 +76,7 @@ class GadgetNameProcessor : AbstractProcessor() {
                                     .defaultValue("{}")
                                     .build()
                             )
-                            .addStatement("val gadget = gadgets[\"${publication.name}\"] as GadgetBasic")
+                            .addStatement("val gadget = this[\"${publication.name}\"] as GadgetBasic")
                             .addStatement("gadget.beforeClosure()")
                             .addStatement("gadget.closure()")
                             .addStatement("gadget.afterClosure()")
@@ -95,15 +89,9 @@ class GadgetNameProcessor : AbstractProcessor() {
             roundEnv.getElementsAnnotatedWith(GadgetName::class.java).forEach { element ->
                 val gadget = element.simpleName.toString()
                 val name = element.getAnnotation(GadgetName::class.java).value
-                if (System.getenv("JITPACK").toBoolean()) {
-                    val group = System.getenv("GROUP") ?: ""
-                    val artifact = System.getenv("ARTIFACT") ?: ""
-                    val version = System.getenv("VERSION") ?: ""
-                    publications[element] = Publication(gadget, name, group, artifact, version)
-                } else {
-                    publications[element] =
-                        Publication(gadget, name, "group", "artifact", "version")
-                }
+                val group = processingEnv.options["GROUP"] ?: "GROUP_FAILURE"
+                val version = processingEnv.options["VERSION"] ?: "VERSION_FAILURE"
+                publications[element] = Publication(gadget, name, group, version)
             }
         }
         return false
@@ -113,9 +101,6 @@ class GadgetNameProcessor : AbstractProcessor() {
         val gadget: String,
         val name: String,
         val group: String,
-        val artifact: String,
         val version: String,
-    ) {
-        override fun toString(): String = "$gadget-$name $group:$artifact:$version"
-    }
+    )
 }

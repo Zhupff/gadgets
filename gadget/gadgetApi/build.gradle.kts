@@ -9,7 +9,8 @@ gadget {
     publication {
         publish()
     }
-    dependency {
-        gadget()
-    }
+}
+
+dependencies {
+    compileOnly(gradleApi())
 }

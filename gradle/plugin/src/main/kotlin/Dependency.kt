@@ -1,4 +1,5 @@
 import org.gradle.api.Project
+import org.jetbrains.kotlin.gradle.plugin.KaptExtension
 
 class Dependency(
     val gadget: Gadget,
@@ -8,10 +9,15 @@ class Dependency(
         gadget[Dependency::class.java] = this
     }
 
-    fun compile() {
+    fun gadget() {
         gadget.project.pluginManager.apply("org.jetbrains.kotlin.kapt")
-        gadget.project.dependencies.add("compileOnly", project(":gadget"))
-        gadget.project.dependencies.add("kapt", project(":gadget:compile"))
+        gadget.project.extensions.getByType(KaptExtension::class.java).arguments {
+            arg("GROUP", gadget.project.group)
+            arg("VERSION", gadget.project.version)
+        }
+        gadget.project.dependencies.add("compileOnly", gadget.project.dependencies.gradleApi())
+        gadget.project.dependencies.add("compileOnly", project(":gadget:gadgetApi"))
+        gadget.project.dependencies.add("kapt", project(":gadget:gadgetCompile"))
     }
 
     private fun project(name: String): Project = gadget.project.rootProject.findProject(name)!!

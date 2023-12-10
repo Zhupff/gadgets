@@ -15,14 +15,14 @@ gadget {
 dependencies {
     compileOnly(gradleApi())
     compileOnly(libs.android.gradle.plugin)
-    api(project(":gadget:compile"))
+    implementation(project(":gadget:gadgetApi"))
 }
 
 gradlePlugin {
     plugins {
-        register("GadgetPlugin") {
+        register("Gadgets") {
             id = "zhupf.gadgets"
-            implementationClass = "zhupf.gadget.GadgetPlugin"
+            implementationClass = "zhupf.gadget.Gadgets"
         }
     }
 }

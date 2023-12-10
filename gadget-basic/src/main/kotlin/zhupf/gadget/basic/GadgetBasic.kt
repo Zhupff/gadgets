@@ -1,10 +1,10 @@
 package zhupf.gadget.basic
 
-import zhupf.gadget.Gadget
+import zhupf.gadget.GadgetDelegate
 import zhupf.gadget.GadgetName
 
 @GadgetName("Basic")
-class GadgetBasic : Gadget() {
+class GadgetBasic : GadgetDelegate() {
 
     fun jvm(method: String = "implementation") {
         gadgetEx.project.dependencies.add(method, GadgetBasicPublication.dependency("basicJvm"))

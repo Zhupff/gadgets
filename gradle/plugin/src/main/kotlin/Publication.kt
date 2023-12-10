@@ -12,13 +12,6 @@ class Publication(
 
     fun publish() {
         gadget.project.pluginManager.apply("maven-publish")
-        if (System.getenv("JITPACK").toBoolean()) {
-            gadget.project.group = "${System.getenv("GROUP")}.${System.getenv("ARTIFACT")}"
-            gadget.project.version = System.getenv("VERSION")
-        } else {
-            gadget.project.group = "zhupf.gadgets"
-            gadget.project.version = "0"
-        }
         gadget.project.afterEvaluate {
             gadget.project.extensions.configure(PublishingExtension::class.java) {
                 repositories {

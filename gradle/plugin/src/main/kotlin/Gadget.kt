@@ -13,9 +13,16 @@ abstract class Gadget : Plugin<Project>, MutableMap<Any, Any> by ConcurrentHashM
     val dependency: Dependency?; get() = get(Dependency::class.java) as? Dependency
 
     override fun apply(target: Project) {
+        println("$target apply $this")
         clear()
         put(Project::class.java, target)
-        println("$project apply $this")
+        if (System.getenv("JITPACK").toBoolean()) {
+            project.group = "${System.getenv("GROUP")}.${System.getenv("ARTIFACT")}"
+            project.version = System.getenv("VERSION")
+        } else {
+            project.group = "zhupf.gadgets"
+            project.version = "0"
+        }
     }
 }
 
