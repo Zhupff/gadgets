@@ -3,7 +3,7 @@ plugins {
 }
 
 gadget {
-    configuration("zhupf.gadget.theme.api") {
+    configuration("zhupf.gadget.logger.api") {
         configure()
     }
     publication {
@@ -12,7 +12,6 @@ gadget {
 }
 
 dependencies {
-    compileOnly(libs.androidx.appcompat)
     compileOnly(libs.androidx.core.ktx)
     compileOnly(libs.androidx.startup)
 }

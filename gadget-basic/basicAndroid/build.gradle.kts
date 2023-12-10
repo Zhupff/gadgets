@@ -3,7 +3,7 @@ plugins {
 }
 
 gadget {
-    configuration("zhupf.gadget.basicAndroid") {
+    configuration("zhupf.gadget.basic.android") {
         configure()
     }
     publication {

@@ -3,7 +3,7 @@ package zhupf.gadget.theme
 import android.content.ContextWrapper
 import android.view.View
 import androidx.lifecycle.Observer
-import zhupf.gadget.themeApi.R
+import zhupf.gadget.theme.api.R
 
 class ThemeObject private constructor(val view: View) : View.OnAttachStateChangeListener, Observer<Theme> {
 

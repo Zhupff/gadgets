@@ -26,6 +26,10 @@ include(
     ":gadget-basic:basicAndroid",
 )
 include(
+    ":gadget-logger",
+    ":gadget-logger:loggerApi",
+)
+include(
     ":gadget-theme",
     ":gadget-theme:themeApi",
 )
