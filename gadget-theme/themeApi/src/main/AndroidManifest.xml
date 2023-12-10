@@ -8,7 +8,7 @@
             android:exported="false"
             tools:node="merge">
             <meta-data
-                android:name="zhupf.gadget.basic.GadgetBasicAndroidInitializer"
+                android:name="zhupf.gadget.theme.GadgetThemeApiInitializer"
                 android:value="androidx.startup"/>
         </provider>
     </application>

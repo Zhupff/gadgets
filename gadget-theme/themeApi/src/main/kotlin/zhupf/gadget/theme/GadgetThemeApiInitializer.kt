@@ -1,9 +1,9 @@
-package zhupf.gadget.basic
+package zhupf.gadget.theme
 
 import android.content.Context
 import androidx.startup.Initializer
 
-class GadgetBasicInitializer : Initializer<Unit> {
+class GadgetThemeApiInitializer : Initializer<Unit> {
 
     override fun create(context: Context) {
     }

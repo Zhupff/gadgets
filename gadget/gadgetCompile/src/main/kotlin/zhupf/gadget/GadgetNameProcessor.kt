@@ -76,7 +76,7 @@ class GadgetNameProcessor : AbstractProcessor() {
                                     .defaultValue("{}")
                                     .build()
                             )
-                            .addStatement("val gadget = this[\"${publication.name}\"] as GadgetBasic")
+                            .addStatement("val gadget = this[\"${publication.name}\"] as ${publication.gadget}")
                             .addStatement("gadget.beforeClosure()")
                             .addStatement("gadget.closure()")
                             .addStatement("gadget.afterClosure()")
