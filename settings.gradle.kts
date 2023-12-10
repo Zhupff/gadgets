@@ -33,3 +33,7 @@ include(
     ":gadget-theme",
     ":gadget-theme:themeApi",
 )
+include(
+    ":gadget-toast",
+    ":gadget-toast:toastApi",
+)
