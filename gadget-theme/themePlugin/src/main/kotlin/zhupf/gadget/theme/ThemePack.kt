@@ -13,7 +13,7 @@ class ThemePack : Plugin<Project> {
                 if (outputFile.name.endsWith(".apk")) {
                     val apkFile = outputFile
                     target.rootProject.allprojects.find {
-                        it.plugins.hasPlugin("zhupf.gadget.theme.merge") || it.plugins.hasPlugin(ThemePack::class.java)
+                        it.plugins.hasPlugin("zhupf.gadget.theme.merge") || it.plugins.hasPlugin(ThemeMerge::class.java)
                     }?.let { p ->
                         val task = target.tasks.register("ThemePack${variantName.toCamelCase()}", ThemePackTask::class.java) {
                             inputFilePath = apkFile.path
