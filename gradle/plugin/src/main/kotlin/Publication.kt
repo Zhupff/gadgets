@@ -1,4 +1,3 @@
-import com.android.build.gradle.internal.crash.afterEvaluate
 import org.gradle.api.publish.PublishingExtension
 import org.gradle.api.publish.maven.MavenPublication
 
@@ -39,5 +38,5 @@ class Publication(
 }
 
 fun Gadget.publication(closure: Publication.() -> Unit = {}) {
-    Publication(this).closure()
+    (publication ?: Publication(this)).closure()
 }

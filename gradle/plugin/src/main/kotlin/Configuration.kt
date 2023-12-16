@@ -78,18 +78,18 @@ fun GadgetApplication.configuration(
     namespace: String,
     closure: Configuration.AndroidConfiguration.() -> Unit = {},
 ) {
-    Configuration.AndroidConfiguration(this, namespace).closure()
+    (configuration as? Configuration.AndroidConfiguration ?: Configuration.AndroidConfiguration(this, namespace)).closure()
 }
 
 fun GadgetAndroid.configuration(
     namespace: String,
     closure: Configuration.() -> Unit = {},
 ) {
-    Configuration.AndroidConfiguration(this, namespace).closure()
+    (configuration as? Configuration.AndroidConfiguration ?: Configuration.AndroidConfiguration(this, namespace)).closure()
 }
 
 fun GadgetJvm.configuration(
     closure: Configuration.JvmConfiguration.() -> Unit = {},
 ) {
-    Configuration.JvmConfiguration(this).closure()
+    (configuration as? Configuration.JvmConfiguration ?: Configuration.JvmConfiguration(this)).closure()
 }

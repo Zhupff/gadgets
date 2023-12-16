@@ -24,5 +24,5 @@ class Dependency(
 }
 
 fun Gadget.dependency(closure: Dependency.() -> Unit = {}) {
-    Dependency(this).closure()
+    (dependency ?: Dependency(this)).closure()
 }
