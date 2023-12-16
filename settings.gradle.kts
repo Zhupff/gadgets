@@ -32,6 +32,7 @@ include(
 include(
     ":gadget-theme",
     ":gadget-theme:themeApi",
+    ":gadget-theme:themePlugin",
 )
 include(
     ":gadget-toast",
