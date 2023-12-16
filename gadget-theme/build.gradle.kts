@@ -13,3 +13,7 @@ gadget {
         gadget()
     }
 }
+
+dependencies {
+    implementation(project(":gadget-theme:themePlugin"))
+}
