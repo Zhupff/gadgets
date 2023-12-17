@@ -12,7 +12,7 @@ gadget {
 }
 
 dependencies {
-    compileOnly(libs.androidx.appcompat)
-    compileOnly(libs.androidx.core.ktx)
-    compileOnly(libs.androidx.startup)
+    implementation(libs.androidx.appcompat)
+    implementation(libs.androidx.core.ktx)
+    implementation(libs.androidx.startup)
 }

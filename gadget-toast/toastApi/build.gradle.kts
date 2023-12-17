@@ -12,6 +12,6 @@ gadget {
 }
 
 dependencies {
-    compileOnly(libs.androidx.core.ktx)
-    compileOnly(libs.androidx.startup)
+    implementation(libs.androidx.core.ktx)
+    implementation(libs.androidx.startup)
 }

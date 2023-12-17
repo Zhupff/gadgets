@@ -12,5 +12,5 @@ gadget {
 }
 
 dependencies {
-    compileOnly(libs.androidx.startup)
+    implementation(libs.androidx.startup)
 }
