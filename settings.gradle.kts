@@ -41,5 +41,6 @@ include(
 include(
     ":gadget-widget",
     ":gadget-widget:widgetAnnotation",
+    ":gadget-widget:widgetCompile",
     ":gadget-widget:widgetX",
 )

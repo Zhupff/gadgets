@@ -12,5 +12,6 @@ gadget {
 }
 
 dependencies {
+    implementation(libs.androidx.appcompat)
     implementation(libs.androidx.startup)
 }
