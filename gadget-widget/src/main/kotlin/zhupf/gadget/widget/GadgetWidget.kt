@@ -10,8 +10,8 @@ class GadgetWidget : GadgetDelegate() {
         gadgetEx.project.dependencies.add(method, GadgetWidgetPublication.dependency("widgetAnnotation"))
     }
 
-    fun x(method: String = "implementation") {
-        gadgetEx.project.dependencies.add(method, GadgetWidgetPublication.dependency("widgetX"))
+    fun common(method: String = "implementation") {
+        gadgetEx.project.dependencies.add(method, GadgetWidgetPublication.dependency("widgetCommon"))
     }
 
     fun compile(method: String = "ksp") {
@@ -23,5 +23,9 @@ class GadgetWidget : GadgetDelegate() {
             }
         }
         gadgetEx.project.dependencies.add(method, GadgetWidgetPublication.dependency("widgetCompile"))
+    }
+
+    fun x(method: String = "implementation") {
+        gadgetEx.project.dependencies.add(method, GadgetWidgetPublication.dependency("widgetX"))
     }
 }
