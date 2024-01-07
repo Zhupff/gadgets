@@ -38,10 +38,13 @@ class LayoutManagerDslKsp : SymbolProcessorProvider, SymbolProcessor {
                     val alias = arguments.find {
                         it.name?.getShortName() == "alias"
                     }?.value as? String
+                    val qualifiedName = arguments.find {
+                        it.name?.getShortName() == "qualifiedName"
+                    }?.value as? String ?: ""
                     if (alias.isNullOrEmpty()) {
                         return@forEach
                     }
-                    LayoutManagerDsl(alias)
+                    LayoutManagerDsl(alias, qualifiedName)
                 } ?: return@forEach
                 val qualifiedName = if (layoutManagerDsl.qualifiedName.isNullOrEmpty()) {
                     when (symbol) {
@@ -75,7 +78,7 @@ class LayoutManagerDslKsp : SymbolProcessorProvider, SymbolProcessor {
     override fun finish() {
         symbols.forEach { info ->
             val file = FileSpec.builder(info.symbol.declarePackageName, "${info.layoutManagerDsl.alias}_DSL")
-                .addFileComment(info.toString())
+//                .addFileComment(info.toString())
                 .addImport("zhupf.gadget.widget.dsl", "layoutManagerAs")
                 .addFunction(
                     FunSpec.builder(info.layoutManagerDsl.alias.toLowerCamelCase())
