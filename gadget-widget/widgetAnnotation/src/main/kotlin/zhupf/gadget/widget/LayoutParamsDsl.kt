@@ -4,4 +4,5 @@ package zhupf.gadget.widget
 @Retention(AnnotationRetention.SOURCE)
 annotation class LayoutParamsDsl(
     val alias: String,
+    val qualifiedName: String,
 )
