@@ -43,5 +43,6 @@ include(
     ":gadget-widget:widgetAnnotation",
     ":gadget-widget:widgetCommon",
     ":gadget-widget:widgetCompile",
+    ":gadget-widget:widgetDsl",
     ":gadget-widget:widgetX",
 )

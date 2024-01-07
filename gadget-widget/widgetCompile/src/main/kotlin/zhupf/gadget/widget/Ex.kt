@@ -17,6 +17,8 @@ val KSDeclaration.declareClassName: String; get() {
 
 val KSDeclaration.declareQualifiedName: String; get() = "$declarePackageName.$declareClassName"
 
+fun String.toLowerCamelCase(): String = replaceFirstChar { it.lowercaseChar() }
+
 inline fun <T> T.alsoIf(condition: Boolean?, block: (T) -> Unit): T {
     if (condition == true) return this.also(block)
     return this

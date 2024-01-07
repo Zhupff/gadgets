@@ -55,7 +55,10 @@ class WidgetXKsp : SymbolProcessorProvider, SymbolProcessor {
                 }?.arguments?.let { arguments ->
                     val name = arguments.find {
                         it.name?.getShortName() == "name"
-                    }?.value as? String ?: throw IllegalStateException("WidgetX.name not valid: $symbol")
+                    }?.value as? String
+                    if (name.isNullOrEmpty()) {
+                        return@forEach
+                    }
                     val cornerClip = arguments.find {
                         it.name?.getShortName() == "cornerClip"
                     }?.value as? Boolean ?: false
@@ -63,13 +66,13 @@ class WidgetXKsp : SymbolProcessorProvider, SymbolProcessor {
                         it.name?.getShortName() == "windowFit"
                     }?.value as? Boolean ?: false
                     WidgetX(name, cornerClip, windowFit)
-                } ?: throw IllegalStateException("WidgetX not found: $symbol")
+                } ?: return@forEach
                 symbols.add(SymbolInfo(
                     symbol,
                     type,
                     widgetX,
                 ))
-            } else return@forEach
+            }
         }
         return emptyList()
     }

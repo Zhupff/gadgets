@@ -25,6 +25,10 @@ class GadgetWidget : GadgetDelegate() {
         gadgetEx.project.dependencies.add(method, GadgetWidgetPublication.dependency("widgetCompile"))
     }
 
+    fun dsl(method: String = "implementation") {
+        gadgetEx.project.dependencies.add(method, GadgetWidgetPublication.dependency("widgetDsl"))
+    }
+
     fun x(method: String = "implementation") {
         gadgetEx.project.dependencies.add(method, GadgetWidgetPublication.dependency("widgetX"))
     }
