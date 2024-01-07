@@ -75,7 +75,7 @@ class LayoutParamsDslKsp : SymbolProcessorProvider, SymbolProcessor {
 
     override fun finish() {
         symbols.forEach { info ->
-            val file = FileSpec.builder(info.symbol.declarePackageName, info.layoutParamsDsl.alias)
+            val file = FileSpec.builder(info.symbol.declarePackageName, "${info.layoutParamsDsl.alias}_DSL")
 //                .addFileComment(info.toString())
                 .addImport("zhupf.gadget.widget.dsl", "layoutParamsAs")
                 .addTypeAlias(
