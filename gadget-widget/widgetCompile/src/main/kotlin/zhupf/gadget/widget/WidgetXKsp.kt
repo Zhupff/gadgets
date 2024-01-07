@@ -31,45 +31,46 @@ class WidgetXKsp : SymbolProcessorProvider, SymbolProcessor {
     override fun process(resolver: Resolver): List<KSAnnotated> {
         resolver.getSymbolsWithAnnotation(WidgetX::class.java.canonicalName).forEach { symbol ->
             if (symbol is KSDeclaration) {
-                val type = when (symbol) {
-                    is KSClassDeclaration -> {
-                        SymbolInfo.Type(
-                            symbol.declarePackageName,
-                            symbol.declareClassName,
-                            symbol.declareQualifiedName,
-                        )
-                    }
-                    is KSPropertyDeclaration -> {
-                        symbol.type.resolve().declaration.let {
-                            SymbolInfo.Type(
-                                it.declarePackageName,
-                                it.declareClassName,
-                                it.declareQualifiedName,
-                            )
-                        }
-                    }
-                    else -> return@forEach
-                }
                 val widgetX = symbol.annotations.find {
                     it.annotationType.resolve().declaration.declareQualifiedName == WidgetX::class.java.canonicalName
                 }?.arguments?.let { arguments ->
-                    val name = arguments.find {
-                        it.name?.getShortName() == "name"
+                    val alias = arguments.find {
+                        it.name?.getShortName() == "alias"
                     }?.value as? String
-                    if (name.isNullOrEmpty()) {
-                        return@forEach
-                    }
+                    val qualifiedName = arguments.find {
+                        it.name?.getShortName() == "qualifiedName"
+                    }?.value as? String ?: ""
                     val cornerClip = arguments.find {
                         it.name?.getShortName() == "cornerClip"
                     }?.value as? Boolean ?: false
                     val windowFit = arguments.find {
                         it.name?.getShortName() == "windowFit"
                     }?.value as? Boolean ?: false
-                    WidgetX(name, cornerClip, windowFit)
+                    if (alias.isNullOrEmpty()) {
+                        return@forEach
+                    }
+                    WidgetX(alias, qualifiedName, cornerClip, windowFit)
                 } ?: return@forEach
+                val qualifiedName = if (widgetX.qualifiedName.isNullOrEmpty()) {
+                    when (symbol) {
+                        is KSClassDeclaration -> symbol.declareQualifiedName
+                        is KSPropertyDeclaration -> {
+                            symbol.type.resolve().declaration.let { declaration ->
+                                if (declaration is KSClassDeclaration && declaration.qualifiedName != null) {
+                                    declaration.declareQualifiedName
+                                } else {
+                                    widgetX.qualifiedName
+                                }
+                            }
+                        }
+                        else -> return@forEach
+                    }
+                } else {
+                    widgetX.qualifiedName
+                }
                 symbols.add(SymbolInfo(
                     symbol,
-                    type,
+                    qualifiedName,
                     widgetX,
                 ))
             }
@@ -79,12 +80,12 @@ class WidgetXKsp : SymbolProcessorProvider, SymbolProcessor {
 
     override fun finish() {
         symbols.forEach { info ->
-            val file = FileSpec.builder(info.symbol.declarePackageName, info.widgetX.name)
+            val file = FileSpec.builder(info.symbol.declarePackageName, info.widgetX.alias)
 //                .addFileComment(info.toString())
                 .addType(
-                    TypeSpec.classBuilder(info.widgetX.name)
+                    TypeSpec.classBuilder(info.widgetX.alias)
                         .addModifiers(KModifier.OPEN)
-                        .superclass(ClassName(info.type.packageName, info.type.className))
+                        .superclass(ClassName("", info.qualifiedName))
                         .addSuperclassConstructorParameter("context, attrs")
                         .primaryConstructor(
                             FunSpec.constructorBuilder()
@@ -164,28 +165,15 @@ class WidgetXKsp : SymbolProcessorProvider, SymbolProcessor {
 
     private class SymbolInfo(
         val symbol: KSDeclaration,
-        val type: Type,
+        val qualifiedName: String,
         val widgetX: WidgetX,
     ) {
-
-        class Type(
-            val packageName: String,
-            val className: String,
-            val qualifiedName: String,
-        ) {
-            override fun toString(): String = StringBuilder()
-                .appendLine("packageName=$packageName")
-                .appendLine("className=$className")
-                .appendLine("qualifiedName=$qualifiedName")
-                .toString()
-        }
         override fun toString(): String = StringBuilder()
             .appendLine("symbol=$symbol")
-            .appendLine("type {")
-            .appendLine(type.toString())
-            .appendLine("}")
+            .appendLine("qualifiedName=$qualifiedName")
             .appendLine("widgetX {")
-            .appendLine("  name=${widgetX.name}")
+            .appendLine("  name=${widgetX.alias}")
+            .appendLine("  qualifiedName=${widgetX.qualifiedName}")
             .appendLine("  cornerClip=${widgetX.cornerClip}")
             .appendLine("  windowFit=${widgetX.windowFit}")
             .appendLine("}")
