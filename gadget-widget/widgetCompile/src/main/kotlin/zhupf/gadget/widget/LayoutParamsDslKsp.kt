@@ -76,7 +76,7 @@ class LayoutParamsDslKsp : SymbolProcessorProvider, SymbolProcessor {
     override fun finish() {
         symbols.forEach { info ->
             val file = FileSpec.builder(info.symbol.declarePackageName, info.layoutParamsDsl.alias)
-                .addFileComment(info.toString())
+//                .addFileComment(info.toString())
                 .addImport("zhupf.gadget.widget.dsl", "layoutParamsAs")
                 .addTypeAlias(
                     TypeAliasSpec.builder(info.layoutParamsDsl.alias, ClassName("", info.type.qualifiedName))
@@ -93,7 +93,8 @@ class LayoutParamsDslKsp : SymbolProcessorProvider, SymbolProcessor {
                                             AnnotationSpec.builder(ClassName("zhupf.gadget.widget", "WidgetDslScope"))
                                                 .build()
                                         )),
-                                    returnType = UNIT)
+                                    returnType = UNIT,
+                                )
                             ).build()
                         )
                         .addCode("return layoutParamsAs<${info.type.qualifiedName}>(block)")

@@ -75,18 +75,20 @@ fun <V : View> V.initialize(
     @IdRes id: Int = NO_ID,
     size: Pair<Int, Int>,
     parent: ViewGroup?,
+    index: Int = -1,
 ) = initialize(id, ViewGroup.LayoutParams(size.first, size.second), parent)
 
 fun <V : View> V.initialize(
     @IdRes id: Int = NO_ID,
     layoutParams: ViewGroup.LayoutParams,
     parent: ViewGroup?,
+    index: Int = -1,
 ) = apply {
     if (id != NO_ID) {
         this.id = id
     }
     if (parent != null) {
-        parent.addView(this, layoutParams)
+        parent.addView(this, index, layoutParams)
     } else {
         this.layoutParams = layoutParams
     }
