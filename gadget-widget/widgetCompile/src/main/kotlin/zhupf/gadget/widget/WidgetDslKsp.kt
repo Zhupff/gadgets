@@ -35,25 +35,6 @@ class WidgetDslKsp : SymbolProcessorProvider, SymbolProcessor {
     override fun process(resolver: Resolver): List<KSAnnotated> {
         resolver.getSymbolsWithAnnotation(WidgetDsl::class.java.canonicalName).forEach { symbol ->
             if (symbol is KSDeclaration) {
-                val type = when (symbol) {
-                    is KSClassDeclaration -> {
-                        SymbolInfo.Type(
-                            symbol.declarePackageName,
-                            symbol.declareClassName,
-                            symbol.declareQualifiedName,
-                        )
-                    }
-                    is KSPropertyDeclaration -> {
-                        symbol.type.resolve().declaration.let {
-                            SymbolInfo.Type(
-                                it.declarePackageName,
-                                it.declareClassName,
-                                it.declareQualifiedName,
-                            )
-                        }
-                    }
-                    else -> return@forEach
-                }
                 val widgetDsl = symbol.annotations.find {
                     it.annotationType.resolve().declaration.declareQualifiedName == WidgetDsl::class.java.canonicalName
                 }?.arguments?.let { arguments ->
@@ -62,15 +43,32 @@ class WidgetDslKsp : SymbolProcessorProvider, SymbolProcessor {
                     }?.value as? String
                     val qualifiedName = arguments.find {
                         it.name?.getShortName() == "qualifiedName"
-                    }?.value as? String
-                    if (alias.isNullOrEmpty() || qualifiedName.isNullOrEmpty()) {
+                    }?.value as? String ?: ""
+                    if (alias.isNullOrEmpty()) {
                         return@forEach
                     }
                     WidgetDsl(alias, qualifiedName)
                 } ?: return@forEach
+                val qualifiedName = if (widgetDsl.qualifiedName.isNullOrEmpty()) {
+                    when (symbol) {
+                        is KSClassDeclaration -> symbol.declareQualifiedName
+                        is KSPropertyDeclaration -> {
+                            symbol.type.resolve().declaration.let { declaration ->
+                                if (declaration is KSClassDeclaration && declaration.qualifiedName != null) {
+                                    declaration.declareQualifiedName
+                                } else {
+                                    widgetDsl.qualifiedName
+                                }
+                            }
+                        }
+                        else -> return@forEach
+                    }
+                } else {
+                    widgetDsl.qualifiedName
+                }
                 symbols.add(SymbolInfo(
                     symbol,
-                    type,
+                    qualifiedName,
                     widgetDsl,
                 ))
             }
@@ -102,20 +100,20 @@ class WidgetDslKsp : SymbolProcessorProvider, SymbolProcessor {
                         .addParameter(
                             ParameterSpec.builder("block",
                                 LambdaTypeName.get(
-                                    receiver = ClassName("", info.widgetDsl.qualifiedName)
+                                    receiver = ClassName("", info.qualifiedName)
                                         .copy(annotations = listOf(
                                             AnnotationSpec.builder(ClassName("zhupf.gadget.widget", "WidgetDslScope"))
                                                 .build()
                                         )),
                                     parameters = listOf(
-                                        ParameterSpec.unnamed(ClassName("", info.widgetDsl.qualifiedName))
+                                        ParameterSpec.unnamed(ClassName("", info.qualifiedName))
                                     ),
                                     returnType = UNIT,
                                 )
                             ).build()
                         )
-                        .addCode("return ${info.widgetDsl.qualifiedName}(context).initialize(id, size, null).also { it.block(it) }")
-                        .returns(ClassName("", info.widgetDsl.qualifiedName))
+                        .addCode("return ${info.qualifiedName}(context).initialize(id, size, null).also { it.block(it) }")
+                        .returns(ClassName("", info.qualifiedName))
                         .addModifiers(KModifier.INLINE)
                         .build()
                 )
@@ -137,20 +135,20 @@ class WidgetDslKsp : SymbolProcessorProvider, SymbolProcessor {
                         .addParameter(
                             ParameterSpec.builder("block",
                                 LambdaTypeName.get(
-                                    receiver = ClassName("", info.widgetDsl.qualifiedName)
+                                    receiver = ClassName("", info.qualifiedName)
                                         .copy(annotations = listOf(
                                             AnnotationSpec.builder(ClassName("zhupf.gadget.widget", "WidgetDslScope"))
                                                 .build()
                                         )),
                                     parameters = listOf(
-                                        ParameterSpec.unnamed(ClassName("", info.widgetDsl.qualifiedName))
+                                        ParameterSpec.unnamed(ClassName("", info.qualifiedName))
                                     ),
                                     returnType = UNIT,
                                 )
                             ).build()
                         )
-                        .addCode("return ${info.widgetDsl.qualifiedName}(context).initialize(id, layoutParams, null).also { it.block(it) }")
-                        .returns(ClassName("", info.widgetDsl.qualifiedName))
+                        .addCode("return ${info.qualifiedName}(context).initialize(id, layoutParams, null).also { it.block(it) }")
+                        .returns(ClassName("", info.qualifiedName))
                         .addModifiers(KModifier.INLINE)
                         .build()
                 )
@@ -175,20 +173,20 @@ class WidgetDslKsp : SymbolProcessorProvider, SymbolProcessor {
                         .addParameter(
                             ParameterSpec.builder("block",
                                 LambdaTypeName.get(
-                                    receiver = ClassName("", info.widgetDsl.qualifiedName)
+                                    receiver = ClassName("", info.qualifiedName)
                                         .copy(annotations = listOf(
                                             AnnotationSpec.builder(ClassName("zhupf.gadget.widget", "WidgetDslScope"))
                                                 .build()
                                         )),
                                     parameters = listOf(
-                                        ParameterSpec.unnamed(ClassName("", info.widgetDsl.qualifiedName))
+                                        ParameterSpec.unnamed(ClassName("", info.qualifiedName))
                                     ),
                                     returnType = UNIT,
                                 )
                             ).build()
                         )
-                        .addCode("return ${info.widgetDsl.qualifiedName}(context).initialize(id, size, this, index).also { it.block(it) }")
-                        .returns(ClassName("", info.widgetDsl.qualifiedName))
+                        .addCode("return ${info.qualifiedName}(context).initialize(id, size, this, index).also { it.block(it) }")
+                        .returns(ClassName("", info.qualifiedName))
                         .addModifiers(KModifier.INLINE)
                         .build()
                 )
@@ -213,20 +211,20 @@ class WidgetDslKsp : SymbolProcessorProvider, SymbolProcessor {
                         .addParameter(
                             ParameterSpec.builder("block",
                                 LambdaTypeName.get(
-                                    receiver = ClassName("", info.widgetDsl.qualifiedName)
+                                    receiver = ClassName("", info.qualifiedName)
                                         .copy(annotations = listOf(
                                             AnnotationSpec.builder(ClassName("zhupf.gadget.widget", "WidgetDslScope"))
                                                 .build()
                                         )),
                                     parameters = listOf(
-                                        ParameterSpec.unnamed(ClassName("", info.widgetDsl.qualifiedName))
+                                        ParameterSpec.unnamed(ClassName("", info.qualifiedName))
                                     ),
                                     returnType = UNIT,
                                 )
                             ).build()
                         )
-                        .addCode("return ${info.widgetDsl.qualifiedName}(context).initialize(id, layoutParams, this, index).also { it.block(it) }")
-                        .returns(ClassName("", info.widgetDsl.qualifiedName))
+                        .addCode("return ${info.qualifiedName}(context).initialize(id, layoutParams, this, index).also { it.block(it) }")
+                        .returns(ClassName("", info.qualifiedName))
                         .addModifiers(KModifier.INLINE)
                         .build()
                 )
@@ -237,27 +235,12 @@ class WidgetDslKsp : SymbolProcessorProvider, SymbolProcessor {
 
     private class SymbolInfo(
         val symbol: KSDeclaration,
-        val type: Type,
+        val qualifiedName: String,
         val widgetDsl: WidgetDsl,
     ) {
-        class Type(
-            val packageName: String,
-            val className: String,
-            val qualifiedName: String,
-        ) {
-            override fun toString(): String = StringBuilder()
-                .appendLine("packageName=$packageName")
-                .appendLine("className=$className")
-                .appendLine("qualifiedName=$qualifiedName")
-                .toString()
-        }
         override fun toString(): String = StringBuilder()
             .appendLine("symbol=$symbol")
-            .appendLine("type {")
-            .appendLine(type.toString())
-            .appendLine("}")
-            .appendLine("dsl {")
-            .appendLine("}")
+            .appendLine("qualifiedName=$qualifiedName")
             .appendLine("widgetDsl {")
             .appendLine("  name=${widgetDsl.alias}")
             .appendLine("  qualifiedName=${widgetDsl.qualifiedName}")

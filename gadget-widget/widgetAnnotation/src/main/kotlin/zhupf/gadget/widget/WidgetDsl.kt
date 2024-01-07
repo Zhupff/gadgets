@@ -4,5 +4,5 @@ package zhupf.gadget.widget
 @Retention(AnnotationRetention.SOURCE)
 annotation class WidgetDsl(
     val alias: String,
-    val qualifiedName: String,
+    val qualifiedName: String = "",
 )
