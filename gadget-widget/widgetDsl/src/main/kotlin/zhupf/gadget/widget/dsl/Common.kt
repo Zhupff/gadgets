@@ -4,8 +4,12 @@ import android.app.Activity
 import android.view.View
 import android.view.ViewGroup
 import androidx.annotation.IdRes
+import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.core.content.res.ResourcesCompat
 import androidx.fragment.app.Fragment
+import androidx.recyclerview.widget.GridLayoutManager
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import zhupf.gadget.widget.WidgetDslScope
 import zhupf.gadget.widget.common.ViewOnDoubleClickListener
 import zhupf.gadget.widget.common.ViewOnMultiClickListener
@@ -60,11 +64,63 @@ inline fun <reified T : View> Fragment.findViewById(
 const val WRAP_CONTENT = ViewGroup.LayoutParams.WRAP_CONTENT
 const val MATCH_PARENT = ViewGroup.LayoutParams.MATCH_PARENT
 
+val ConstraintLayout.LayoutParams.UNSET: Int; get() = ConstraintLayout.LayoutParams.UNSET
+val ConstraintLayout.LayoutParams.PARENT_ID: Int; get() = ConstraintLayout.LayoutParams.PARENT_ID
+fun ConstraintLayout.LayoutParams.unset() {
+    startToStart = UNSET
+    startToEnd = UNSET
+    endToStart = UNSET
+    endToEnd = UNSET
+    topToTop = UNSET
+    topToBottom = UNSET
+    bottomToTop = UNSET
+    bottomToBottom = UNSET
+}
+fun ConstraintLayout.LayoutParams.centerVertical() {
+    topToTop = PARENT_ID
+    bottomToBottom = PARENT_ID
+}
+fun ConstraintLayout.LayoutParams.centerHorizontal() {
+    startToStart = PARENT_ID
+    endToEnd = PARENT_ID
+}
+fun ConstraintLayout.LayoutParams.center() {
+    centerVertical()
+    centerHorizontal()
+}
+
 inline fun <reified T : ViewGroup.LayoutParams> View.layoutParamsAs(
     block: (@WidgetDslScope T).() -> Unit
 ): T = (layoutParams as T).also {
     block(it)
     layoutParams = it
+}
+
+// endregion
+
+// region LayoutManager
+
+inline fun <reified T : RecyclerView.LayoutManager> RecyclerView.layoutManagerAs(
+    block: (@WidgetDslScope T).() -> Unit,
+): T = (layoutManager as T).also(block)
+
+inline fun RecyclerView.LinearLayoutManager(
+    @RecyclerView.Orientation orientation: Int,
+    reverse: Boolean = false,
+    block: (@WidgetDslScope LinearLayoutManager).() -> Unit,
+): LinearLayoutManager = LinearLayoutManager(context, orientation, reverse).also {
+    block(it)
+    layoutManager = it
+}
+
+inline fun RecyclerView.GridLayoutManager(
+    spanCount: Int,
+    @RecyclerView.Orientation orientation: Int,
+    reverse: Boolean = false,
+    block: (@WidgetDslScope GridLayoutManager).() -> Unit,
+): GridLayoutManager = GridLayoutManager(context, spanCount, orientation, reverse).also {
+    block(it)
+    layoutManager = it
 }
 
 // endregion
