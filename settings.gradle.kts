@@ -30,6 +30,9 @@ include(
     ":gadget-logger:loggerApi",
 )
 include(
+    ":gadget-media",
+)
+include(
     ":gadget-theme",
     ":gadget-theme:themeApi",
     ":gadget-theme:themePlugin",

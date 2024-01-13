@@ -72,6 +72,7 @@ buildscript {
 
 - [gadget-basic](./gadget-basic/README.md)
 - [gadget-logger](./gadget-logger/README.md)
+- [gadget-media](./gadget-media/README.md)
 - [gadget-theme](./gadget-theme/README.md)
 - [gadget-toast](./gadget-toast/README.md)
 - [gadget-widget](./gadget-widget/README.md)
