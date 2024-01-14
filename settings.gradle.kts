@@ -31,6 +31,7 @@ include(
 )
 include(
     ":gadget-media",
+    ":gadget-media:media",
 )
 include(
     ":gadget-theme",
