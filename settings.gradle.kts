@@ -26,6 +26,10 @@ include(
     ":gadget-basic:basicAndroid",
 )
 include(
+    ":gadget-blur",
+    ":gadget-blur:blur",
+)
+include(
     ":gadget-logger",
     ":gadget-logger:logger",
 )
