@@ -27,7 +27,7 @@ include(
 )
 include(
     ":gadget-logger",
-    ":gadget-logger:loggerApi",
+    ":gadget-logger:logger",
 )
 include(
     ":gadget-media",
@@ -35,18 +35,17 @@ include(
 )
 include(
     ":gadget-theme",
-    ":gadget-theme:themeApi",
+    ":gadget-theme:theme",
     ":gadget-theme:themePlugin",
 )
 include(
     ":gadget-toast",
-    ":gadget-toast:toastApi",
+    ":gadget-toast:toast",
 )
 include(
     ":gadget-widget",
+    ":gadget-widget:widget",
     ":gadget-widget:widgetAnnotation",
-    ":gadget-widget:widgetCommon",
     ":gadget-widget:widgetCompile",
     ":gadget-widget:widgetDsl",
-    ":gadget-widget:widgetX",
 )

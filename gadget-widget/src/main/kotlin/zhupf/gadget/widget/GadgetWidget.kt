@@ -6,12 +6,12 @@ import zhupf.gadget.GadgetName
 @GadgetName("Widget")
 class GadgetWidget : GadgetDelegate() {
 
-    fun annotation(method: String = "implementation") {
-        gadgetEx.project.dependencies.add(method, GadgetWidgetPublication.dependency("widgetAnnotation"))
+    fun widget(method: String = "implementation") {
+        gadgetEx.project.dependencies.add(method, GadgetWidgetPublication.dependency("widget"))
     }
 
-    fun common(method: String = "implementation") {
-        gadgetEx.project.dependencies.add(method, GadgetWidgetPublication.dependency("widgetCommon"))
+    fun annotation(method: String = "implementation") {
+        gadgetEx.project.dependencies.add(method, GadgetWidgetPublication.dependency("widgetAnnotation"))
     }
 
     fun compile(method: String = "ksp") {
@@ -27,9 +27,5 @@ class GadgetWidget : GadgetDelegate() {
 
     fun dsl(method: String = "implementation") {
         gadgetEx.project.dependencies.add(method, GadgetWidgetPublication.dependency("widgetDsl"))
-    }
-
-    fun x(method: String = "implementation") {
-        gadgetEx.project.dependencies.add(method, GadgetWidgetPublication.dependency("widgetX"))
     }
 }

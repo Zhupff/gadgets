@@ -10,8 +10,8 @@ class GadgetTheme : GadgetDelegate() {
 
     var pack: Boolean = false
 
-    fun api(method: String = "implementation") {
-        gadgetEx.project.dependencies.add(method, GadgetThemePublication.dependency("themeApi"))
+    fun theme(method: String = "implementation") {
+        gadgetEx.project.dependencies.add(method, GadgetThemePublication.dependency("theme"))
     }
 
     override fun afterClosure() {

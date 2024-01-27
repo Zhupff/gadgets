@@ -6,7 +6,7 @@ import zhupf.gadget.GadgetName
 @GadgetName("Toast")
 class GadgetToast : GadgetDelegate() {
 
-    fun api(method: String = "implementation") {
-        gadgetEx.project.dependencies.add(method, GadgetToastPublication.dependency("toastApi"))
+    fun toast(method: String = "implementation") {
+        gadgetEx.project.dependencies.add(method, GadgetToastPublication.dependency("toast"))
     }
 }

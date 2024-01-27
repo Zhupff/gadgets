@@ -11,9 +11,9 @@ import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import zhupf.gadget.widget.WidgetDslScope
-import zhupf.gadget.widget.common.ViewOnDoubleClickListener
-import zhupf.gadget.widget.common.ViewOnMultiClickListener
-import zhupf.gadget.widget.common.ViewOnSingleClickListener
+import zhupf.gadget.widget.listener.ViewOnDoubleClickListener
+import zhupf.gadget.widget.listener.ViewOnMultiClickListener
+import zhupf.gadget.widget.listener.ViewOnSingleClickListener
 
 
 // region ID
