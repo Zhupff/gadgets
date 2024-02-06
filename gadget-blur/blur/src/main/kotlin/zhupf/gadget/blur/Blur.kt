@@ -1,16 +1,26 @@
 package zhupf.gadget.blur
 
-import android.graphics.Bitmap
+import java.util.concurrent.Callable
+import java.util.concurrent.Executors
+import java.util.concurrent.Future
+import java.util.concurrent.ThreadFactory
+import java.util.concurrent.atomic.AtomicInteger
 
 interface Blur {
 
-    fun sync(config: BlurConfig): Bitmap?
+    companion object {
 
-    fun async(config: BlurConfig, callback: AsyncCallback)
+        private val EXECUTOR = Executors.newFixedThreadPool(
+            (Runtime.getRuntime().availableProcessors() / 2).coerceAtLeast(1),
+            object : ThreadFactory {
+                val group = System.getSecurityManager()?.threadGroup ?: Thread.currentThread().threadGroup
+                val id = AtomicInteger(0)
+                override fun newThread(runnable: Runnable?): Thread = Thread(group, runnable, "blur-thread-${id.incrementAndGet()}")
+            }
+        )
 
-    fun release()
-
-    interface AsyncCallback {
-        fun callback(blurred: Bitmap?)
+        fun <V> submit(callable: Callable<V>): Future<V> = EXECUTOR.submit(callable)
     }
+
+    fun blur(pixels: IntArray, width: Int, height: Int, radius: Int)
 }

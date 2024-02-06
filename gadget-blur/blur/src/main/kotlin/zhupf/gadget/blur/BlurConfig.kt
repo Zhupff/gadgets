@@ -1,74 +1,76 @@
 package zhupf.gadget.blur
 
 import android.graphics.Bitmap
-import android.os.SystemClock
+import java.util.concurrent.Future
+import kotlin.math.roundToInt
 import kotlin.math.sqrt
+
 
 class BlurConfig {
     companion object {
         const val DEFAULT_RADIUS = 5
-        const val DEFAULT_SCALE = 1F
+        const val DEFAULT_SCALE = 0.5F
         const val DEFAULT_MAX_AREA = 16 * 9 * 20 * 20
-        const val DEFAULT_TIMESTAMP = 0L
     }
 
-    var bitmap: Bitmap? = null
-        private set
+    private var radius: Int = DEFAULT_RADIUS
 
-    var radius: Int = DEFAULT_RADIUS
-        private set
+    private var scale: Float = DEFAULT_SCALE
 
-    var scaleX: Float = DEFAULT_SCALE
-        private set
+    private var maxArea: Int = DEFAULT_MAX_AREA
 
-    var scaleY: Float = DEFAULT_SCALE
-        private set
-
-    var maxArea: Int = DEFAULT_MAX_AREA
-        private set
-
-    var timestamp: Long = DEFAULT_TIMESTAMP
-        private set
-
-    fun bitmap(origin: Bitmap, copy: Boolean = true) = apply {
-        this.bitmap = if (copy) origin.copy(origin.config, true) else origin
+    fun radius(radius: Int) = apply {
+        this.radius = radius
     }
 
-    fun radius(r: Int) = apply {
-        this.radius = r
+    fun scale(scale: Float) = apply {
+        assert(scale > 0F)
+        this.scale = scale
+        this.maxArea = 0
     }
 
-    fun scale(x: Float, y: Float) = apply {
-        this.maxArea = -1
-        this.scaleX = x
-        this.scaleY = y
+    fun maxArea(maxArea: Int) = apply {
+        assert(maxArea > 0)
+        this.maxArea = maxArea
+        this.scale = 1F
     }
 
-    fun scale(max: Int) = apply {
-        this.scaleX = DEFAULT_SCALE
-        this.scaleY = DEFAULT_SCALE
-        this.maxArea = max
-    }
-
-    fun reset() = apply {
-        this.bitmap = null
-        this.radius = DEFAULT_RADIUS
-        this.scaleX = DEFAULT_SCALE
-        this.scaleY = DEFAULT_SCALE
-        this.maxArea = DEFAULT_MAX_AREA
-        this.timestamp = DEFAULT_TIMESTAMP
-    }
-
-    fun config() {
-        timestamp = SystemClock.elapsedRealtime()
-        val bm = bitmap ?: return
+    fun blur(blur: Blur, target: Bitmap, copy: Boolean = true): Bitmap {
+        var width: Int = target.width
+        var height: Int = target.height
         if (maxArea > 0) {
-            if (bm.width * bm.height > maxArea) {
-                val scale = sqrt(maxArea.toFloat() / (bm.width * bm.height).toFloat())
-                bitmap = Bitmap.createScaledBitmap(bm, (scale * bm.width).toInt(), (scale * bm.height).toInt(), false)
+            if (width * height > maxArea) {
+                val sc = sqrt(maxArea.toFloat() / (width * height).toFloat())
+                width = (width * sc).roundToInt()
+                height = (height * sc).roundToInt()
             }
-        } else if (scaleX != DEFAULT_SCALE || scaleY != DEFAULT_SCALE) {
-            bitmap = Bitmap.createScaledBitmap(bm, (scaleX * bm.width).toInt(), (scaleY * bm.height).toInt(), false)
+        } else if (scale != 1F) {
+            width = (width * scale).roundToInt()
+            height = (height * scale).roundToInt()
         }
+        var result = target
+        if (copy || !target.isMutable || width != target.width || height != target.height) {
+            result = Bitmap.createScaledBitmap(target, width, height, false)
+        }
+        val pixels = IntArray(width * height)
+        result.getPixels(pixels, 0, width, 0, 0, width, height)
+        blur.blur(pixels, width, height, radius)
+        result.setPixels(pixels, 0, width, 0, 0, width, height)
+        return result
+    }
+
+    fun blur(blur: Blur, target: Bitmap, copy: Boolean = true, asyncCallback: AsyncCallback): Future<Bitmap> {
+        return Blur.submit {
+            val result = blur(blur, target, copy)
+            asyncCallback.callback(result)
+            result
+        }
+    }
+
+    override fun toString(): String = "BlurConfig(${hashCode()}{radius=$radius,scale=$scale,maxArea=$maxArea})"
+
+
+    interface AsyncCallback {
+        fun callback(bitmap: Bitmap)
     }
 }
