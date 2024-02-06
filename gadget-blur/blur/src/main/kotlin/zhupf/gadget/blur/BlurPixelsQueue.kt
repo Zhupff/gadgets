@@ -46,7 +46,7 @@ class BlurPixelsQueue(
 
     fun acquireToBlur(): Pixels? {
         queue.forEach { pixels ->
-            if (pixels.state.compareAndSet(STATE_PREPARING, STATE_BLURRING)) {
+            if (pixels.state.compareAndSet(STATE_PREPARED, STATE_BLURRING)) {
                 queue.remove(pixels)
                 return pixels
             }
@@ -88,8 +88,8 @@ class BlurPixelsQueue(
             if (pixels.size != width * height) {
                 pixels = IntArray(width * height)
             }
-            val diffX = ((locations[0] - canvas.locations[0]) * canvas.scale).roundToInt()
-            val diffY = ((locations[1] - canvas.locations[1]) * canvas.scale).roundToInt()
+            val diffX = ((locations[0] - canvas.locations[0]) * canvas.scale).toInt()
+            val diffY = ((locations[1] - canvas.locations[1]) * canvas.scale).toInt()
             canvas.bitmap.getPixels(
                 pixels,
                 (if (diffY >= 0) 0 else -diffY) * width + (if (diffX >= 0) 0 else -diffX),
@@ -139,6 +139,8 @@ class BlurPixelsQueue(
                 queue.addIfAbsent(this)
             }
         }
+
+        override fun toString(): String = "BlurPixelsQueue(${hashCode()})-Pixels(${hashCode()}){state=${state.get()},width=$width,height=$height,size=${pixels.size}}"
 
         override fun hashCode(): Int = id
 

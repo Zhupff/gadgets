@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-    <!-- Scale down bitmap to improve performance, recommended below 0.25(default). -->
+    <!-- Scale down bitmap to improve performance, range from 0-1, recommended below 0.25(default). -->
     <attr name="blurScale" format="float"/>
 
     <!-- Blur radius, which recommended range is 5-25, It is recommended to use blurScale first. -->

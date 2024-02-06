@@ -21,6 +21,7 @@ open class BlurLayout @JvmOverloads constructor(
 
     var blurScale: Float = DEFAULT_BLUR_SCALE
         set(value) {
+            assert(value in 0F..1F)
             if (field != value) {
                 field = value
                 if (isAttachedToWindow) {

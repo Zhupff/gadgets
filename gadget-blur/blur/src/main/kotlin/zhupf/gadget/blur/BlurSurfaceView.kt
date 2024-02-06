@@ -84,8 +84,10 @@ class BlurSurfaceView @JvmOverloads constructor(
                 drawBitmap = pixels.draw(drawBitmap)?.also { bm ->
                     srcRect.set(0, 0, bm.width, bm.height)
                     val canvas = surfaceView.holder.lockCanvas()
-                    canvas.drawBitmap(bm, srcRect, dstRect, null)
-                    surfaceView.holder.unlockCanvasAndPost(canvas)
+                    if (canvas != null) {
+                        canvas.drawBitmap(bm, srcRect, dstRect, null)
+                        surfaceView.holder.unlockCanvasAndPost(canvas)
+                    }
                 }
                 pixels.recycle()
             }
