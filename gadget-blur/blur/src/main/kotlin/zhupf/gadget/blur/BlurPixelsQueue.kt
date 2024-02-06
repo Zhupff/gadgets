@@ -21,7 +21,7 @@ class BlurPixelsQueue(
     }
 
     private val queue = CopyOnWriteArrayList<Pixels>().also { queue ->
-        for (i in 1..queueSize.coerceAtLeast(2)) {
+        for (i in 1..queueSize.coerceAtLeast(1)) {
             queue.add(Pixels(i))
         }
     }

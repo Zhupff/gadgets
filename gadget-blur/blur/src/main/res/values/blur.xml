@@ -37,4 +37,9 @@
         <attr name="blurRadius"/>
         <attr name="blurDraw"/>
     </declare-styleable>
+
+    <declare-styleable name="BlurView">
+        <attr name="blurRadius"/>
+        <attr name="blurDraw"/>
+    </declare-styleable>
 </resources>
