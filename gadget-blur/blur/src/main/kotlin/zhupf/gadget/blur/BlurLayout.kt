@@ -14,9 +14,12 @@ open class BlurLayout @JvmOverloads constructor(
 
     companion object {
         var DEFAULT_BLUR_SCALE: Float = 0.25F
+        var DEFAULT_BLUR_RADIUS: Int = 5
 
         const val BLUR_CANVAS_STRATEGY_INHERITED: Int = 0
         const val BLUR_CANVAS_STRATEGY_INDEPENDENT: Int = 1
+        const val BLUR_DRAW_STRATEGY_IGNORE_IDENTICAL_FRAMES = 0
+        const val BLUR_DRAW_STRATEGY_ALL_FRAMES = 1
     }
 
     var blurScale: Float = DEFAULT_BLUR_SCALE

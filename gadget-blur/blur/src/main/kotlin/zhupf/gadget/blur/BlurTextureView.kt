@@ -5,9 +5,11 @@ import android.graphics.Bitmap
 import android.graphics.Canvas
 import android.graphics.Rect
 import android.util.AttributeSet
-import android.view.SurfaceView
+import android.view.TextureView
 import android.view.View
 import android.widget.FrameLayout
+import zhupf.gadget.blur.BlurLayout.Companion.BLUR_DRAW_STRATEGY_ALL_FRAMES
+import zhupf.gadget.blur.BlurLayout.Companion.BLUR_DRAW_STRATEGY_IGNORE_IDENTICAL_FRAMES
 import java.util.concurrent.ExecutorService
 import java.util.concurrent.Executors
 import java.util.concurrent.ThreadFactory
@@ -15,15 +17,29 @@ import java.util.concurrent.TimeUnit
 import java.util.concurrent.atomic.AtomicBoolean
 import java.util.concurrent.atomic.AtomicInteger
 
-class BlurSurfaceView @JvmOverloads constructor(
+class BlurTextureView @JvmOverloads constructor(
     context: Context, attrs: AttributeSet? = null
 ) : FrameLayout(context, attrs) {
 
-    val surfaceView = SurfaceView(context)
+    val textureView = TextureView(context)
 
     var blurRadius: Int = BlurLayout.DEFAULT_BLUR_RADIUS
         set(value) {
             assert(value >= 0)
+            if (field != value) {
+                field = value
+                if (isAttachedToWindow) {
+                    postInvalidate()
+                }
+            }
+        }
+
+    var blurDrawStrategy: Int = BLUR_DRAW_STRATEGY_IGNORE_IDENTICAL_FRAMES
+        set(value) {
+            assert(
+                value == BLUR_DRAW_STRATEGY_IGNORE_IDENTICAL_FRAMES ||
+                value == BLUR_DRAW_STRATEGY_ALL_FRAMES
+            )
             if (field != value) {
                 field = value
                 if (isAttachedToWindow) {
@@ -79,12 +95,20 @@ class BlurSurfaceView @JvmOverloads constructor(
                 }
             }
             if (pixels != null) {
-                drawBitmap = pixels.draw(drawBitmap)?.also { bm ->
-                    srcRect.set(0, 0, bm.width, bm.height)
-                    val canvas = surfaceView.holder.lockCanvas()
-                    if (canvas != null) {
-                        canvas.drawBitmap(bm, srcRect, dstRect, null)
-                        surfaceView.holder.unlockCanvasAndPost(canvas)
+                if (blurDrawStrategy == BLUR_DRAW_STRATEGY_ALL_FRAMES || !pixels.hasDrawn()) {
+                    drawBitmap = pixels.draw(drawBitmap)?.also { bm ->
+                        srcRect.set(0, 0, bm.width, bm.height)
+                        val canvas = textureView.lockCanvas()
+                        if (canvas != null) {
+                            canvas.drawBitmap(bm, srcRect, dstRect, null)
+                            textureView.unlockCanvasAndPost(canvas)
+                        }
+                    }
+                    if (pixels.isFirstDraw()) {
+                        post {
+                            // to ensure first blur draw work.
+                            setBackgroundColor(0x01000000.toInt())
+                        }
                     }
                 }
                 pixels.recycle()
@@ -93,10 +117,11 @@ class BlurSurfaceView @JvmOverloads constructor(
     }
 
     init {
-        context.obtainStyledAttributes(attrs, R.styleable.BlurSurfaceView).also { typedArray ->
-            blurRadius = typedArray.getInt(R.styleable.BlurSurfaceView_blurRadius, blurRadius)
+        context.obtainStyledAttributes(attrs, R.styleable.BlurTextureView).also { typedArray ->
+            blurRadius = typedArray.getInt(R.styleable.BlurTextureView_blurRadius, blurRadius)
+            blurDrawStrategy = typedArray.getInt(R.styleable.BlurTextureView_blurDraw, blurDrawStrategy)
         }.recycle()
-        addView(surfaceView, LayoutParams.MATCH_PARENT, LayoutParams.MATCH_PARENT)
+        addView(textureView, LayoutParams.MATCH_PARENT, LayoutParams.MATCH_PARENT)
     }
 
     override fun drawChild(canvas: Canvas?, child: View?, drawingTime: Long): Boolean {
@@ -123,12 +148,12 @@ class BlurSurfaceView @JvmOverloads constructor(
     }
 
     override fun onViewAdded(child: View?) {
-        assert(child === surfaceView)
+        assert(child === textureView)
         super.onViewAdded(child)
     }
 
     override fun onViewRemoved(child: View?) {
-        assert(child !== surfaceView)
+        assert(child !== textureView)
         super.onViewRemoved(child)
     }
 

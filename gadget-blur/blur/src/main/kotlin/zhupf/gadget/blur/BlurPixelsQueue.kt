@@ -124,6 +124,8 @@ class BlurPixelsQueue(
 
         fun hasDrawn(): Boolean = this == current
 
+        fun isFirstDraw(): Boolean = this.state.get() == STATE_DRAWING && current.state.get() == STATE_IDLE
+
         fun recycle() {
             if (this === current) {
                 // do nothing

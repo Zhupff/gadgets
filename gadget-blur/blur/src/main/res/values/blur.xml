@@ -32,4 +32,9 @@
     <declare-styleable name="BlurSurfaceView">
         <attr name="blurRadius"/>
     </declare-styleable>
+
+    <declare-styleable name="BlurTextureView">
+        <attr name="blurRadius"/>
+        <attr name="blurDraw"/>
+    </declare-styleable>
 </resources>
