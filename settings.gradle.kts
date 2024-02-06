@@ -38,6 +38,11 @@ include(
     ":gadget-media:media",
 )
 include(
+    ":gadget-spi",
+    ":gadget-spi:spi",
+    ":gadget-spi:spiCompile",
+)
+include(
     ":gadget-theme",
     ":gadget-theme:theme",
     ":gadget-theme:themePlugin",
