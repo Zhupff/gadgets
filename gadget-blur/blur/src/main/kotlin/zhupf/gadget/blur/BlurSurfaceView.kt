@@ -8,8 +8,10 @@ import android.util.AttributeSet
 import android.view.SurfaceView
 import android.view.View
 import android.widget.FrameLayout
+import java.util.concurrent.ExecutorService
 import java.util.concurrent.Executors
 import java.util.concurrent.ThreadFactory
+import java.util.concurrent.TimeUnit
 import java.util.concurrent.atomic.AtomicBoolean
 import java.util.concurrent.atomic.AtomicInteger
 
@@ -42,11 +44,7 @@ class BlurSurfaceView @JvmOverloads constructor(
 
     private var drawBitmap: Bitmap? = null
 
-    private val executor = Executors.newFixedThreadPool(2, object : ThreadFactory {
-        val group = System.getSecurityManager()?.threadGroup ?: Thread.currentThread().threadGroup
-        val id = AtomicInteger(0)
-        override fun newThread(runnable: Runnable?): Thread = Thread(group, runnable, "BlurSurfaceView(${hashCode()})-thread-${id.incrementAndGet()}")
-    })
+    private var executor: ExecutorService? = null
 
     private val isBlurring = AtomicBoolean(false)
 
@@ -63,7 +61,7 @@ class BlurSurfaceView @JvmOverloads constructor(
                 pixels.blur(blur, blurRadius)
                 pixels.recycle()
                 if (isDrawing.compareAndSet(false, true)) {
-                    executor.execute(drawRunnable)
+                    executor?.execute(drawRunnable)
                 }
             }
         }
@@ -109,7 +107,7 @@ class BlurSurfaceView @JvmOverloads constructor(
                     pixels.prepare(canvas, locations)
                     pixels.recycle()
                     if (isBlurring.compareAndSet(false, true)) {
-                        executor.execute(blurRunnable)
+                        executor?.execute(blurRunnable)
                     }
                 }
                 try {
@@ -141,6 +139,32 @@ class BlurSurfaceView @JvmOverloads constructor(
             locations[2] = locations[0] + (right - left)
             locations[3] = locations[1] + (bottom - top)
             dstRect.set(0, 0, right - left, bottom - top)
+        }
+    }
+
+    override fun onAttachedToWindow() {
+        super.onAttachedToWindow()
+        executor = Executors.newFixedThreadPool(2, object : ThreadFactory {
+            val group = System.getSecurityManager()?.threadGroup ?: Thread.currentThread().threadGroup
+            val id = AtomicInteger(0)
+            override fun newThread(runnable: Runnable?): Thread = Thread(group, runnable, "BlurSurfaceView(${hashCode()})-thread-${id.incrementAndGet()}")
+        })
+    }
+
+    override fun onDetachedFromWindow() {
+        super.onDetachedFromWindow()
+        val exe = executor
+        executor = null
+        if (exe != null) {
+            exe.shutdown()
+            try {
+                if (!exe.awaitTermination(3, TimeUnit.SECONDS)) {
+                    exe.shutdownNow()
+                }
+            } catch (e: Exception) {
+                e.printStackTrace()
+                exe.shutdownNow()
+            }
         }
     }
 }
