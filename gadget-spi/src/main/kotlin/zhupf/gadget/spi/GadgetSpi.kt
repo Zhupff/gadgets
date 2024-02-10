@@ -3,7 +3,7 @@ package zhupf.gadget.spi
 import zhupf.gadget.GadgetDelegate
 import zhupf.gadget.GadgetName
 
-@GadgetName("SPI")
+@GadgetName("Spi")
 class GadgetSpi : GadgetDelegate() {
 
     fun spi(method: String) {

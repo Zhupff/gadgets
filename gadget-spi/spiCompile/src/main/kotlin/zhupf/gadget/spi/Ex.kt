@@ -1,4 +1,4 @@
-package zhupf.gadget.widget
+package zhupf.gadget.spi
 
 import com.google.devtools.ksp.symbol.KSDeclaration
 
@@ -16,10 +16,3 @@ internal val KSDeclaration.declareClassName: String; get() {
 }
 
 internal val KSDeclaration.declareQualifiedName: String; get() = "$declarePackageName.$declareClassName"
-
-internal fun String.toLowerCamelCase(): String = replaceFirstChar { it.lowercaseChar() }
-
-internal inline fun <T> T.alsoIf(condition: Boolean?, block: (T) -> Unit): T {
-    if (condition == true) return this.also(block)
-    return this
-}
