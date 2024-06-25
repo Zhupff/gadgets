@@ -22,8 +22,8 @@ class Dependency<S : Script> internal constructor(
         }
         project.dependencies.apply {
             add("compileOnly", project.dependencies.gradleApi())
-//            add("compileOnly", project(":gadgets:api"))
-//            add("kapt", project(":gadgets:compile"))
+            add("compileOnly", project(":api"))
+            add("kapt", project(":compile"))
         }
     }
 }

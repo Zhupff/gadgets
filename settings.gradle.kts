@@ -29,3 +29,8 @@ dependencyResolutionManagement {
 }
 
 rootProject.name = "gadgets"
+include(
+    ":api",
+    ":compile",
+    ":plugin",
+)
