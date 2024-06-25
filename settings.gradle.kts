@@ -3,7 +3,9 @@ pluginManagement {
     repositories {
         google()
         mavenCentral()
+        mavenLocal()
         gradlePluginPortal()
+        maven(url = "https://jitpack.io")
     }
 }
 dependencyResolutionManagement {
@@ -11,50 +13,19 @@ dependencyResolutionManagement {
     repositories {
         google()
         mavenCentral()
+        mavenLocal()
+        maven(url = "https://jitpack.io")
+    }
+    versionCatalogs {
+        create("gvc") {
+            from(
+                if (System.getenv("JITPACK").toBoolean())
+                    "com.github.Zhupff:gadget-version-catalog:5f0a8b9ad5"
+                else
+                    "zhupff.gadget:gadget-version-catalog:0"
+            )
+        }
     }
 }
 
 rootProject.name = "gadgets"
-include(
-    ":gadget",
-    ":gadget:gadgetApi",
-    ":gadget:gadgetCompile",
-)
-include(
-    ":gadget-basic",
-    ":gadget-basic:basicJvm",
-    ":gadget-basic:basicAndroid",
-)
-include(
-    ":gadget-blur",
-    ":gadget-blur:blur",
-)
-include(
-    ":gadget-logger",
-    ":gadget-logger:logger",
-)
-include(
-    ":gadget-media",
-    ":gadget-media:media",
-)
-include(
-    ":gadget-spi",
-    ":gadget-spi:spi",
-    ":gadget-spi:spiCompile",
-)
-include(
-    ":gadget-theme",
-    ":gadget-theme:theme",
-    ":gadget-theme:themePlugin",
-)
-include(
-    ":gadget-toast",
-    ":gadget-toast:toast",
-)
-include(
-    ":gadget-widget",
-    ":gadget-widget:widget",
-    ":gadget-widget:widgetAnnotation",
-    ":gadget-widget:widgetCompile",
-    ":gadget-widget:widgetDsl",
-)

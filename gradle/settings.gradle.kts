@@ -3,6 +3,8 @@ pluginManagement {
         google()
         mavenCentral()
         gradlePluginPortal()
+        mavenLocal()
+        maven(url = "https://jitpack.io")
     }
 }
 dependencyResolutionManagement {
@@ -10,13 +12,20 @@ dependencyResolutionManagement {
     repositories {
         google()
         mavenCentral()
+        mavenLocal()
+        maven(url = "https://jitpack.io")
     }
     versionCatalogs {
-        create("libs") {
-            from(files("./libs.versions.toml"))
+        create("gvc") {
+            from(
+                if (System.getenv("JITPACK").toBoolean())
+                    "com.github.Zhupff:gadget-version-catalog:5f0a8b9ad5"
+                else
+                    "zhupff.gadget:gadget-version-catalog:0"
+            )
         }
     }
 }
 
 rootProject.name = "gradle"
-include(":plugin")
+include(":script")
