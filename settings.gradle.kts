@@ -34,3 +34,8 @@ include(
     ":compile",
     ":plugin",
 )
+
+include(
+    ":gadget-logger",
+    ":gadget-logger:logger",
+)
