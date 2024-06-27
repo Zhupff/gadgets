@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <!-- Scale down bitmap to improve performance, range from 0-1, recommended below 0.25(default). -->
+    <attr name="blurScale" format="float"/>
+
+    <!-- Blur radius, which recommended range is 5-25, It is recommended to use blurScale first. -->
+    <attr name="blurRadius" format="integer"/>
+
+    <!-- Canvas usage strategy. -->
+    <attr name="blurCanvas" format="enum">
+        <!-- Use the canvas passed from the lower layer, which is recommended. -->
+        <enum name="inherited" value="0"/>
+        <!-- Use an independent canvas, which will trigger multiple drawing process. -->
+        <enum name="independent" value="1"/>
+    </attr>
+
+    <!-- Drawing strategy. -->
+    <attr name="blurDraw" format="enum">
+        <!-- Check and ignore identical frames before draw. It will take some time but save drawing times. -->
+        <enum name="ignoreIdenticalFrames" value="0"/>
+        <!-- Draw all frames anyway, may cause continuous drawing. -->
+        <enum name="allFrames" value="1"/>
+    </attr>
+
+
+    <declare-styleable name="BlurLayout">
+        <attr name="blurScale"/>
+        <attr name="blurCanvas"/>
+    </declare-styleable>
+
+    <declare-styleable name="BlurSurfaceView">
+        <attr name="blurRadius"/>
+    </declare-styleable>
+
+    <declare-styleable name="BlurTextureView">
+        <attr name="blurRadius"/>
+        <attr name="blurDraw"/>
+    </declare-styleable>
+
+    <declare-styleable name="BlurView">
+        <attr name="blurRadius"/>
+        <attr name="blurDraw"/>
+    </declare-styleable>
+</resources>

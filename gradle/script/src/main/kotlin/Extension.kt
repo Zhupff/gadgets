@@ -32,8 +32,8 @@ internal val Project.libExtension: com.android.build.gradle.LibraryExtension
 internal val Project.versionCatalogExtension: VersionCatalogsExtension
     get() = extensions.getByType(VersionCatalogsExtension::class.java)
 
-internal val Project.libs: VersionCatalog
-    get() = versionCatalogExtension.named("libs")
+internal val Project.gvc: VersionCatalog
+    get() = versionCatalogExtension.named("gvc")
 
 internal val com.android.build.gradle.api.BaseVariant.variantName: String; get() = name
 

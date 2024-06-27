@@ -31,11 +31,37 @@ dependencyResolutionManagement {
 rootProject.name = "gadgets"
 include(
     ":api",
-    ":compile",
     ":plugin",
+)
+
+include(
+    ":gadget-basic",
+    ":gadget-basic:basicJvm",
+    ":gadget-basic:basicAndroid",
+)
+
+include(
+    ":gadget-blur",
+    ":gadget-blur:blur",
 )
 
 include(
     ":gadget-logger",
     ":gadget-logger:logger",
+)
+
+include(
+    ":gadget-media",
+    ":gadget-media:media",
+)
+
+include(
+    ":gadget-theme",
+    ":gadget-theme:mdc",
+    ":gadget-theme:theme",
+)
+
+include(
+    ":gadget-toast",
+    ":gadget-toast:toast",
 )

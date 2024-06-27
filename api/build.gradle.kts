@@ -13,4 +13,5 @@ script {
 
 dependencies {
     compileOnly(gradleApi())
+    implementation(gvc.squareup.kotlinpoet)
 }
