@@ -9,8 +9,8 @@ script {
 }
 
 dependencies {
-    implementation(gvc.androidx.constraintlayout)
-    implementation(gvc.androidx.recyclerview)
+    implementation(libs.androidx.constraintlayout)
+    implementation(libs.androidx.recyclerview)
     implementation(project(":gadget-qrcode:qrcode"))
     implementation(project(":gadget-logger:logger"))
 }

@@ -12,6 +12,6 @@ script {
 }
 
 dependencies {
-    implementation(gvc.androidx.core.ktx)
-    implementation(gvc.androidx.startup)
+    implementation(libs.androidx.core.ktx)
+    implementation(libs.androidx.startup)
 }

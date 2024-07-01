@@ -12,5 +12,5 @@ script {
 }
 
 dependencies {
-    implementation(gvc.androidx.appcompat)
+    implementation(libs.androidx.appcompat)
 }

@@ -1,8 +1,8 @@
 plugins {
-    alias(gvc.plugins.android.application) apply false
-    alias(gvc.plugins.android.library) apply false
-    alias(gvc.plugins.kotlin.android) apply false
-    alias(gvc.plugins.kotlin.jvm) apply false
-    alias(gvc.plugins.kotlin.kapt) apply false
-    alias(gvc.plugins.kotlin.ksp) apply false
+    alias(libs.plugins.android.application) apply false
+    alias(libs.plugins.android.library) apply false
+    alias(libs.plugins.kotlin.android) apply false
+    alias(libs.plugins.kotlin.jvm) apply false
+    alias(libs.plugins.kotlin.kapt) apply false
+    alias(libs.plugins.kotlin.ksp) apply false
 }

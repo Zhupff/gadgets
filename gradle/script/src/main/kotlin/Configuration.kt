@@ -83,8 +83,8 @@ abstract class Configuration<S : Script> internal constructor(
                             println("applicationId=$applicationId, versionName=$versionName")
                         }
                     }
-                    dependencies.add("implementation", gvc.findLibrary("androidx-core-ktx").get())
-                    dependencies.add("implementation", gvc.findLibrary("androidx-appcompat").get())
+                    dependencies.add("implementation", libs.findLibrary("androidx-core-ktx").get())
+                    dependencies.add("implementation", libs.findLibrary("androidx-appcompat").get())
                 }
             }
         }

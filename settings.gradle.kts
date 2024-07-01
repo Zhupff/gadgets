@@ -16,22 +16,13 @@ dependencyResolutionManagement {
         mavenLocal()
         maven(url = "https://jitpack.io")
     }
-    versionCatalogs {
-        create("gvc") {
-            from(
-                if (System.getenv("JITPACK").toBoolean())
-                    "com.github.Zhupff:gadget-version-catalog:5f0a8b9ad5"
-                else
-                    "zhupff.gadget:gadget-version-catalog:0"
-            )
-        }
-    }
 }
 
 rootProject.name = "gadgets"
 include(
     ":api",
     ":plugin",
+    ":version-catalog",
 )
 
 include(

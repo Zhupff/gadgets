@@ -14,7 +14,7 @@ script {
 
 dependencies {
     compileOnly(gradleApi())
-    compileOnly(gvc.android.gradle.plugin)
+    compileOnly(libs.android.gradle.plugin)
 }
 
 gradlePlugin {
