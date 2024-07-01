@@ -13,5 +13,6 @@ script {
 
 dependencies {
     implementation(gvc.androidx.appcompat)
+    implementation(gvc.androidx.startup)
     implementation(project(":gadget-theme:mdc"))
 }
