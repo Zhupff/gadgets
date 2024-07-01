@@ -56,6 +56,12 @@ include(
 )
 
 include(
+    ":gadget-qrcode",
+    ":gadget-qrcode:qrcode",
+    ":gadget-qrcode:qrcodeTest",
+)
+
+include(
     ":gadget-theme",
     ":gadget-theme:mdc",
     ":gadget-theme:theme",

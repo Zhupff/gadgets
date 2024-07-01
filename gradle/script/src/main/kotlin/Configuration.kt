@@ -83,6 +83,8 @@ abstract class Configuration<S : Script> internal constructor(
                             println("applicationId=$applicationId, versionName=$versionName")
                         }
                     }
+                    dependencies.add("implementation", gvc.findLibrary("androidx-core-ktx").get())
+                    dependencies.add("implementation", gvc.findLibrary("androidx-appcompat").get())
                 }
             }
         }
@@ -110,6 +112,10 @@ abstract class Configuration<S : Script> internal constructor(
             script.project.extensions.getByType(JavaPluginExtension::class.java).apply {
                 sourceCompatibility = JavaVersion.VERSION_17
                 targetCompatibility = JavaVersion.VERSION_17
+
+                sourceSets.getByName("main") {
+                    java.srcDir("src/main/kotlin")
+                }
             }
         }
     }
