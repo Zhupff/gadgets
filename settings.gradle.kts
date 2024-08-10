@@ -21,7 +21,6 @@ dependencyResolutionManagement {
 rootProject.name = "gadgets"
 include(
     ":api",
-    ":plugin",
     ":version-catalog",
 )
 
