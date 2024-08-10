@@ -27,8 +27,8 @@ include(
 
 include(
     ":gadget-basic",
-    ":gadget-basic:basicJvm",
-    ":gadget-basic:basicAndroid",
+    ":gadget-basic:basic-android",
+    ":gadget-basic:basic-jvm",
 )
 
 include(
