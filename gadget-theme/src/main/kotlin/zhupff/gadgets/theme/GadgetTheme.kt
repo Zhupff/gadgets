@@ -13,4 +13,12 @@ class GadgetTheme : GadgetDelegate() {
     fun theme(method: String = "implementation") {
         gadgetsEx.project.dependencies.add(method, GadgetThemePublication.dependency("theme"))
     }
+
+    fun themeMerge() {
+        gadgetsEx.project.pluginManager.apply("zhupff.gadgets.theme.merge")
+    }
+
+    fun themePack() {
+        gadgetsEx.project.pluginManager.apply("zhupff.gadgets.theme.pack")
+    }
 }

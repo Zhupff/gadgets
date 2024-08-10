@@ -56,7 +56,7 @@ include(
     ":gadget-theme",
     ":gadget-theme:mdc",
     ":gadget-theme:theme",
-    ":gadget-theme:themePlugin",
+    ":gadget-theme:theme-plugin",
 )
 
 include(
