@@ -49,7 +49,7 @@ include(
 include(
     ":gadget-qrcode",
     ":gadget-qrcode:qrcode",
-    ":gadget-qrcode:qrcodeTest",
+    ":gadget-qrcode:qrcode-test",
 )
 
 include(
