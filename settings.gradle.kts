@@ -63,3 +63,8 @@ include(
     ":gadget-toast",
     ":gadget-toast:toast",
 )
+
+include(
+    ":gadget-widget",
+    ":gadget-widget:widget",
+)
