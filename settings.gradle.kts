@@ -27,6 +27,7 @@ include(
 include(
     ":gadget-basic",
     ":gadget-basic:basic-android",
+    ":gadget-basic:basic-compile",
     ":gadget-basic:basic-jvm",
 )
 
@@ -66,4 +67,7 @@ include(
 include(
     ":gadget-widget",
     ":gadget-widget:widget",
+    ":gadget-widget:widget-annotation",
+    ":gadget-widget:widget-compile",
+    ":gadget-widget:widget-dsl",
 )
