@@ -9,7 +9,7 @@ fun <V : View> V.initialize(
     @IdRes id: Int = View.NO_ID,
     size: Pair<Int, Int> = WRAP_CONTENT to WRAP_CONTENT,
     parent: ViewGroup? = null,
-    index: Int = -1
+    index: Int = -1,
 ): V = initialize(id, ViewGroup.LayoutParams(size.first, size.second), parent, index)
 
 fun <V : View> V.initialize(

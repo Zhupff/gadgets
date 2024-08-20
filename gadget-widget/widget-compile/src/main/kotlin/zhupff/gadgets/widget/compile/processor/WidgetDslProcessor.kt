@@ -1,18 +1,22 @@
 package zhupff.gadgets.widget.compile.processor
 
+import com.squareup.kotlinpoet.AnnotationSpec
 import com.squareup.kotlinpoet.ClassName
 import com.squareup.kotlinpoet.FileSpec
 import com.squareup.kotlinpoet.FunSpec
+import com.squareup.kotlinpoet.INT
 import com.squareup.kotlinpoet.KModifier
+import com.squareup.kotlinpoet.LambdaTypeName
+import com.squareup.kotlinpoet.ParameterSpec
+import com.squareup.kotlinpoet.ParameterizedTypeName.Companion.parameterizedBy
+import com.squareup.kotlinpoet.UNIT
+import com.squareup.kotlinpoet.asClassName
+import zhupff.gadgets.widget.compile.common.cn_DslScope
 import zhupff.gadgets.widget.compile.common.cn_View
 import zhupff.gadgets.widget.compile.common.cn_ViewGroup
-import zhupff.gadgets.widget.compile.common.cn_initialize
 import zhupff.gadgets.widget.compile.common.ps_Context
 import zhupff.gadgets.widget.compile.common.ps_IdRes
 import zhupff.gadgets.widget.compile.common.ps_LayoutParams
-import zhupff.gadgets.widget.compile.common.ps_block
-import zhupff.gadgets.widget.compile.common.ps_index
-import zhupff.gadgets.widget.compile.common.ps_size
 
 object WidgetDslProcessor {
 
@@ -125,4 +129,28 @@ object WidgetDslProcessor {
             )
             .build()
     }
+
+    private val cn_initialize: ClassName = ClassName("zhupff.gadgets.widget.dsl", "initialize")
+
+    private val ps_size = ParameterSpec.builder("size", Pair::class.asClassName().parameterizedBy(
+        INT, INT
+    ))
+        .build()
+
+    private val ps_index: ParameterSpec = ParameterSpec.builder("index", INT)
+        .defaultValue("-1")
+        .build()
+
+    private fun ps_block(cnItem: ClassName): ParameterSpec = ParameterSpec.builder("block",
+        LambdaTypeName.get(
+            receiver = cnItem
+                .copy(annotations = listOf(
+                    AnnotationSpec.builder(cn_DslScope).build()
+                )),
+            parameters = listOf(
+                ParameterSpec.unnamed(cnItem)
+            ),
+            returnType = UNIT
+        )
+    ).build()
 }
