@@ -7,18 +7,18 @@ import com.google.devtools.ksp.symbol.KSDeclaration
 import com.google.devtools.ksp.symbol.KSPropertyDeclaration
 import com.squareup.kotlinpoet.ksp.writeTo
 import zhupff.gadgets.basic.compile.KSP
-import zhupff.gadgets.widget.WidgetDsl
-import zhupff.gadgets.widget.compile.processor.WidgetDslProcessor
+import zhupff.gadgets.widget.LayoutParamsDsl
+import zhupff.gadgets.widget.compile.processor.LayoutParamsDslProcessor
 
-class WidgetDslKsp : KSP() {
+class LayoutParamsDslKsp : KSP() {
 
-    private val symbol2item = ArrayList<Pair<KSDeclaration, WidgetDslProcessor.Item>>()
+    private val symbol2item = ArrayList<Pair<KSDeclaration, LayoutParamsDslProcessor.Item>>()
 
     override fun process(resolver: Resolver): List<KSAnnotated> {
-        resolver.getSymbolsWithAnnotation(WidgetDsl::class.java.canonicalName).forEach { symbol ->
+        resolver.getSymbolsWithAnnotation(LayoutParamsDsl::class.java.canonicalName).forEach { symbol ->
             if (symbol is KSDeclaration) {
                 val alias = symbol.annotations.find {
-                    it.annotationType.resolve().declaration.declareQualifiedName == WidgetDsl::class.java.canonicalName
+                    it.annotationType.resolve().declaration.declareQualifiedName == LayoutParamsDsl::class.java.canonicalName
                 }?.arguments?.find {
                     it.name?.getShortName() == "alias"
                 }?.value as? String
@@ -32,7 +32,7 @@ class WidgetDslKsp : KSP() {
                 }
                 if (canonicalName.isNullOrEmpty()) return@forEach
                 val packageName = symbol.declarePackageName
-                symbol2item.add(symbol to WidgetDslProcessor.Item(alias, packageName, canonicalName))
+                symbol2item.add(symbol to LayoutParamsDslProcessor.Item(alias, packageName, canonicalName))
             }
         }
         return emptyList()
@@ -40,7 +40,7 @@ class WidgetDslKsp : KSP() {
 
     override fun finish() {
         symbol2item.forEach { (symbol, item) ->
-            WidgetDslProcessor.buildFileSpec(item).writeTo(processingEnv.codeGenerator, true, listOf(symbol.containingFile!!))
+            LayoutParamsDslProcessor.buildFileSpec(item).writeTo(processingEnv.codeGenerator, true, listOf(symbol.containingFile!!))
         }
     }
 }
