@@ -3,4 +3,6 @@
     <item name="gadgets_view_multi_click_task" type="id"/>
 
     <item name="gadgets_view_corner_clip" type="id"/>
+
+    <item name="gadgets_view_inset_fit" type="id"/>
 </resources>

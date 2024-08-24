@@ -65,6 +65,9 @@ class CornerClip @JvmOverloads constructor(
         if (view === target && outline != null) {
             val targetRadius = if (this.radius < 0F) min(view.width, view.height) / 2F else this.radius
             when (this.gravity) {
+                Gravity.NO_GRAVITY -> {
+                    // Do nothing.
+                }
                 /**
                  *  / * * \
                  *  *     *
@@ -153,7 +156,7 @@ var View.cornerClip: CornerClip?
             CornerClip.reset(this)
         } else {
             if (value !== CornerClip.get(this)) {
-                throw IllegalArgumentException("Use CornerClip constructor instead.")
+                throw IllegalArgumentException("Use CornerClip constructor instead!")
             }
         }
     }
