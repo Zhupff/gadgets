@@ -12,13 +12,13 @@ fun Float.sp2px(context: Context = APPLICATION): Float = TypedValue.applyDimensi
 
 fun Float.px2sp(context: Context = APPLICATION): Float = this / context.resources.displayMetrics.scaledDensity
 
-fun Int.dp2px(context: Context = APPLICATION): Float = toFloat().dp2px(context)
+fun Int.dp2px(context: Context = APPLICATION): Int = toFloat().dp2px(context).toInt()
 
-fun Int.px2dp(context: Context = APPLICATION): Float = toFloat().px2dp(context)
+fun Int.px2dp(context: Context = APPLICATION): Int = toFloat().px2dp(context).toInt()
 
-fun Int.sp2px(context: Context = APPLICATION): Float = toFloat().sp2px(context)
+fun Int.sp2px(context: Context = APPLICATION): Int = toFloat().sp2px(context).toInt()
 
-fun Int.px2sp(context: Context = APPLICATION): Float = toFloat().px2sp(context)
+fun Int.px2sp(context: Context = APPLICATION): Int = toFloat().px2sp(context).toInt()
 
 fun Context.dp2px(dp: Float): Float = dp.dp2px(this)
 
@@ -28,6 +28,14 @@ fun Context.sp2px(sp: Float): Float = sp.sp2px(this)
 
 fun Context.px2sp(px: Float): Float = px.px2sp(this)
 
+fun Context.dp2px(dp: Int): Int = dp.dp2px(this)
+
+fun Context.px2dp(px: Int): Int = px.px2dp(this)
+
+fun Context.sp2px(sp: Int): Int = sp.sp2px(this)
+
+fun Context.px2sp(px: Int): Int = px.px2sp(this)
+
 fun View.dp2px(dp: Float): Float = dp.dp2px(context)
 
 fun View.px2dp(px: Float): Float = px.px2dp(context)
@@ -35,3 +43,19 @@ fun View.px2dp(px: Float): Float = px.px2dp(context)
 fun View.sp2px(sp: Float): Float = sp.sp2px(context)
 
 fun View.px2sp(px: Float): Float = px.px2sp(context)
+
+fun View.dp2px(dp: Int): Int = dp.dp2px(context)
+
+fun View.px2dp(px: Int): Int = px.px2dp(context)
+
+fun View.sp2px(sp: Int): Int = sp.sp2px(context)
+
+fun View.px2sp(px: Int): Int = px.px2sp(context)
+
+val Float.dp: Float; get() = this.dp2px(APPLICATION)
+
+val Float.sp: Float; get() = this.sp2px(APPLICATION)
+
+val Int.dp: Int; get() = this.dp2px(APPLICATION)
+
+val Int.sp: Int; get() = this.sp2px(APPLICATION)
