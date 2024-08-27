@@ -19,7 +19,7 @@ class ThemePackPlugin : Plugin<Project> {
                             inputFilePath = apkFile.path
                             outputFile = p.buildDir.resolve("themepacks${File.separator}${variantName}${File.separator}themepacks${File.separator}${target.name}")
                         }
-                        p.tasks.named("ThemeMerge${variantName}") {
+                        p.tasks.named("ThemeMerge${variantName.toCamelCase()}") {
                             task.dependsOn("package${variantName.toCamelCase()}")
                             dependsOn(task)
                         }
