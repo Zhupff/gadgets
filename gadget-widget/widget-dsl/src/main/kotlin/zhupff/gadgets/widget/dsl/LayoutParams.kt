@@ -2,6 +2,7 @@ package zhupff.gadgets.widget.dsl
 
 import android.view.View
 import android.view.ViewGroup
+import androidx.constraintlayout.widget.ConstraintLayout
 import zhupff.gadgets.widget.DslScope
 
 const val WRAP_CONTENT = ViewGroup.LayoutParams.WRAP_CONTENT
@@ -25,3 +26,46 @@ inline fun <reified L : ViewGroup.LayoutParams> View.layoutParamsAs(
     block(it)
     layoutParams = it
 }
+
+// region begin: ConstraintLayout.LayoutParams
+
+internal typealias ConstraintLayoutParams = ConstraintLayout.LayoutParams
+
+internal val ConstraintLayoutParams.UNSET: Int; get() = ConstraintLayoutParams.UNSET
+internal val ConstraintLayoutParams.PARENT_ID: Int; get() = ConstraintLayoutParams.PARENT_ID
+
+fun ConstraintLayoutParams.unsetHorizontal() {
+    startToStart = UNSET
+    startToEnd = UNSET
+    endToEnd = UNSET
+    endToStart = UNSET
+}
+
+fun ConstraintLayoutParams.unsetVertical() {
+    topToTop = UNSET
+    topToBottom = UNSET
+    bottomToBottom = UNSET
+    bottomToTop = UNSET
+}
+
+fun ConstraintLayoutParams.unset() {
+    unsetHorizontal()
+    unsetVertical()
+}
+
+fun ConstraintLayoutParams.centerHorizontal() {
+    startToStart = PARENT_ID
+    endToEnd = PARENT_ID
+}
+
+fun ConstraintLayoutParams.centerVertical() {
+    topToTop = PARENT_ID
+    bottomToBottom = PARENT_ID
+}
+
+fun ConstraintLayoutParams.center() {
+    centerHorizontal()
+    centerVertical()
+}
+
+// region end
