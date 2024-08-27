@@ -8,6 +8,7 @@ androidxCore = "1.9.0"
 androidxLifecycle = "2.5.1"
 androidxStartup = "1.1.1"
 androidxConstraintLayout = "2.1.4"
+autoService = "1.1.1"
 kotlin = "1.8.10"
 ksp = "1.8.10-1.0.9"
 kotlinPoet = "1.12.0"
@@ -41,6 +42,8 @@ androidx-lifecycle-viewModel-ktx = { group = "androidx.lifecycle", name = "lifec
 androidx-lifecycle-viewModel-savedstate = { group = "androidx.lifecycle", name = "lifecycle-viewmodel-savedstate", version.ref = "androidxLifecycle" }
 androidx-recyclerview = { group = "androidx.recyclerview", name = "recyclerview", version = "1.2.1" }
 androidx-startup = { group = "androidx.startup", name = "startup-runtime", version.ref = "androidxStartup" }
+autoservice-annotation = { group = "com.google.auto.service", name = "auto-service-annotations", version.ref = "autoService" }
+autoservice-processor = { group = "com.google.auto.service", name = "auto-service", version.ref = "autoService" }
 kotlin-ksp-api = { group = "com.google.devtools.ksp", name = "symbol-processing-api", version.ref = "ksp" }
 squareup-kotlinpoet = { group = "com.squareup", name = "kotlinpoet-ksp", version.ref = "kotlinPoet" }
 

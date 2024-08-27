@@ -20,3 +20,21 @@ fun <E> MutableCollection<E>.addIfNotNull(element: E?) {
         add(element)
     }
 }
+
+fun <E> MutableCollection<E>.clearIfNotEmpty(): Boolean {
+    if (isNotEmpty()) {
+        clear()
+        return true
+    }
+    return false
+}
+
+fun <E> MutableCollection<E>.addAfterClearIfNotEmpty(element: E) {
+    clearIfNotEmpty()
+    add(element)
+}
+
+fun <E> MutableCollection<E>.addAfterClearIfNotEmpty(elements: Collection<E>) {
+    clearIfNotEmpty()
+    addAll(elements)
+}
