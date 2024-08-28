@@ -26,6 +26,12 @@ abstract class ThemeAttribute(val attributeName: String) : Cloneable {
             it.resourceType = resourceType
         }
 
+    open fun set(resourceId: Int, resourceName: String, resourceType: String) {
+        this.resourceId = resourceId
+        this.resourceName = resourceName
+        this.resourceType = resourceType
+    }
+
     override fun toString(): String = StringBuilder("{")
         .append("\"attributeName\":").append("\"$attributeName\",")
         .append("\"resourceId\":").append("$resourceId,")

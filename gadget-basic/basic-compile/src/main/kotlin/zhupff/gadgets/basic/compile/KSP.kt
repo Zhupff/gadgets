@@ -1,8 +1,10 @@
 package zhupff.gadgets.basic.compile
 
+import com.google.devtools.ksp.processing.Resolver
 import com.google.devtools.ksp.processing.SymbolProcessor
 import com.google.devtools.ksp.processing.SymbolProcessorEnvironment
 import com.google.devtools.ksp.processing.SymbolProcessorProvider
+import com.google.devtools.ksp.symbol.KSAnnotated
 import com.google.devtools.ksp.symbol.KSDeclaration
 
 abstract class KSP : SymbolProcessorProvider, SymbolProcessor {
@@ -12,6 +14,8 @@ abstract class KSP : SymbolProcessorProvider, SymbolProcessor {
     override fun create(environment: SymbolProcessorEnvironment): SymbolProcessor = apply {
         this.processingEnv = environment
     }
+
+    override fun process(resolver: Resolver): List<KSAnnotated> = emptyList()
 
     protected val KSDeclaration.declarePackageName: String; get() = "${packageName.getQualifier()}.${packageName.getShortName()}"
 

@@ -25,9 +25,7 @@ class WidgetDslKsp : KSP() {
                 if (alias.isNullOrEmpty()) return@forEach
                 val canonicalName = when (symbol) {
                     is KSClassDeclaration -> symbol.declareQualifiedName
-                    is KSPropertyDeclaration -> {
-                        symbol.type.resolve().declaration.declareQualifiedName
-                    }
+                    is KSPropertyDeclaration -> symbol.type.resolve().declaration.declareQualifiedName
                     else -> null
                 }
                 if (canonicalName.isNullOrEmpty()) return@forEach
