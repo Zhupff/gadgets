@@ -22,7 +22,7 @@ class GadgetTheme : GadgetDelegate() {
         gadgetsEx.project.dependencies.add(method, GadgetThemePublication.dependency("theme-dsl"))
     }
 
-    fun compile(method: String = "implementation") {
+    fun compile(method: String = "kapt") {
         gadgetsEx.project.dependencies.add(method, GadgetThemePublication.dependency("theme-compile"))
     }
 
