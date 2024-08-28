@@ -23,6 +23,16 @@ class Theme(
         const val INFO_THEME_NAME_CN = "theme_name_cn"
         const val INFO_THEME_NAME_EN = "theme_name_en"
         const val INFO_IS_ORIGIN = "is_origin"
+        const val INFO_IS_DARK = "is_dark"
+
+        fun getInfoInResources(res: Resources): JSONObject? {
+            return try {
+                JSONObject(res.assets.open("theme.json").reader(Charsets.UTF_8).readText())
+            } catch (e: Exception) {
+                e.printStackTrace()
+                null
+            }
+        }
     }
 
     interface Callback {
@@ -52,6 +62,8 @@ class Theme(
     val themeNameEN: String = info.optString(INFO_THEME_NAME_EN, "")
 
     val isOrigin: Boolean = info.optBoolean(INFO_IS_ORIGIN, false)
+
+    val isDark: Boolean = info.optBoolean(INFO_IS_DARK, false)
 
     private val children by lazy { ArrayList<Theme>(2) }
 
