@@ -1,6 +1,7 @@
 package zhupff.gadgets.theme
 
 import android.content.Context
+import android.content.res.Resources
 import android.util.AttributeSet
 import android.view.LayoutInflater
 import android.view.View
@@ -63,13 +64,20 @@ open class ThemeFactory(
         var themeAttributes: ArrayList<ThemeAttribute>? = null
         if (config != null && config.prefix.isNotEmpty() && config.attributes.isNotEmpty()) {
             for (index in 0 until attrs.attributeCount) {
-                val attributeName = attrs.getAttributeName(index)
-                val attributeValue = attrs.getAttributeValue(index)
+                val attributeName = attrs.getAttributeName(index) ?: continue
+                val attributeValue = attrs.getAttributeValue(index) ?: continue
                 if (!attributeValue.startsWith('@')) continue
                 val resourceId = attributeValue.substring(1).toIntOrNull() ?: continue
-                val resourceName = context.resources.getResourceEntryName(resourceId)
+                val resourceName: String
+                val resourceType: String
+                try {
+                    resourceName = context.resources.getResourceEntryName(resourceId)
+                    resourceType = context.resources.getResourceTypeName(resourceId)
+                } catch (e: Resources.NotFoundException) {
+                    e.printStackTrace()
+                    continue
+                }
                 if (!resourceName.startsWith(config.prefix)) continue
-                val resourceType = context.resources.getResourceTypeName(resourceId)
                 val attribute = config.obtainAttribute(attributeName, resourceId, resourceName, resourceType)
                 if (attribute != null) {
                     if (themeAttributes == null) {
