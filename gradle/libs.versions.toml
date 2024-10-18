@@ -46,8 +46,11 @@ autoservice-annotation = { group = "com.google.auto.service", name = "auto-servi
 autoservice-processor = { group = "com.google.auto.service", name = "auto-service", version.ref = "autoService" }
 kotlin-ksp-api = { group = "com.google.devtools.ksp", name = "symbol-processing-api", version.ref = "ksp" }
 squareup-kotlinpoet = { group = "com.squareup", name = "kotlinpoet-ksp", version.ref = "kotlinPoet" }
+squareup-retrofit = { group = "com.squareup.retrofit2", name = "retrofit", version = "2.11.0" }
+squareup-okhttp = { group = "com.squareup.okhttp3", name = "okhttp", version = "4.12.0" }
 
 # Dependencies of the included gradle
-android-gradle-plugin = { group = "com.android.tools.build", name = "gradle", version.ref = "androidGradlePlugin" }
+android-gradle = { group = "com.android.tools.build", name = "gradle", version.ref = "androidGradlePlugin" }
+android-gradle-v4 = { group = "com.android.tools.build", name = "gradle", version = "4.0.0"}
 kotlin-gradle-plugin = { group = "org.jetbrains.kotlin", name = "kotlin-gradle-plugin", version.ref = "kotlin" }
 ksp-gradle-plugin = { group = "com.google.devtools.ksp", name = "com.google.devtools.ksp.gradle.plugin", version.ref = "ksp" }
