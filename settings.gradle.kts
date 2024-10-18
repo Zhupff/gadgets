@@ -29,6 +29,7 @@ include(
     ":gadget-basic:basic-android",
     ":gadget-basic:basic-compile",
     ":gadget-basic:basic-jvm",
+    ":gadget-basic:basic-print",
 )
 
 include(
@@ -65,6 +66,11 @@ include(
 include(
     ":gadget-toast",
     ":gadget-toast:toast",
+)
+
+include(
+    ":gadget-transform",
+    ":gadget-transform:transform",
 )
 
 include(
