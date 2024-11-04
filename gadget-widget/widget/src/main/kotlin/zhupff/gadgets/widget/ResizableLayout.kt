@@ -6,7 +6,6 @@ import android.view.Gravity
 import android.view.View
 import android.widget.FrameLayout
 import androidx.core.view.children
-import androidx.core.view.isVisible
 import kotlin.math.roundToInt
 
 class ResizableLayout @JvmOverloads constructor(
@@ -20,9 +19,8 @@ class ResizableLayout @JvmOverloads constructor(
                     return
                 }
                 if (ratio < 0F) {
-                    child.isVisible = false
+                    throw IllegalArgumentException("ratio should not be less than 0!")
                 } else {
-                    child.isVisible = true
                     val layoutParams = child.layoutParams as LayoutParams
                     if (ratio == 0F) {
                         layoutParams.width = LayoutParams.MATCH_PARENT
