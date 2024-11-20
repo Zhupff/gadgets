@@ -3,7 +3,7 @@ package zhupff.gadgets.theme
 import android.content.Context
 import androidx.startup.Initializer
 
-class ApiInitializer : Initializer<Unit> {
+class ApiInitializer internal constructor(): Initializer<Unit> {
 
     override fun create(context: Context) {
     }

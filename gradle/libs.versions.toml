@@ -13,6 +13,7 @@ autoService = "1.1.1"
 kotlin = "1.8.10"
 ksp = "1.8.10-1.0.9"
 kotlinPoet = "1.12.0"
+retrofit = "2.11.0"
 
 [plugins]
 android-application = { id = "com.android.application", version.ref = "androidGradlePlugin" }
@@ -52,8 +53,12 @@ bumptech-glide = { group = "com.github.bumptech.glide", name = "glide", version 
 google-gson = { group = "com.google.code.gson", name = "gson", version = "2.11.0" }
 kotlin-ksp-api = { group = "com.google.devtools.ksp", name = "symbol-processing-api", version.ref = "ksp" }
 squareup-kotlinpoet = { group = "com.squareup", name = "kotlinpoet-ksp", version.ref = "kotlinPoet" }
-squareup-retrofit = { group = "com.squareup.retrofit2", name = "retrofit", version = "2.11.0" }
+squareup-retrofit = { group = "com.squareup.retrofit2", name = "retrofit", version.ref = "retrofit" }
+squareup-retrofit-adapter-rxjava3 = { group = "com.squareup.retrofit2", name = "adapter-rxjava3", version.ref = "retrofit" }
+squareup-retrofit-convert-gson = { group = "com.squareup.retrofit2", name = "converter-gson", version.ref = "retrofit" }
+squareup-retrofit-convert-protobuf = { group = "com.squareup.retrofit2", name = "converter-protobuf", version.ref = "retrofit" }
 squareup-okhttp = { group = "com.squareup.okhttp3", name = "okhttp", version = "4.12.0" }
+reactivex-rxjava3-android = { group = "io.reactivex.rxjava3", name = "rxandroid", version = "3.0.2" }
 
 # Dependencies of the included gradle
 android-gradle = { group = "com.android.tools.build", name = "gradle", version.ref = "androidGradlePlugin" }
