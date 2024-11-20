@@ -57,9 +57,6 @@ include(
     ":gadget-theme",
     ":gadget-theme:mdc",
     ":gadget-theme:theme",
-    ":gadget-theme:theme-annotation",
-    ":gadget-theme:theme-compile",
-    ":gadget-theme:theme-dsl",
     ":gadget-theme:theme-plugin",
 )
 

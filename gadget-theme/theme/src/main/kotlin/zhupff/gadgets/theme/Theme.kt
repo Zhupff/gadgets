@@ -55,8 +55,6 @@ class Theme(
         JSONObject()
     }
 
-    val themeId: String = info.getString(INFO_THEME_ID)
-
     val themeNameCN: String = info.optString(INFO_THEME_NAME_CN, "")
 
     val themeNameEN: String = info.optString(INFO_THEME_NAME_EN, "")
@@ -64,6 +62,12 @@ class Theme(
     val isOrigin: Boolean = info.optBoolean(INFO_IS_ORIGIN, false)
 
     val isDark: Boolean = info.optBoolean(INFO_IS_DARK, false)
+
+    val themeId: String = try {
+        if (isOrigin) APPLICATION.packageName else info.getString(INFO_THEME_ID)
+    } catch (e: Exception) {
+        throw IllegalArgumentException("Is this original theme {isOrigin: true}? or you should declare {theme_id: your.app.packageName}")
+    }
 
     private val children by lazy { ArrayList<Theme>(2) }
 

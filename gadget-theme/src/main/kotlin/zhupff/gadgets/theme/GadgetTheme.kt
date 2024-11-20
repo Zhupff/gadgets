@@ -14,18 +14,6 @@ class GadgetTheme : GadgetDelegate() {
         gadgetsEx.project.dependencies.add(method, GadgetThemePublication.dependency("theme"))
     }
 
-    fun annotation(method: String = "implementation") {
-        gadgetsEx.project.dependencies.add(method, GadgetThemePublication.dependency("theme-annotation"))
-    }
-
-    fun dsl(method: String = "implementation") {
-        gadgetsEx.project.dependencies.add(method, GadgetThemePublication.dependency("theme-dsl"))
-    }
-
-    fun compile(method: String = "kapt") {
-        gadgetsEx.project.dependencies.add(method, GadgetThemePublication.dependency("theme-compile"))
-    }
-
     fun themeMerge() {
         gadgetsEx.project.pluginManager.apply("zhupff.gadgets.theme.merge")
     }

@@ -3,7 +3,10 @@ package zhupff.gadgets.theme
 import android.view.View
 import androidx.core.content.res.ResourcesCompat
 
-abstract class ThemeAttribute(val attributeName: String) : Cloneable {
+abstract class ThemeAttribute(
+    val attributeName: String,
+    resourceId: Int = ResourcesCompat.ID_NULL,
+) : Cloneable {
 
     companion object {
         const val TYPE_COLOR = "color"
@@ -11,11 +14,19 @@ abstract class ThemeAttribute(val attributeName: String) : Cloneable {
         const val TYPE_STRING = "string"
     }
 
-    var resourceId: Int = ResourcesCompat.ID_NULL; protected set
+    var resourceId: Int = resourceId; protected set
 
-    var resourceName: String = ""; protected set
+    var resourceName: String = if (resourceId != ResourcesCompat.ID_NULL) {
+        APPLICATION.resources.getResourceEntryName(resourceId)
+    } else {
+        ""
+    }; protected set
 
-    var resourceType: String = ""; protected set
+    var resourceType: String = if (resourceId != ResourcesCompat.ID_NULL) {
+        APPLICATION.resources.getResourceTypeName(resourceId)
+    } else {
+        ""
+    }; protected set
 
     abstract fun apply(view: View, theme: Theme)
 
@@ -25,12 +36,6 @@ abstract class ThemeAttribute(val attributeName: String) : Cloneable {
             it.resourceName = resourceName
             it.resourceType = resourceType
         }
-
-    open fun set(resourceId: Int, resourceName: String, resourceType: String) {
-        this.resourceId = resourceId
-        this.resourceName = resourceName
-        this.resourceType = resourceType
-    }
 
     override fun toString(): String = StringBuilder("{")
         .append("\"attributeName\":").append("\"$attributeName\",")
