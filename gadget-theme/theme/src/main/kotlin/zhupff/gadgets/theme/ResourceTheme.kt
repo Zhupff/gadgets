@@ -33,8 +33,12 @@ open class ResourceTheme @MainThread constructor(
     val info: JSONObject = try {
         JSONObject(resources.assets.open("theme.json").reader(Charsets.UTF_8).readText())
     } catch (e: Exception) {
-        e.printStackTrace()
-        throw IllegalArgumentException("theme.json not found!")
+        if (isOrigin) {
+            JSONObject()
+        } else {
+            e.printStackTrace()
+            throw IllegalArgumentException("theme.json not found!")
+        }
     }
 
     val themeId: String = try {
