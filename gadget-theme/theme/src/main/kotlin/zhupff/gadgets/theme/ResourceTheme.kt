@@ -44,12 +44,13 @@ open class ResourceTheme @MainThread constructor(
     val themeId: String = try {
         if (isOrigin) APPLICATION.packageName else info.getString(INFO_THEME_ID)
     } catch (e: Exception) {
-        throw IllegalArgumentException("Is this an original theme? Otherwise it should have a theme_id which is its package name.")
+        throw IllegalArgumentException("Is [$name] an original theme? Otherwise it should have a theme_id which is its package name.", e)
     }
 
     protected val idCache = HashMap<Int, Int>()
 
     open fun getIdentifier(@AnyRes id: Int): Int {
+        if (isOrigin) return id
         return idCache.getOrPut(id) {
             try {
                 val name = APPLICATION.resources.getResourceEntryName(id)
