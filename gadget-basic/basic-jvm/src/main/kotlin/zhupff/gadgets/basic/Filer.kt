@@ -9,7 +9,7 @@ object Filer {
     fun save(inputStream: InputStream, output: File) {
         inputStream.use { iStream ->
             FileOutputStream(output).use { oStream ->
-                val buffer = ByteArray(2048)
+                val buffer = ByteArray(1024 * 4)
                 while (true) {
                     val length = iStream.read(buffer)
                     if (length != -1) {
