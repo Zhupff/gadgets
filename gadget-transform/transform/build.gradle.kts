@@ -13,7 +13,7 @@ script {
 
 dependencies {
     compileOnly(project(":api"))
-    implementation(project(":gadget-basic:basic-print"))
+    implementation(project(":gadget-basic:basic-jvm"))
     compileOnly(gradleApi())
     compileOnly(libs.android.gradle.v4)
 }

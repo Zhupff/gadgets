@@ -29,7 +29,6 @@ include(
     ":gadget-basic:basic-android",
     ":gadget-basic:basic-compile",
     ":gadget-basic:basic-jvm",
-    ":gadget-basic:basic-print",
 )
 
 include(
