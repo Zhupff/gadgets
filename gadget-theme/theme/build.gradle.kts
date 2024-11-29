@@ -14,5 +14,4 @@ script {
 dependencies {
     implementation(libs.androidx.appcompat)
     implementation(libs.androidx.startup)
-    implementation(project(":gadget-theme:mdc"))
 }
