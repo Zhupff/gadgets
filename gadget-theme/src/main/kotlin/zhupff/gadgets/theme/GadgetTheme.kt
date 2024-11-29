@@ -21,4 +21,10 @@ class GadgetTheme : GadgetDelegate() {
     fun themePack() {
         gadgetsEx.project.pluginManager.apply("zhupff.gadgets.theme.pack")
     }
+
+    fun themeInject(prefix: String, variant: String = prefix) {
+        gadgetsEx.project.pluginManager.apply("zhupff.gadgets.theme.inject")
+        val ext = gadgetsEx.project.extensions.getByType(Class.forName("zhupff.gadgets.theme.ThemeInjectExtension")) as (Array<String>) -> Unit
+        ext.invoke(arrayOf(prefix, variant))
+    }
 }

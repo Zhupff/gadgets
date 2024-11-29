@@ -27,5 +27,9 @@ gradlePlugin {
             id = "zhupff.gadgets.theme.pack"
             implementationClass = "zhupff.gadgets.theme.ThemePackPlugin"
         }
+        register("ThemeInjectPlugin") {
+            id = "zhupff.gadgets.theme.inject"
+            implementationClass = "zhupff.gadgets.theme.ThemeInjectPlugin"
+        }
     }
 }

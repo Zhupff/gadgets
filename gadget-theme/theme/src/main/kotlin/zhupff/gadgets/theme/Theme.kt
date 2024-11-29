@@ -1,5 +1,6 @@
 package zhupff.gadgets.theme
 
+import android.content.res.ColorStateList
 import android.graphics.drawable.Drawable
 import androidx.annotation.ColorRes
 import androidx.annotation.DrawableRes
@@ -41,9 +42,13 @@ abstract class Theme @MainThread constructor(
     }
 
     /**
-     * @return Int or ColorStateList or Null
+     * @return ColorStateList or Int or null(not found).
      */
     abstract fun getColor(@ColorRes id: Int): Any?
+
+    abstract fun getColorInt(@ColorRes id: Int): Int
+
+    abstract fun getColorStateList(@ColorRes id: Int): ColorStateList?
 
     abstract fun getDrawable(@DrawableRes id: Int): Drawable?
 

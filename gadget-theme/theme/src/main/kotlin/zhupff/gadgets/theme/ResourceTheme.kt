@@ -1,6 +1,7 @@
 package zhupff.gadgets.theme
 
 import android.content.res.AssetManager
+import android.content.res.ColorStateList
 import android.content.res.Resources
 import android.graphics.drawable.Drawable
 import androidx.annotation.AnyRes
@@ -30,21 +31,29 @@ open class ResourceTheme @MainThread constructor(
         }
     }
 
-    val info: JSONObject = try {
-        JSONObject(resources.assets.open("theme.json").reader(Charsets.UTF_8).readText())
-    } catch (e: Exception) {
-        if (isOrigin) {
-            JSONObject()
-        } else {
-            e.printStackTrace()
-            throw IllegalArgumentException("theme.json not found!")
+    val info: JSONObject = if (this is ResourceVariantTheme) {
+        (parent as ResourceTheme).info
+    } else {
+        try {
+            JSONObject(resources.assets.open("theme.json").reader(Charsets.UTF_8).readText())
+        } catch (e: Exception) {
+            if (isOrigin) {
+                JSONObject()
+            } else {
+                e.printStackTrace()
+                throw IllegalArgumentException("theme.json not found!")
+            }
         }
     }
 
-    val themeId: String = try {
-        if (isOrigin) APPLICATION.packageName else info.getString(INFO_THEME_ID)
-    } catch (e: Exception) {
-        throw IllegalArgumentException("Is [$name] an original theme? Otherwise it should have a theme_id which is its package name.", e)
+    val themeId: String = if (this is ResourceVariantTheme) {
+        (parent as ResourceTheme).themeId
+    } else {
+        try {
+            if (isOrigin) APPLICATION.packageName else info.getString(INFO_THEME_ID)
+        } catch (e: Exception) {
+            throw IllegalArgumentException("Is [$name] an original theme? Otherwise it should have a theme_id which is its package name.", e)
+        }
     }
 
     protected val idCache = HashMap<Int, Int>()
@@ -84,6 +93,30 @@ open class ResourceTheme @MainThread constructor(
             return color
         }
         return null
+    }
+
+    override fun getColorInt(id: Int): Int {
+        val id2 = getIdentifier(id)
+        try {
+            if (id2 != ResourcesCompat.ID_NULL) {
+                return ResourcesCompat.getColor(resources, id2, null)
+            }
+        } catch (throwable: Throwable) {
+            throwable.printStackTrace()
+        }
+        return parent!!.getColorInt(id)
+    }
+
+    override fun getColorStateList(id: Int): ColorStateList? {
+        val id2 = getIdentifier(id)
+        try {
+            if (id2 != ResourcesCompat.ID_NULL) {
+                return ResourcesCompat.getColorStateList(resources, id2, null)
+            }
+        } catch (throwable: Throwable) {
+            throwable.printStackTrace()
+        }
+        return parent?.getColorStateList(id)
     }
 
     override fun getDrawable(id: Int): Drawable? {
