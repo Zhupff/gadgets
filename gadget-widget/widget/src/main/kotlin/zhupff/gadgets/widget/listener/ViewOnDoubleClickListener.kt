@@ -21,3 +21,15 @@ abstract class ViewOnDoubleClickListener : ViewOnMultiClickListener() {
      */
     open fun onSecondClick(v: View): Long = -DEFAULT_INTERVAL
 }
+
+
+
+inline fun View.onDoubleClick(
+    crossinline first: View.() -> Long,
+    crossinline second: View.() -> Long,
+) {
+    setOnClickListener(object : ViewOnDoubleClickListener() {
+        override fun onFirstClick(v: View): Long = first(v)
+        override fun onSecondClick(v: View): Long = second(v)
+    })
+}

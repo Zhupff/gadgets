@@ -98,3 +98,13 @@ abstract class ViewOnMultiClickListener : View.OnClickListener {
         }
     }
 }
+
+
+
+inline fun View.onMultiClick(
+    crossinline block: View.(Int) -> Long,
+) {
+    setOnClickListener(object : ViewOnMultiClickListener() {
+        override fun onClick(v: View, count: Int): Long = block(v, count)
+    })
+}

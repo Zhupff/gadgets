@@ -11,3 +11,13 @@ abstract class ViewOnSingleClickListener : ViewOnMultiClickListener() {
      */
     open fun onSingleClick(v: View): Long = -DEFAULT_INTERVAL
 }
+
+
+
+inline fun View.onSingleClick(
+    crossinline block: View.() -> Long,
+) {
+    setOnClickListener(object : ViewOnSingleClickListener() {
+        override fun onSingleClick(v: View): Long = block(v)
+    })
+}

@@ -55,6 +55,7 @@ open class ThemeInjectTask : DefaultTask() {
         }
 
         tempDir.copyRecursively(outputDir, true)
+        tempDir.deleteRecursively()
     }
 
     private fun processFile(file: File, ext: ThemeInjectExtension) {
