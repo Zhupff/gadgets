@@ -7,24 +7,24 @@ import zhupff.gadgets.GadgetName
 class GadgetTheme : GadgetDelegate() {
 
     fun mdc(method: String = "implementation") {
-        gadgetsEx.project.dependencies.add(method, GadgetThemePublication.dependency("mdc"))
+        gadgets.project.dependencies.add(method, GadgetThemePublication.dependency("mdc"))
     }
 
     fun theme(method: String = "implementation") {
-        gadgetsEx.project.dependencies.add(method, GadgetThemePublication.dependency("theme"))
+        gadgets.project.dependencies.add(method, GadgetThemePublication.dependency("theme"))
     }
 
     fun themeMerge() {
-        gadgetsEx.project.pluginManager.apply("zhupff.gadgets.theme.merge")
+        gadgets.project.pluginManager.apply("zhupff.gadgets.theme.merge")
     }
 
     fun themePack() {
-        gadgetsEx.project.pluginManager.apply("zhupff.gadgets.theme.pack")
+        gadgets.project.pluginManager.apply("zhupff.gadgets.theme.pack")
     }
 
     fun themeInject(prefix: String, variant: String = prefix) {
-        gadgetsEx.project.pluginManager.apply("zhupff.gadgets.theme.inject")
-        val ext = gadgetsEx.project.extensions.getByType(Class.forName("zhupff.gadgets.theme.ThemeInjectExtension")) as (Array<String>) -> Unit
+        gadgets.project.pluginManager.apply("zhupff.gadgets.theme.inject")
+        val ext = gadgets.project.extensions.getByType(Class.forName("zhupff.gadgets.theme.ThemeInjectExtension")) as (Array<String>) -> Unit
         ext.invoke(arrayOf(prefix, variant))
     }
 }

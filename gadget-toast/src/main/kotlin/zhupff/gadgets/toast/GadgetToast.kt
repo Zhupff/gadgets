@@ -7,6 +7,6 @@ import zhupff.gadgets.GadgetName
 class GadgetToast : GadgetDelegate() {
 
     fun toast(method: String = "implementation") {
-        gadgetsEx.project.dependencies.add(method, GadgetToastPublication.dependency("toast"))
+        gadgets.project.dependencies.add(method, GadgetToastPublication.dependency("toast"))
     }
 }

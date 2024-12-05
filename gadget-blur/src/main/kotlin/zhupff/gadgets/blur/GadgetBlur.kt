@@ -7,6 +7,6 @@ import zhupff.gadgets.GadgetName
 class GadgetBlur : GadgetDelegate() {
 
     fun blur(method: String = "implementation") {
-        gadgetsEx.project.dependencies.add(method, GadgetBlurPublication.dependency("blur"))
+        gadgets.project.dependencies.add(method, GadgetBlurPublication.dependency("blur"))
     }
 }

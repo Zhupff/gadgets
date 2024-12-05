@@ -10,7 +10,7 @@ import zhupff.gadgets.GadgetName
 @GadgetName("Transform")
 class GadgetTransform : GadgetDelegate() {
 
-    private val context: TransformContext = TransformContext(gadgetsEx.project)
+    private val context: TransformContext = TransformContext(gadgets.project)
 
     private val transformers = ArrayList<GadgetBaseTransform.Transformer>()
 
@@ -33,8 +33,8 @@ class GadgetTransform : GadgetDelegate() {
     override fun afterClosure() {
         super.afterClosure()
         val extension: BaseExtension = when {
-            context.isApplicationProject -> gadgetsEx.project.extensions.getByType(AppExtension::class.java)
-            context.isLibraryProject -> gadgetsEx.project.extensions.getByType(LibraryExtension::class.java)
+            context.isApplicationProject -> gadgets.project.extensions.getByType(AppExtension::class.java)
+            context.isLibraryProject -> gadgets.project.extensions.getByType(LibraryExtension::class.java)
             else -> return
         }
         if (transformers.isNotEmpty()) {

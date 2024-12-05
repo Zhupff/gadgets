@@ -7,6 +7,6 @@ import zhupff.gadgets.GadgetName
 class GadgetLogger : GadgetDelegate() {
 
     fun logger(method: String = "implementation") {
-        gadgetsEx.project.dependencies.add(method, GadgetLoggerPublication.dependency("logger"))
+        gadgets.project.dependencies.add(method, GadgetLoggerPublication.dependency("logger"))
     }
 }

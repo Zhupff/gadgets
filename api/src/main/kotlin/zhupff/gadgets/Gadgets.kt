@@ -17,7 +17,7 @@ open class Gadgets : Plugin<Project>, MutableMap<Any, Any> by ConcurrentHashMap(
         this[Project::class.java] = target
         target.extensions.add(javaClass, "gadgets", this)
         ServiceLoader.load(GadgetDelegate::class.java).forEach { gadgetDelegate ->
-            gadgetDelegate.gadgetsEx = this
+            gadgetDelegate.gadgets = this
             put(gadgetDelegate.name, gadgetDelegate)
         }
     }

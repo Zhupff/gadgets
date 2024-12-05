@@ -7,10 +7,10 @@ import zhupff.gadgets.GadgetName
 class GadgetBasic : GadgetDelegate() {
 
     fun android(method: String = "implementation") {
-        gadgetsEx.project.dependencies.add(method, GadgetBasicPublication.dependency("basic-android"))
+        gadgets.project.dependencies.add(method, GadgetBasicPublication.dependency("basic-android"))
     }
 
     fun jvm(method: String = "implementation") {
-        gadgetsEx.project.dependencies.add(method, GadgetBasicPublication.dependency("basic-jvm"))
+        gadgets.project.dependencies.add(method, GadgetBasicPublication.dependency("basic-jvm"))
     }
 }

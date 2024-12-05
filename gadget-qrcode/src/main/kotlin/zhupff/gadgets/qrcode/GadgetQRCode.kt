@@ -7,6 +7,6 @@ import zhupff.gadgets.GadgetName
 class GadgetQRCode : GadgetDelegate() {
 
     fun qrcode(method: String = "implementation") {
-        gadgetsEx.project.dependencies.add(method, GadgetQRCodePublication.dependency("qrcode"))
+        gadgets.project.dependencies.add(method, GadgetQRCodePublication.dependency("qrcode"))
     }
 }
