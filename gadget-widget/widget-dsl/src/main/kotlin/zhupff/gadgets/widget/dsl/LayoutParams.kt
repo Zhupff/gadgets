@@ -27,7 +27,7 @@ inline fun <reified L : ViewGroup.LayoutParams> View.layoutParamsAs(
     layoutParams = it
 }
 
-// region begin: ConstraintLayout.LayoutParams
+// region ConstraintLayout.LayoutParams
 
 internal typealias ConstraintLayoutParams = ConstraintLayout.LayoutParams
 
@@ -68,4 +68,4 @@ fun ConstraintLayoutParams.center() {
     centerVertical()
 }
 
-// region end
+// endregion
