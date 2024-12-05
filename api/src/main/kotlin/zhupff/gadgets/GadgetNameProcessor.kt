@@ -69,7 +69,7 @@ class GadgetNameProcessor : AbstractProcessor() {
                     )
                     .addFunction(
                         FunSpec.builder(publication.name)
-                            .receiver(ClassName("zhupff.gadgets", "GadgetsExtension"))
+                            .receiver(ClassName("zhupff.gadgets", "Gadgets"))
                             .addParameter(
                                 ParameterSpec
                                     .builder("closure", LambdaTypeName.get(ClassName(packageName, publication.gadget), returnType = UNIT))

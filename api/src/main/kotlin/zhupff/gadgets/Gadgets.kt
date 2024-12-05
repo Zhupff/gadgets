@@ -2,15 +2,20 @@ package zhupff.gadgets
 
 import groovy.lang.Closure
 import groovy.lang.GroovyClassLoader
+import org.gradle.api.Plugin
 import org.gradle.api.Project
 import java.util.ServiceLoader
 import java.util.concurrent.ConcurrentHashMap
 
-class GadgetsExtension(
-    val project: Project,
-): MutableMap<String, GadgetDelegate> by ConcurrentHashMap() {
+open class Gadgets : Plugin<Project>, MutableMap<Any, Any> by ConcurrentHashMap() {
 
-    init {
+    val project: Project; get() = this[Project::class.java] as Project
+
+    override fun apply(target: Project) {
+        println("$target apply $this")
+        clear()
+        this[Project::class.java] = target
+        target.extensions.add(javaClass, "gadgets", this)
         ServiceLoader.load(GadgetDelegate::class.java).forEach { gadgetDelegate ->
             gadgetDelegate.gadgetsEx = this
             put(gadgetDelegate.name, gadgetDelegate)
@@ -25,22 +30,22 @@ class GadgetsExtension(
         val code = StringBuilder()
             .appendLine("package zhupff.gadgets")
             .appendLine("class GadgetsCompose {")
-            .appendLine("  final GadgetsExtension gadgetsEx")
-            .appendLine("  GadgetsCompose(GadgetsExtension gadgetsEx) {")
-            .appendLine("    this.gadgetsEx = gadgetsEx")
+            .appendLine("  final Gadgets gadgets")
+            .appendLine("  GadgetsCompose(Gadgets gadgets) {")
+            .appendLine("    this.gadgets = gadgets")
             .appendLine("  }")
         forEach { (name, gadgetDelegate) -> code
             .appendLine("  def ${name}(closure) {")
-            .appendLine("    gadgetsEx.get(\"${name}\").closure(closure)")
+            .appendLine("    gadgets.get(\"${name}\").closure(closure)")
             .appendLine("  }")
         }
         code.appendLine("}")
 
-        val gadgetCompose = GroovyClassLoader()
+        val gadgetsCompose = GroovyClassLoader()
             .parseClass(code.toString())
-            .getConstructor(GadgetsExtension::class.java)
+            .getConstructor(Gadgets::class.java)
             .newInstance(this)
-        closure.delegate = gadgetCompose
+        closure.delegate = gadgetsCompose
         closure.call()
     }
 }
