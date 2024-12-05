@@ -4,6 +4,8 @@ import groovy.lang.Closure
 import groovy.lang.GroovyClassLoader
 import org.gradle.api.Plugin
 import org.gradle.api.Project
+import org.gradle.api.publish.PublishingExtension
+import org.gradle.api.publish.maven.MavenPublication
 import java.util.ServiceLoader
 import java.util.concurrent.ConcurrentHashMap
 
@@ -47,5 +49,33 @@ open class Gadgets : Plugin<Project>, MutableMap<Any, Any> by ConcurrentHashMap(
             .newInstance(this)
         closure.delegate = gadgetsCompose
         closure.call()
+    }
+
+    fun publish() {
+        project.let { p ->
+            p.pluginManager.apply("maven-publish")
+            p.afterEvaluate {
+                p.extensions.configure(PublishingExtension::class.java) {
+                    repositories {
+                        mavenLocal()
+                    }
+                    publications {
+                        create("MavenLocalPublication", MavenPublication::class.java) {
+                            from(p.components.getByName(
+                                if (p.pluginManager.hasPlugin("com.android.application") ||
+                                    p.pluginManager.hasPlugin("com.android.library")) {
+                                    "release"
+                                } else {
+                                    "java"
+                                }
+                            ))
+                            groupId = p.group.toString()
+                            artifactId = p.name
+                            version = p.version.toString()
+                        }
+                    }
+                }
+            }
+        }
     }
 }
