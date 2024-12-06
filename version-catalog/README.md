@@ -18,3 +18,7 @@ dependencyResolutionManagement {
     }
 }
 ```
+
+## 注意
+
+[jitpack](https://jitpack.io) 打不出`.toml`文件，所以这个功能暂时用不了。[issue](https://github.com/jitpack/jitpack.io/issues/5713)

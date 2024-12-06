@@ -5,8 +5,6 @@ import com.android.build.api.dsl.CommonExtension
 import com.android.build.api.dsl.LibraryExtension
 import org.gradle.api.JavaVersion
 import org.gradle.api.Project
-import org.gradle.api.artifacts.VersionCatalog
-import org.gradle.api.artifacts.VersionCatalogsExtension
 import org.gradle.api.plugins.ExtensionAware
 import org.gradle.api.plugins.JavaPluginExtension
 import org.jetbrains.kotlin.gradle.dsl.KotlinJvmOptions
@@ -53,11 +51,6 @@ abstract class GadgetsAndroidTemplate<E> : Gadgets() {
                     enable = true
                 }
             }
-            dependencies.apply {
-                add("implementation", gvc.findLibrary("androidx-appcompat").get())
-                add("implementation", gvc.findLibrary("androidx-core-ktx").get())
-                add("implementation", gvc.findLibrary("androidx-startup").get())
-            }
         }
     }
 
@@ -90,9 +83,6 @@ abstract class GadgetsAndroidTemplate<E> : Gadgets() {
     protected fun CommonExtension<*, *, *, *, *>.kotlinOptions(block: KotlinJvmOptions.() -> Unit) {
         (this as ExtensionAware).extensions.configure("kotlinOptions", block)
     }
-
-    protected val Project.gvc: VersionCatalog
-        get() = extensions.getByType(VersionCatalogsExtension::class.java).named("gvc")
 }
 
 open class GadgetsAndroid : GadgetsAndroidTemplate<LibraryExtension>() {
