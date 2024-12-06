@@ -1,0 +1,163 @@
+<?xml version="1.0" encoding="utf-8"?>
+<zhupff.gadgets.theme.ThemeConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/theme__Surface"
+    app:CornerClipRadius="10dp"
+    app:BorderWidth="3dp"
+    app:BorderColor="@color/theme__OnSurfaceVariant">
+
+    <androidx.appcompat.widget.AppCompatImageView
+        android:id="@+id/Logo"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintWidth_percent="0.1"
+        app:layout_constraintDimensionRatio="1:1"
+        app:layout_constraintHorizontal_bias="0.1"
+        app:layout_constraintVertical_bias="0.04"
+        android:layout_marginTop="5dp"
+        android:src="@drawable/logo"
+        android:tint="@color/theme__Primary"/>
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/Title"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        app:layout_constraintStart_toEndOf="@id/Logo"
+        app:layout_constraintTop_toTopOf="@id/Logo"
+        app:layout_constraintBottom_toBottomOf="@id/Logo"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:gravity="center"
+        android:textSize="15sp"
+        android:textColor="@color/theme__OnSurface"
+        tools:text="Light"/>
+
+    <zhupff.gadgets.theme.widget.CornerClipView
+        android:id="@+id/V1"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/Logo"
+        app:layout_constraintBottom_toTopOf="@id/BottomBar"
+        app:layout_constraintWidth_percent="0.8"
+        app:layout_constraintHeight_percent="0.2"
+        app:layout_constraintVertical_bias="0.05"
+        android:background="@color/theme__Primary"
+        app:CornerClipRadius="10dp"
+        app:BorderWidth="2dp"
+        app:BorderColor="@color/theme__PrimaryContainer"/>
+
+    <zhupff.gadgets.theme.widget.CornerClipView
+        android:id="@+id/V2"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        app:layout_constraintStart_toStartOf="@id/V1"
+        app:layout_constraintTop_toBottomOf="@id/V1"
+        app:layout_constraintBottom_toTopOf="@id/BottomBar"
+        app:layout_constraintWidth_percent="0.36"
+        app:layout_constraintHeight_percent="0.5"
+        android:background="@color/theme__Secondary"
+        app:CornerClipRadius="10dp"
+        app:BorderWidth="2dp"
+        app:BorderColor="@color/theme__SecondaryContainer"/>
+
+    <zhupff.gadgets.theme.widget.CornerClipView
+        android:id="@+id/V3"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        app:layout_constraintEnd_toEndOf="@id/V1"
+        app:layout_constraintTop_toTopOf="@id/V2"
+        app:layout_constraintWidth_percent="0.36"
+        app:layout_constraintHeight_percent="0.25"
+        android:background="@color/darktheme__Tertiary"
+        app:CornerClipRadius="10dp"
+        app:BorderWidth="2dp"
+        app:BorderColor="@color/darktheme__TertiaryContainer"/>
+
+    <androidx.appcompat.widget.AppCompatImageView
+        android:id="@+id/Check"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        app:layout_constraintEnd_toEndOf="@id/V3"
+        app:layout_constraintBottom_toBottomOf="@id/V2"
+        app:layout_constraintWidth_percent="0.36"
+        app:layout_constraintDimensionRatio="1:1"
+        android:src="@drawable/ic_check"
+        android:tint="@color/theme__Error"
+        android:visibility="invisible"
+        tools:visibility="visible"/>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/BottomBar"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintHeight_percent="0.1"
+        android:background="@color/theme__SurfaceContainer">
+
+        <zhupff.gadgets.theme.widget.CornerClipView
+            android:id="@+id/BottomButton1"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toStartOf="@id/BottomButton2"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintHeight_percent="0.5"
+            app:layout_constraintWidth_percent="0.2"
+            app:layout_constraintHorizontal_chainStyle="spread"
+            android:background="@color/theme__Primary"
+            app:CornerClipRadius="-1dp"
+            app:BorderWidth="1dp"
+            app:BorderColor="@color/theme__Outline"/>
+
+        <zhupff.gadgets.theme.widget.CornerClipView
+            android:id="@+id/BottomButton2"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            app:layout_constraintStart_toEndOf="@id/BottomButton1"
+            app:layout_constraintEnd_toStartOf="@id/BottomButton3"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintHeight_percent="0.5"
+            app:layout_constraintWidth_percent="0.2"
+            android:background="@color/theme__Secondary"
+            app:CornerClipRadius="-1dp"/>
+
+        <zhupff.gadgets.theme.widget.CornerClipView
+            android:id="@+id/BottomButton3"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            app:layout_constraintStart_toEndOf="@id/BottomButton2"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintHeight_percent="0.5"
+            app:layout_constraintWidth_percent="0.2"
+            android:background="@color/theme__Secondary"
+            app:CornerClipRadius="-1dp"/>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/Mask"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:gravity="center"
+        android:background="@color/theme__Secondary"
+        android:textColor="@color/darktheme__OnSecondary"
+        android:textSize="12sp"
+        android:text="未下载"
+        tools:visibility="gone"/>
+
+</zhupff.gadgets.theme.ThemeConstraintLayout>

@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <attr name="CornerClipRadius" format="dimension"/>
+    <attr name="BorderWidth" format="dimension"/>
+    <attr name="BorderColor" format="color"/>
+    <attr name="fitTopInset" format="boolean"/>
+    <attr name="fitBottomInset" format="boolean"/>
+
+    <declare-styleable name="CornerClipView">
+        <attr name="CornerClipRadius"/>
+        <attr name="BorderWidth"/>
+        <attr name="BorderColor"/>
+    </declare-styleable>
+
+    <declare-styleable name="CornerClipConstraintLayout">
+        <attr name="CornerClipRadius"/>
+        <attr name="BorderWidth"/>
+        <attr name="BorderColor"/>
+    </declare-styleable>
+
+    <declare-styleable name="ThemeConstraintLayout">
+        <attr name="CornerClipRadius"/>
+        <attr name="BorderWidth"/>
+        <attr name="BorderColor"/>
+    </declare-styleable>
+
+    <declare-styleable name="FitInsetsFrameLayout">
+        <attr name="fitTopInset"/>
+        <attr name="fitBottomInset"/>
+    </declare-styleable>
+
+    <declare-styleable name="FitInsetsLinearLayout">
+        <attr name="fitTopInset"/>
+        <attr name="fitBottomInset"/>
+    </declare-styleable>
+</resources>

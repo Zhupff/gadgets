@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8"?>
+<zhupff.gadgets.theme.widget.FitInsetsLinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    android:background="@color/theme__Surface"
+    app:fitTopInset="true"
+    app:fitBottomInset="true">
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:layout_gravity="center_horizontal|bottom"
+        android:gravity="center"
+        android:textColor="@color/theme__OnSurface"
+        android:textSize="20sp"
+        android:textStyle="bold"
+        android:text="gadget-theme sample"/>
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/AssetsThemeList"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"/>
+
+</zhupff.gadgets.theme.widget.FitInsetsLinearLayout>

@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<zhupff.gadgets.theme.widget.CornerClipConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="wrap_content"
+    android:layout_height="match_parent"
+    app:CornerClipRadius="10dp">
+
+    <View
+        android:layout_width="30dp"
+        android:layout_height="match_parent"/>
+
+    <androidx.appcompat.widget.AppCompatImageView
+        android:id="@+id/Cover"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintDimensionRatio="16:9"
+        android:scaleType="centerCrop"
+        android:src="@drawable/pic"/>
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/Name"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        app:layout_constraintStart_toStartOf="@id/Cover"
+        app:layout_constraintEnd_toEndOf="@id/Cover"
+        app:layout_constraintBottom_toBottomOf="@id/Cover"
+        android:background="@color/theme__Tertiary"
+        android:textColor="@color/theme__OnTertiary"
+        android:paddingHorizontal="5dp"/>
+
+</zhupff.gadgets.theme.widget.CornerClipConstraintLayout>

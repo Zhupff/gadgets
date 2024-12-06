@@ -1,1 +1,3 @@
 ![](./logo.svg)
+
+![](./sample.gif)
