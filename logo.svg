@@ -1,0 +1,18 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 128 128">
+    <path
+        fill="none"
+        stroke="currentColor"
+        stroke-linejoin="round"
+        stroke-width="8.0"
+        stroke-linecap="round"
+        d="M56.857143,26.884628L28.285713,26.884628L14.0,51.62821L28.285713,76.37179L56.857143,76.37179L71.14286,51.62821L42.571426,51.62821"
+    />
+    <path
+        fill="none"
+        stroke="currentColor"
+        stroke-linejoin="round"
+        stroke-width="8.0"
+        stroke-linecap="round"
+        d="M99.71429,51.62821L71.14286,51.62821L56.857143,76.37179L71.14286,101.11537L99.71429,101.11537L114.0,76.37179L85.42857,76.37179"
+    />
+</svg>
