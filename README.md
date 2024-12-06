@@ -1,3 +1,5 @@
+![](./logo.svg)
+
 # gadgets
 
 [![](https://jitpack.io/v/Zhupff/gadgets.svg)](https://jitpack.io/#Zhupff/gadgets)
