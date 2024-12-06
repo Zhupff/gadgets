@@ -1,0 +1,26 @@
+[versions]
+androidGradlePlugin = "8.1.1"
+androidxAppCompat = "1.6.1"
+androidxConstraintLayout = "2.1.4"
+androidxCore = "1.9.0"
+androidxStartup = "1.1.1"
+autoService = "1.1.1"
+kotlin = "1.8.10"
+
+[plugins]
+android-application = { id = "com.android.application", version.ref = "androidGradlePlugin" }
+android-library = { id = "com.android.library", version.ref = "androidGradlePlugin" }
+kotlin-android = { id = "org.jetbrains.kotlin.android", version.ref = "kotlin" }
+kotlin-jvm = { id = "org.jetbrains.kotlin.jvm", version.ref = "kotlin" }
+kotlin-kapt = { id = "org.jetbrains.kotlin.kapt", version.ref = "kotlin" }
+
+[libraries]
+android-material = { group = "com.google.android.material", name = "material", version = "1.8.0" }
+androidx-appcompat = { group = "androidx.appcompat", name = "appcompat", version.ref = "androidxAppCompat" }
+androidx-constraintlayout = { group = "androidx.constraintlayout", name = "constraintlayout", version.ref = "androidxConstraintLayout" }
+androidx-coordinatorlayout = { group = "androidx.coordinatorlayout", name = "coordinatorlayout", version = "1.2.0" }
+androidx-core-ktx = { group = "androidx.core", name = "core-ktx", version.ref = "androidxCore" }
+androidx-recyclerview = { group = "androidx.recyclerview", name = "recyclerview", version = "1.2.1" }
+androidx-startup = { group = "androidx.startup", name = "startup-runtime", version.ref = "androidxStartup" }
+autoservice-annotation = { group = "com.google.auto.service", name = "auto-service-annotations", version.ref = "autoService" }
+autoservice-processor = { group = "com.google.auto.service", name = "auto-service", version.ref = "autoService" }
