@@ -46,7 +46,9 @@ class ThemeObject private constructor(val view: View) : View.OnAttachStateChange
         }
         view.setTag(TAG_ID, this)
         view.addOnAttachStateChangeListener(this)
-        attachThemeDispatcher()
+        if (view.isAttachedToWindow) {
+            attachThemeDispatcher()
+        }
     }
 
     fun release() {

@@ -5,8 +5,10 @@ import androidx.core.content.res.ResourcesCompat
 
 abstract class ThemeAttribute(
     val attributeName: String,
-    resourceId: Int = ResourcesCompat.ID_NULL,
+    resourceId: Int,
 ) : Cloneable {
+
+    constructor(attributeName: String) : this(attributeName, ResourcesCompat.ID_NULL)
 
     companion object {
         const val TYPE_COLOR = "color"
