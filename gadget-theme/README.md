@@ -1,6 +1,6 @@
 # gadget-theme
 
-> 简单易用的Android App 主题换肤框架。
+> 简单易用的Android App 主题换肤框架。[示例代码](https://github.com/Zhupff/gadgets/tree/gadget-theme-sample)
 
 ![](./README_ASSETS/sample.gif)
 
