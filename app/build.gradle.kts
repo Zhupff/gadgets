@@ -3,7 +3,7 @@ import zhupff.gadgets.theme.Theme
 
 plugins {
     id("zhupff.gadgets.application")
-    alias(gvc.plugins.kotlin.kapt)
+    alias(libs.plugins.kotlin.kapt)
 }
 
 gadgets {
@@ -27,9 +27,11 @@ gadgets {
 }
 
 dependencies {
-    implementation(gvc.autoservice.annotation)
-    kapt(gvc.autoservice.processor)
-    implementation(gvc.androidx.constraintlayout)
-    implementation(gvc.androidx.recyclerview)
-    implementation(gvc.android.material)
+    implementation(libs.androidx.appcompat)
+    implementation(libs.androidx.core.ktx)
+    implementation(libs.androidx.constraintlayout)
+    implementation(libs.androidx.recyclerview)
+    implementation(libs.android.material)
+    implementation(libs.autoservice.annotation)
+    kapt(libs.autoservice.processor)
 }

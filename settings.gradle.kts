@@ -15,14 +15,6 @@ dependencyResolutionManagement {
         mavenLocal()
         maven("https://jitpack.io")
     }
-    versionCatalogs {
-        create("gvc") {
-//            from("zhupff.gadgets:version-catalog:0")
-
-            // 服了，jitpack打不出toml文件??? https://github.com/jitpack/jitpack.io/issues/5713
-            from(files("./gradle/libs.versions.toml"))
-        }
-    }
 }
 
 rootProject.name = "GadgetTheme"

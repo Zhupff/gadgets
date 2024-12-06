@@ -3,7 +3,6 @@ androidGradlePlugin = "8.1.1"
 androidxAppCompat = "1.6.1"
 androidxConstraintLayout = "2.1.4"
 androidxCore = "1.9.0"
-androidxStartup = "1.1.1"
 autoService = "1.1.1"
 kotlin = "1.8.10"
 
@@ -21,6 +20,5 @@ androidx-constraintlayout = { group = "androidx.constraintlayout", name = "const
 androidx-coordinatorlayout = { group = "androidx.coordinatorlayout", name = "coordinatorlayout", version = "1.2.0" }
 androidx-core-ktx = { group = "androidx.core", name = "core-ktx", version.ref = "androidxCore" }
 androidx-recyclerview = { group = "androidx.recyclerview", name = "recyclerview", version = "1.2.1" }
-androidx-startup = { group = "androidx.startup", name = "startup-runtime", version.ref = "androidxStartup" }
 autoservice-annotation = { group = "com.google.auto.service", name = "auto-service-annotations", version.ref = "autoService" }
 autoservice-processor = { group = "com.google.auto.service", name = "auto-service", version.ref = "autoService" }
