@@ -2,79 +2,87 @@
 
 # gadgets
 
-[![](https://jitpack.io/v/Zhupff/gadgets.svg)](https://jitpack.io/#Zhupff/gadgets)
+`Gadgets` 是一系列自定义库的集合，本身提供了对这些库的统一管理，能够方便快捷的引入并使用这些库。
 
-这个项目的初衷将本人在开发过程中遇到的一些常用功能或想法进行实现、封装、汇总，作为经验累积的同时也能方便快速地引入到其他项目开发中，更希望能通过这个项目进行交流分享，一起学习，共同进步。
+当然如果想不依赖`Gadgets`去使用某个库也是可以的。
 
-> demo很多，想法也很多，一步一步慢慢来～
+>  这个项目的初衷，是将本人在开发过程中遇到的一些常用功能或想法进行实现、封装、汇总，作为经验累积的同时，也能方便快速地引入到其他项目开发中，更希望能通过这个项目进行交流分享，一起学习，共同进步。
+> 想法很多，一直在路上，一步一步慢慢来～
 
----
+
 
 ## 用法
 
-1. 添加`jitpack.io`仓库
+> - 如果你只想体验或使用某个稳定版本的功能，那么可以使用 `jitpack.io` 仓库去引入依赖。
+> - 如果你想修改功能或快速迭代，那么推荐将本项目拉取到本地后，发布到`mavenLocal()`再使用。
+
+### 使用 `jitpack.io`
+
+1. 添加 `jitpack.io` 仓库 [![](https://jitpack.io/v/Zhupff/gadgets.svg)](https://jitpack.io/#Zhupff/gadgets)
+
+2. 引入项目
 
    ```kotlin
-   repositories {
-       maven { url 'https://jitpack.io' }
+   // 项目根目录 build.gradle.kts
+   buildscript {
+       dependencies {
+           classpath("com.github.Zhupff.gadgets:api:<version>")
+       }
    }
-   ```
-
-2. 使用`zhupff.gadgets`插件
-
-   ```kotlin
-   /**
-    * root project build.gradle.kts
-    */
-   plugins {
-       id("zhupff.gadgets") version "xxx" apply false
-   }
-   // If can NOT find "zhupff.gadgets", try to add "api" classpath:
-   // classpath("com.github.Zhupff.gadgets:api:xxx")
    
-   
-   /**
-    * module build.gradle.kts
-    */
+   // 项目模块 build.gradle.kts
    plugins {
        id("zhupff.gadgets")
    }
-   ...
    gadgets {
-     // Configure whatever you need.
-   }
-   // If you use groovy-language with build.gradle file, try this.
-   gadgets.compose {
-     // Configure whatever you need.
+       // 在这里对库进行管理&使用
    }
    ```
 
-3. 使用某项功能（这里以`basic`为例）
+### 使用 `mavenLocal()`
+
+1. 拉取项目后，在 Terminal 执行 `./gradlew publish`，就会发布到本地的 `.m2` 仓库。
+
+2. 添加 `mavenLocal` 仓库
+
+3. 引入项目
 
    ```kotlin
-   // root project build.gradle.kts
+   // 项目根目录 build.gradle.kts
    buildscript {
        dependencies {
-           // 这里的版本yyy可以与"zhupff.gadgets"插件的版本xxx不同，自行挑选适合的版本使用吧～
-           classpath("com.github.Zhupff.gadgets:gadget-basic:yyy")
+           classpath("zhupff.gadgets:api:0")
        }
    }
    
-   // module build.gradle.kts
+   // 项目模块 build.gradle.kts
+   plugins {
+       id("zhupff.gadgets")
+   }
    gadgets {
-       // 使用com.github.Zhupff.gadgets:gadget-basic:yyy
-       Basic {
-           // implementation("com.github.Zhupff.gadgets:basic-jvm:yyy")
-           jvm("implementation")
-           // api("com.github.Zhupff.gadgets:basic-android:yyy")
-           android("api")
-       }
+       // 在这里对库进行管理&使用
    }
    ```
 
-4. Enjoy
+### 补充说明
 
-## 功能
+- 使用 `jitpack.io` 和 `mavenLocal()` 没有太大区别，但需要注意两者的 `group` 和 `version` 并不相同：
+
+  - `jitpack.io`： group = `com.github.Zhupff.gadgets` ，version = 具体发布的版本
+  - `mavenLocal()` ：group = `zhupff.gadgets` ，version = `0`
+
+- 这个使用说明是按照 `build.gradle.kts` 的格式出的，如果还在使用 `build.gradle` 的话，需要使用以下语法去兼容 `groovy`：
+
+  ```groovy
+  gadgets.compose {
+      // 在这里对库进行管理&使用
+  }
+  // 因为还没对groovy脚本进行完整测试，如果有问题欢迎反馈issue。
+  ```
+
+
+
+## 自定义库
 
 - [gadget-basic](./gadget-basic/README.md)：一些基础功能的封装。
 - [gadget-blur](./gadget-blur/README.md)：对View体系的模糊功能的相关研究与实现。
@@ -85,7 +93,9 @@
 - [gadget-toast](./gadget-toast/README.md)：对系统Toast功能的一些封装处理。
 - [gadget-transform](./gadget-transform/README.md)：对以往写过的字节码插桩相关的内容进行整理，还在整理中。。。
 - [gadget-widget](./gadget-widget/README.md)：主要是一些自定义View、通用功能封装以及dsl化使用。
-- [version-catalog](./version-catalog/README.md)：整理gadgets里使用到的各个依赖的版本，项目使用这里的版本可以获得最大的兼容性。
+- [version-catalog](./version-catalog/README.md)：整理gadgets里使用到的各个依赖的版本，方便项目快速添加依赖并确保兼容性。
+
+
 
 ## LICENSE
 
