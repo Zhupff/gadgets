@@ -1,9 +1,11 @@
 package zhupff.gadgets.theme
 
+import android.content.pm.PackageManager
 import android.content.res.AssetManager
 import android.content.res.ColorStateList
 import android.content.res.Resources
 import android.graphics.drawable.Drawable
+import android.os.Build
 import androidx.annotation.AnyRes
 import androidx.annotation.MainThread
 import androidx.core.content.res.ResourcesCompat
@@ -27,6 +29,23 @@ open class ResourceTheme @MainThread constructor(
             } catch (e: Exception) {
                 e.printStackTrace()
                 null
+            }
+        }
+
+        @JvmStatic
+        fun loadResources2(filePath: String): Resources? {
+            return try {
+                val packageInfo = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
+                    APPLICATION.packageManager.getPackageArchiveInfo(filePath, PackageManager.PackageInfoFlags.of(0))!!
+                } else {
+                    APPLICATION.packageManager.getPackageArchiveInfo(filePath, 0)!!
+                }
+                packageInfo.applicationInfo.sourceDir = filePath
+                packageInfo.applicationInfo.publicSourceDir = filePath
+                APPLICATION.packageManager.getResourcesForApplication(packageInfo.applicationInfo)
+            } catch (e: Exception) {
+                e.printStackTrace()
+                loadResources(filePath)
             }
         }
     }

@@ -1,8 +1,13 @@
 package zhupff.gadgets.theme
 
+import android.app.Activity
 import android.content.ContextWrapper
 import android.view.View
+import androidx.collection.ArrayMap
+import androidx.fragment.app.Fragment
+import androidx.fragment.app.FragmentActivity
 import androidx.lifecycle.Observer
+import java.util.LinkedList
 
 class ThemeObject private constructor(val view: View) : View.OnAttachStateChangeListener, Observer<Theme> {
 
@@ -86,26 +91,42 @@ class ThemeObject private constructor(val view: View) : View.OnAttachStateChange
 
     private fun findThemeDispatcher(): ThemeDispatcher {
         if (view is ThemeDispatcher) return view
-
-        var parent = view.parent
-        while (parent != null) {
-            if (parent is ThemeDispatcher) {
-                return parent
-            }
-            if (parent is View) {
-                get(parent)?.themeDispatcher?.let { return it }
-            }
-            parent = parent.parent
-        }
-
         var context = view.context
         while (context is ContextWrapper) {
-            if (context is ThemeDispatcher) {
-                return context
+            if (context is Activity) {
+                break
             }
             context = context.baseContext
         }
-
+        if (context is FragmentActivity) {
+            val map = ArrayMap<View, Fragment>()
+            val queue = LinkedList<Fragment>(context.supportFragmentManager.fragments)
+            while (queue.isNotEmpty()) {
+                val fragment = queue.pop()
+                queue.addAll(fragment.childFragmentManager.fragments)
+                map[fragment.view] = fragment
+            }
+            val root: View = context.findViewById(android.R.id.content)
+            var fragment: Fragment? = null
+            var current = view
+            while (current !== root) {
+                fragment = map[current]
+                if (fragment != null) {
+                    if (fragment is ThemeDispatcher) {
+                        return fragment
+                    }
+                }
+                current = current.parent as? View ?: break
+                val dispatcher = current as? ThemeDispatcher ?: ThemeObject.get(current)?.themeDispatcher
+                if (dispatcher != null) {
+                    return dispatcher
+                }
+            }
+        }
+        if (context is ThemeDispatcher) {
+            return context
+        }
+        return view.context.applicationContext as? ThemeDispatcher ?:
         throw IllegalStateException("Can't find theme dispatcher for $view!")
     }
 
