@@ -2,25 +2,21 @@ pluginManagement {
     repositories {
         google()
         mavenCentral()
-        mavenLocal()
         gradlePluginPortal()
-        maven(url = "https://jitpack.io")
     }
-    includeBuild("gradle")
 }
 dependencyResolutionManagement {
     repositoriesMode.set(RepositoriesMode.FAIL_ON_PROJECT_REPOS)
     repositories {
         google()
         mavenCentral()
-        mavenLocal()
-        maven(url = "https://jitpack.io")
+    }
+    versionCatalogs {
+        create("libs") {
+            from(files("./libs.versions.toml"))
+        }
     }
 }
 
-rootProject.name = "gadgets"
-
-include(
-    ":gadget-gradle",
-)
- 
+rootProject.name = "gradle"
+include(":plugin")
