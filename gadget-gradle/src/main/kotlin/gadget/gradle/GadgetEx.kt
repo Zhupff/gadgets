@@ -1,5 +1,6 @@
 package gadget.gradle
 
+import com.squareup.kotlinpoet.ClassName
 import com.squareup.kotlinpoet.FileSpec
 import com.squareup.kotlinpoet.FunSpec
 import com.squareup.kotlinpoet.ParameterSpec
@@ -23,19 +24,20 @@ annotation class GadgetEx(val value: String = "") {
             if (!roundEnv.processingOver()) {
                 roundEnv.getElementsAnnotatedWith(GadgetEx::class.java).forEach { element ->
                     val packageName = processingEnv.elementUtils.getPackageOf(element).qualifiedName.toString()
-                    val fileName = "${element.simpleName}Dependency"
+                    val className = element.simpleName
                     val group = processingEnv.options["GROUP"] ?: throw IllegalArgumentException("GROUP Not Found!")
                     val version = processingEnv.options["VERSION"] ?: throw IllegalArgumentException("VERSION Not Found!")
-                    add("${packageName}#${fileName}#${group}:%s:${version}")
+                    add("${packageName}#${className}#${group}#${version}")
                 }
             } else {
                 this.forEach { str ->
-                    val (packageName, fileName, dependency) = str.split('#')
-                    FileSpec.builder(packageName, fileName)
+                    val (packageName, className, group, version) = str.split('#')
+                    FileSpec.builder(packageName, className + "Dependency")
                         .addFunction(FunSpec.builder("dependency")
+                            .receiver(ClassName(packageName, className))
                             .addParameter(ParameterSpec("name", STRING))
                             .returns(STRING)
-                            .addCode("return \"${dependency}\".format(name)")
+                            .addCode("return \"${group}:\${name}:${version}\"")
                             .build()
                         )
                         .build()

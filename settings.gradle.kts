@@ -23,4 +23,8 @@ rootProject.name = "gadgets"
 include(
     ":gadget-gradle",
 )
+
+include(
+    ":gadget-basic",
+)
  
