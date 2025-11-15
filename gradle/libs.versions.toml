@@ -7,6 +7,7 @@ kotlin-ksp = "2.0.0-1.0.24"
 android-application = { id = "com.android.application", version.ref = "android-gradle-plugin" }
 android-library = { id = "com.android.library", version.ref = "android-gradle-plugin" }
 kotlin-android = { id = "org.jetbrains.kotlin.android", version.ref = "kotlin" }
+kotlin-dsl = { id = "org.gradle.kotlin.kotlin-dsl", version = "5.1.1" }
 kotlin-jvm = { id = "org.jetbrains.kotlin.jvm", version.ref = "kotlin" }
 kotlin-kapt = { id = "org.jetbrains.kotlin.kapt", version.ref = "kotlin" }
 kotlin-ksp = { id = "com.google.devtools.ksp", version.ref = "kotlin-ksp" }
@@ -20,8 +21,8 @@ squareup-kotlinpoet = { group = "com.squareup", name = "kotlinpoet-ksp", version
 # Dependencies for gradle
 android-gradle-v4 = { group = "com.android.tools.build", name = "gradle", version = "4.2.2" }
 android-gradle-v8 = { group = "com.android.tools.build", name = "gradle", version.ref = "android-gradle-plugin" }
-kotlin-gradle-plugin = { group = "org.jetbrains.kotlin", name = "kotlin-gradle-plugin", version.ref = "kotlin" }
-kotlin-ksp-gradle-plugin = { group = "com.google.devtools.ksp", name = "com.google.devtools.ksp.gradle.plugin", version.ref = "kotlin-ksp" }
+kotlin-gradle = { group = "org.jetbrains.kotlin", name = "kotlin-gradle-plugin", version.ref = "kotlin" }
+kotlin-ksp-gradle = { group = "com.google.devtools.ksp", name = "com.google.devtools.ksp.gradle.plugin", version.ref = "kotlin-ksp" }
 
 # Dependencies for test
 androidx-espresso = { group = "androidx.test.espresso", name = "espresso-core", version = "3.6.1" }
