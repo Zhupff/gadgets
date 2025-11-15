@@ -1,0 +1,17 @@
+# Generated
+bin/
+gen/
+out/
+build/
+
+# Local configuration file
+local.properties
+
+# IntelliJ
+*.iml
+.idea/
+.gradle/
+.kotlin/
+
+# Mac OS
+.DS_Store

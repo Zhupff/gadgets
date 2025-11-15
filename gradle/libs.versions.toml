@@ -1,0 +1,17 @@
+[versions]
+android-gradle-plugin = "8.10.0"
+kotlin = "2.0.0"
+kotlin-ksp = "2.0.0-1.0.24"
+
+[plugins]
+android-application = { id = "com.android.application", version.ref = "android-gradle-plugin" }
+android-library = { id = "com.android.library", version.ref = "android-gradle-plugin" }
+kotlin-android = { id = "org.jetbrains.kotlin.android", version.ref = "kotlin" }
+kotlin-jvm = { id = "org.jetbrains.kotlin.jvm", version.ref = "kotlin" }
+kotlin-kapt = { id = "org.jetbrains.kotlin.kapt", version.ref = "kotlin" }
+kotlin-ksp = { id = "com.google.devtools.ksp", version.ref = "kotlin-ksp" }
+
+[libraries]
+# Dependencies for test
+androidx-espresso = { group = "androidx.test.espresso", name = "espresso-core", version = "3.6.1" }
+androidx-junit = { group = "androidx.test.ext", name = "junit", version = "1.2.1" }
