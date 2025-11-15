@@ -29,4 +29,7 @@ include(
     ":gadget-basic:gadget-basic-android",
     ":gadget-basic:gadget-basic-jvm",
 )
- 
+
+include(
+    ":gadget-theme",
+)
