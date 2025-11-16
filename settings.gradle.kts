@@ -34,4 +34,5 @@ include(
 include(
     ":gadget-theme",
     ":gadget-theme:gadget-theme-core",
+    ":gadget-theme:gadget-theme-scheme",
 )

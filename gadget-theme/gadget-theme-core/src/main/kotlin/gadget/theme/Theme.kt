@@ -73,5 +73,7 @@ abstract class Theme @JvmOverloads constructor(
         override fun hashCode(): Int = id
 
         override fun equals(other: Any?): Boolean = other is Resource && this.id == other.id
+
+        override fun toString(): String = "Resource(${id},${name},${type})"
     }
 }
