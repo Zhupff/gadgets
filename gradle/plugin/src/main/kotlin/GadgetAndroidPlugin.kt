@@ -59,8 +59,8 @@ abstract class GadgetAndroidPlugin<E : CommonExtension<*, *, *, *, *, *>> : Gadg
     fun enableJunitTest() {
         androidExtension.defaultConfig.testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
         this.project.dependencies {
-            androidTestImplementation(libs.findLibrary("junit-android").get())
-            androidTestImplementation(libs.findLibrary("espresso-core").get())
+            androidTestImplementation(libs.findLibrary("androidx-junit").get())
+            androidTestImplementation(libs.findLibrary("androidx-espresso").get())
         }
     }
 
