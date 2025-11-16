@@ -32,4 +32,5 @@ include(
 
 include(
     ":gadget-theme",
+    ":gadget-theme:gadget-theme-core",
 )
