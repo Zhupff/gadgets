@@ -36,4 +36,12 @@ abstract class Gadget : Plugin<Project> {
     fun ksp(dependency: Any) {
         this.project.dependencies.add("ksp", dependency)
     }
+
+
+
+    protected val Project.isAndroidApplication: Boolean
+        get() = pluginManager.hasPlugin("com.android.application")
+
+    protected val Project.isAndroidLibrary: Boolean
+        get() = pluginManager.hasPlugin("com.android.library")
 }
