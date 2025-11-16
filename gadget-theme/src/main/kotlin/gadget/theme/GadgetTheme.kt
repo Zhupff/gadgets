@@ -21,11 +21,11 @@ class GadgetTheme : Gadget() {
     fun pack() {
         assert(this.project.isAndroidApplication)
         this.project.extensions.getByType(AppExtension::class.java).applicationVariants.all variant@ {
-            outputs.all {
-                if (outputFile.name.endsWith(".apk")) {
+            outputs.all output@ {
+                if (this@output.outputFile.name.endsWith(".apk")) {
                     findAllThemeMergeProjects(this@variant.name).forEach {
                         val themePackTask = this@GadgetTheme.project.tasks.register(ThemePackTask.getTaskName(this@variant.name), ThemePackTask::class.java) {
-                            inputFilePath = outputFile.absolutePath
+                            inputFilePath = this@output.outputFile.absolutePath
                             outputFile = ThemePackTask.getOutputDir(it.buildDir, this@variant.name).resolve(this@GadgetTheme.project.name)
                         }
                         it.tasks.named(ThemeMergeTask.getTaskName(this@variant.name)) {
