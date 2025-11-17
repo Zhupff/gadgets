@@ -7,7 +7,7 @@ android {
     namespace = "gadget.theme.app.diy"
     compileSdk = 35
     defaultConfig {
-        minSdk = 24
+        minSdk = 32
         applicationId = "gadget.theme.app.diy"
     }
     buildTypes {

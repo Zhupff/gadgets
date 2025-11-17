@@ -14,7 +14,7 @@ abstract class GadgetAndroidPlugin<E : CommonExtension<*, *, *, *, *, *>> : Gadg
         androidExtension.namespace = namespace
         androidExtension.apply {
             compileSdk = 35
-            defaultConfig.minSdk = 24
+            defaultConfig.minSdk = 32
             compileOptions {
                 sourceCompatibility = JavaVersion.VERSION_17
                 targetCompatibility = JavaVersion.VERSION_17
