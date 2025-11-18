@@ -25,7 +25,7 @@ open class ResourcesTheme(
             parent: Theme? = null,
         ): ResourcesTheme? = try {
             val packageManager = context.packageManager
-            val packageInfo = packageManager.getPackageInfo(apk.absolutePath, 0)
+            val packageInfo = packageManager.getPackageArchiveInfo(apk.absolutePath, 0)!!
             val assetManager = AssetManager::class.java.newInstance()
             val addAssetPath = AssetManager::class.java.getDeclaredMethod("addAssetPath", String::class.java)
             addAssetPath.invoke(assetManager, apk.absolutePath)
@@ -43,7 +43,7 @@ open class ResourcesTheme(
             parent: Theme? = null,
         ): ResourcesTheme? = try {
             val packageManager = context.packageManager
-            val packageInfo = packageManager.getPackageInfo(apk.absolutePath, 0)
+            val packageInfo = packageManager.getPackageArchiveInfo(apk.absolutePath, 0)!!
             val applicationInfo = packageInfo.applicationInfo!!
             applicationInfo.sourceDir = apk.absolutePath
             applicationInfo.publicSourceDir = apk.absolutePath
