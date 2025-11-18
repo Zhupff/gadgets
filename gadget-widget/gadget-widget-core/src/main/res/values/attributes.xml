@@ -22,6 +22,7 @@
         <flag name="R" value="4" />
         <flag name="B" value="8" />
     </attr>
+    <attr name="gadget_resizeable_ratio" format="float"/>
 
     <declare-styleable name="GadgetLayout">
         <attr name="gadget_corner_gravity" />
@@ -30,5 +31,9 @@
         <attr name="gadget_border_shader" />
         <attr name="gadget_border_fit" />
         <attr name="gadget_fit_window_insets" />
+    </declare-styleable>
+
+    <declare-styleable name="ResizeableLayout">
+        <attr name="gadget_resizeable_ratio" />
     </declare-styleable>
 </resources>
