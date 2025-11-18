@@ -22,6 +22,8 @@ class BorderDrawer<V : View> @JvmOverloads constructor(
                 view.requestLayout()
             }
         }
+    var realBorderWidth: Float = borderWidth
+        private set
 
     var borderShader: Drawable? = borderShader
         set(value) {
@@ -42,11 +44,13 @@ class BorderDrawer<V : View> @JvmOverloads constructor(
     private val radius = FloatArray(8)
     private val path = Path()
 
-    fun getRealBorderWidth(viewWidth: Int, viewHeight: Int): Float {
-        if (borderWidth <= 0F) {
-            return 0F
+    fun adjustRealBorderWidth(contentWidth: Int, contentHeight: Int): Float {
+        realBorderWidth = if (borderWidth <= 0F) {
+            0F
+        } else {
+            minOf(contentWidth / 4F, contentHeight / 4F, this.borderWidth)
         }
-        return minOf(viewWidth / 4F, viewHeight / 4F, this.borderWidth)
+        return realBorderWidth
     }
 
     fun prepare(radius: FloatArray) {
@@ -55,15 +59,14 @@ class BorderDrawer<V : View> @JvmOverloads constructor(
         if (viewWidth <= 0 || viewHeight <= 0) {
             return
         }
-        if (borderWidth < 0F || borderShader == null) {
+        if (realBorderWidth < 0F || borderShader == null) {
             return
         }
-        val padding = getRealBorderWidth(viewWidth, viewHeight)
         for (i in this.radius.indices) {
-            this.radius[i] = max(0F, radius[i] - padding)
+            this.radius[i] = max(0F, radius[i] - realBorderWidth)
         }
         path.reset()
-        path.addRoundRect(padding, padding, viewWidth - padding, viewHeight - padding, this.radius, Path.Direction.CW)
+        path.addRoundRect(realBorderWidth, realBorderWidth, viewWidth - realBorderWidth, viewHeight - realBorderWidth, this.radius, Path.Direction.CW)
         val shaderWidth = borderShader!!.intrinsicWidth
         val shaderHeight = borderShader!!.intrinsicHeight
         if (shaderWidth <= 0 || shaderHeight <= 0) {

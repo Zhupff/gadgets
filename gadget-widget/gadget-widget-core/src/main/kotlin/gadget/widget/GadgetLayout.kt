@@ -88,25 +88,31 @@ open class GadgetLayout @JvmOverloads constructor(
             return
         }
         // 这里是想让内容显示区域缩小，但不是通过padding或margin的方式。
-        val ws = MeasureSpec.getSize(widthMeasureSpec)
-        val wm = MeasureSpec.getMode(widthMeasureSpec)
-        val hs = MeasureSpec.getSize(heightMeasureSpec)
-        val hm = MeasureSpec.getMode(heightMeasureSpec)
-        super.onMeasure(widthMeasureSpec, heightMeasureSpec)
-        val mws = measuredWidthAndState
-        val mhs = measuredHeightAndState
+        val widthMeasureSide = MeasureSpec.getSize(widthMeasureSpec)
+        val widthMeasureMode = MeasureSpec.getMode(widthMeasureSpec)
+        val heightMeasureSide = MeasureSpec.getSize(heightMeasureSpec)
+        val heightMeasureMode = MeasureSpec.getMode(heightMeasureSpec)
+        val contentWidth = when (widthMeasureMode) {
+            MeasureSpec.EXACTLY, MeasureSpec.AT_MOST -> widthMeasureSide
+            else -> 0
+        }
+        val contentHeight = when (heightMeasureMode) {
+            MeasureSpec.EXACTLY, MeasureSpec.AT_MOST -> heightMeasureSide
+            else -> 0
+        }
+        val realBorderWidth = borderDrawer.adjustRealBorderWidth(contentWidth, contentHeight).toInt()
         super.onMeasure(
-            MeasureSpec.makeMeasureSpec((ws - borderWidth.toInt() * 2).coerceAtLeast(0), wm),
-            MeasureSpec.makeMeasureSpec((hs - borderWidth.toInt() * 2).coerceAtLeast(0), hm))
-        setMeasuredDimension(mws, mhs)
+            MeasureSpec.makeMeasureSpec((contentWidth - realBorderWidth * 2).coerceAtLeast(0), widthMeasureMode),
+            MeasureSpec.makeMeasureSpec((contentHeight - realBorderWidth * 2).coerceAtLeast(0), heightMeasureMode))
+        setMeasuredDimension(measuredWidth + realBorderWidth * 2, measuredHeight + realBorderWidth * 2)
     }
 
     override fun onLayout(changed: Boolean, left: Int, top: Int, right: Int, bottom: Int) {
-        if (!borderFit || borderWidth <= 0F) {
+        val realBorderWidth = borderDrawer.realBorderWidth.toInt()
+        if (!borderFit || realBorderWidth <= 0F) {
             super.onLayout(changed, left, top, right, bottom)
             return
         }
-        val realBorderWidth = borderDrawer.getRealBorderWidth(right - left, bottom - top).toInt()
         val parentL = paddingLeft + realBorderWidth
         val parentR = right - left - paddingRight - realBorderWidth
         val parentT = paddingTop + realBorderWidth
@@ -156,7 +162,7 @@ open class GadgetLayout @JvmOverloads constructor(
     }
 
     override fun dispatchDraw(canvas: Canvas) {
-        if (borderWidth <= 0F) {
+        if (borderDrawer.realBorderWidth <= 0F) {
             super.dispatchDraw(canvas)
             return
         }
