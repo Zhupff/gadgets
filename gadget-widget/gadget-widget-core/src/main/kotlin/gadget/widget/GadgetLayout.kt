@@ -113,12 +113,58 @@ open class GadgetLayout @JvmOverloads constructor(
             MeasureSpec.EXACTLY, MeasureSpec.AT_MOST -> heightMeasureSide
             else -> 0
         }
-        val realBorderWidth = borderDrawer.adjustRealBorderWidth(contentWidth, contentHeight).toInt()
-        super.onMeasure(
-            MeasureSpec.makeMeasureSpec((contentWidth - realBorderWidth * 2).coerceAtLeast(0), widthMeasureMode),
-            MeasureSpec.makeMeasureSpec((contentHeight - realBorderWidth * 2).coerceAtLeast(0), heightMeasureMode))
-        setMeasuredDimension(measuredWidth + realBorderWidth * 2, measuredHeight + realBorderWidth * 2)
+        if (contentWidth > 0 && contentHeight > 0) {
+            val realBorderWidth = borderDrawer.adjustRealBorderWidth(contentWidth, contentHeight).toInt()
+            super.onMeasure(
+                MeasureSpec.makeMeasureSpec((contentWidth - realBorderWidth * 2).coerceAtLeast(0), widthMeasureMode),
+                MeasureSpec.makeMeasureSpec((contentHeight - realBorderWidth * 2).coerceAtLeast(0), heightMeasureMode))
+            setMeasuredDimension(measuredWidth + realBorderWidth * 2, measuredHeight + realBorderWidth * 2)
+        } else {
+            super.onMeasure(widthMeasureSpec, heightMeasureSpec)
+            if (measuredWidth > 0 && measuredHeight > 0) {
+                val realBorderWidth = borderDrawer.adjustRealBorderWidth(measuredWidth, measuredHeight).toInt()
+                super.onMeasure(
+                    MeasureSpec.makeMeasureSpec((measuredWidth - realBorderWidth * 2).coerceAtLeast(0), widthMeasureMode),
+                    MeasureSpec.makeMeasureSpec((measuredHeight - realBorderWidth * 2).coerceAtLeast(0), heightMeasureMode))
+                setMeasuredDimension(measuredWidth + realBorderWidth * 2, measuredHeight + realBorderWidth * 2)
+            }
+        }
     }
+//    override fun onMeasure(widthMeasureSpec: Int, heightMeasureSpec: Int) {
+//        if (!borderFit || borderWidth <= 0F) {
+//            super.onMeasure(widthMeasureSpec, heightMeasureSpec)
+//            return
+//        }
+//        // 这里是想让内容显示区域缩小，但不是通过padding或margin的方式。
+//        val widthMeasureSide = MeasureSpec.getSize(widthMeasureSpec)
+//        val widthMeasureMode = MeasureSpec.getMode(widthMeasureSpec)
+//        val heightMeasureSide = MeasureSpec.getSize(heightMeasureSpec)
+//        val heightMeasureMode = MeasureSpec.getMode(heightMeasureSpec)
+//        val contentWidth = when (widthMeasureMode) {
+//            MeasureSpec.EXACTLY, MeasureSpec.AT_MOST -> widthMeasureSide
+//            else -> 0
+//        }
+//        val contentHeight = when (heightMeasureMode) {
+//            MeasureSpec.EXACTLY, MeasureSpec.AT_MOST -> heightMeasureSide
+//            else -> 0
+//        }
+//        if (contentWidth > 0 && contentHeight > 0) {
+//            val realBorderWidth = borderDrawer.adjustRealBorderWidth(contentWidth, contentHeight).toInt()
+//            super.onMeasure(
+//                MeasureSpec.makeMeasureSpec((contentWidth - realBorderWidth * 2).coerceAtLeast(0), widthMeasureMode),
+//                MeasureSpec.makeMeasureSpec((contentHeight - realBorderWidth * 2).coerceAtLeast(0), heightMeasureMode))
+//            setMeasuredDimension(measuredWidth + realBorderWidth * 2, measuredHeight + realBorderWidth * 2)
+//        } else {
+//            super.onMeasure(widthMeasureSpec, heightMeasureSpec)
+//            if (measuredWidth > 0 && measuredHeight > 0) {
+//                val realBorderWidth = borderDrawer.adjustRealBorderWidth(measuredWidth, measuredHeight).toInt()
+//                super.onMeasure(
+//                    MeasureSpec.makeMeasureSpec((measuredWidth - realBorderWidth * 2).coerceAtLeast(0), widthMeasureMode),
+//                    MeasureSpec.makeMeasureSpec((measuredHeight - realBorderWidth * 2).coerceAtLeast(0), heightMeasureMode))
+//                setMeasuredDimension(measuredWidth + realBorderWidth * 2, measuredHeight + realBorderWidth * 2)
+//            }
+//        }
+//    }
 
     override fun onLayout(changed: Boolean, left: Int, top: Int, right: Int, bottom: Int) {
         val realBorderWidth = borderDrawer.realBorderWidth.toInt()
