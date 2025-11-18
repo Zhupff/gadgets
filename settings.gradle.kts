@@ -22,6 +22,7 @@ rootProject.name = "gadgets"
 
 include(
     ":gadget-gradle",
+    ":version-catalog",
 )
 
 include(
