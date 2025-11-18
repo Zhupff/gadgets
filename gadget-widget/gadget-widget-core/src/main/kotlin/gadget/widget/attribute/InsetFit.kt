@@ -10,7 +10,7 @@ class InsetFit @JvmOverloads constructor(
     top: Boolean = false,
     right: Boolean = false,
     bottom: Boolean = false,
-) : View.OnApplyWindowInsetsListener {
+) : View.OnApplyWindowInsetsListener, View.OnAttachStateChangeListener {
 
     companion object {
         const val L = 1
@@ -42,6 +42,8 @@ class InsetFit @JvmOverloads constructor(
             view.setTag(gadget.widget.core.R.id.gadget_inset_fit, this)
         }
         view.setOnApplyWindowInsetsListener(this)
+        // 因为可能存在父View拦截了WindowInsets导致监听不到，这里在attach的时候主动更新一下。
+        view.addOnAttachStateChangeListener(this)
         fit(left, top, right, bottom)
         once = true
     }
@@ -76,4 +78,13 @@ class InsetFit @JvmOverloads constructor(
             }
         }
     }
+
+    override fun onViewAttachedToWindow(v: View) {
+        if (this.view !== v) {
+            throw IllegalStateException("Not the same view!")
+        }
+        onApplyWindowInsets(v, v.rootWindowInsets)
+    }
+
+    override fun onViewDetachedFromWindow(v: View) {}
 }

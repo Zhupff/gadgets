@@ -24,3 +24,7 @@ GadgetWidget {
         implementation(core())
     }
 }
+
+dependencies {
+    implementation(project(":gadget-basic:gadget-basic-res"))
+}

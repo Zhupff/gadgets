@@ -1,5 +1,6 @@
 [versions]
 android-gradle-plugin = "8.9.0"
+autoService = "1.1.1"
 kotlin = "2.0.0"
 kotlin-ksp = "2.0.0-1.0.24"
 
@@ -13,9 +14,14 @@ kotlin-kapt = { id = "org.jetbrains.kotlin.kapt", version.ref = "kotlin" }
 kotlin-ksp = { id = "com.google.devtools.ksp", version.ref = "kotlin-ksp" }
 
 [libraries]
+android-material = { group = "com.google.android.material", name = "material", version = "1.13.0" }
 androidx-appcompat = { group = "androidx.appcompat", name = "appcompat", version = "1.7.0" }
+androidx-constraintlayout = { group = "androidx.constraintlayout", name = "constraintlayout", version = "2.2.1" }
 androidx-core-ktx = { group = "androidx.core", name = "core-ktx", version = "1.16.0" }
+androidx-recyclerview = { group = "androidx.recyclerview", name = "recyclerview", version = "1.4.0" }
 androidx-startup = { group = "androidx.startup", name = "startup-runtime", version = "1.2.0" }
+autoservice-annotation = { group = "com.google.auto.service", name = "auto-service-annotations", version.ref = "autoService" }
+autoservice-processor = { group = "com.google.auto.service", name = "auto-service", version.ref = "autoService" }
 squareup-kotlinpoet = { group = "com.squareup", name = "kotlinpoet-ksp", version = "1.12.0" }
 
 # Dependencies for gradle

@@ -30,6 +30,7 @@ include(
 //    ":gadget-basic:app",
     ":gadget-basic:gadget-basic-android",
     ":gadget-basic:gadget-basic-jvm",
+    ":gadget-basic:gadget-basic-res",
 )
 
 include(
