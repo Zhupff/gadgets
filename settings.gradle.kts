@@ -40,4 +40,6 @@ include(
 
 include(
     ":gadget-widget",
+//    ":gadget-widget:app",
+    ":gadget-widget:gadget-widget-core",
 )

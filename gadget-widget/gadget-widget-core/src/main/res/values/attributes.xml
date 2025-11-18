@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <attr name="gadget_corner_gravity" format="enum">
+        <enum name="N"  value="0" />
+        <enum name="L"  value="1" />
+        <enum name="T"  value="2" />
+        <enum name="R"  value="3" />
+        <enum name="B"  value="4" />
+        <enum name="TL" value="5" />
+        <enum name="TR" value="6" />
+        <enum name="BR" value="7" />
+        <enum name="BL" value="8" />
+        <enum name="A"  value="9" />
+    </attr>
+    <attr name="gadget_corner_radius" format="dimension" />
+    <attr name="gadget_border_width" format="dimension" />
+    <attr name="gadget_border_shader" format="color|reference" />
+    <attr name="gadget_border_fit" format="boolean" />
+
+    <declare-styleable name="GadgetLayout">
+        <attr name="gadget_corner_gravity" />
+        <attr name="gadget_corner_radius" />
+        <attr name="gadget_border_width" />
+        <attr name="gadget_border_shader" />
+        <attr name="gadget_border_fit" />
+    </declare-styleable>
+</resources>
