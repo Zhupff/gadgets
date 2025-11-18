@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <androidx.appcompat.widget.AppCompatImageView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:scaleType="centerCrop"
+        android:src="@drawable/wallpaper"/>
+
+    <gadget.widget.GadgetLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        app:gadget_fit_window_insets="T|B">
+
+        <gadget.widget.GadgetLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="20dp"
+            app:gadget_corner_radius="50dp"
+            app:gadget_corner_gravity="A"
+            app:gadget_border_width="30dp"
+            app:gadget_border_fit="true"
+            app:gadget_border_shader="#80FFF000"
+            android:background="#FF000000">
+            <androidx.appcompat.widget.AppCompatImageView
+                android:id="@+id/logo"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:scaleType="centerCrop"
+                android:src="@drawable/ic_launcher_gadgets"/>
+        </gadget.widget.GadgetLayout>
+    </gadget.widget.GadgetLayout>
+</FrameLayout>
