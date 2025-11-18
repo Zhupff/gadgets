@@ -2,6 +2,7 @@ package gadget.gradle
 
 import org.gradle.api.Plugin
 import org.gradle.api.Project
+import java.io.File
 
 abstract class Gadget : Plugin<Project> {
 
@@ -17,26 +18,6 @@ abstract class Gadget : Plugin<Project> {
         target.extensions.add(this.javaClass, gadgetEx, this)
     }
 
-    fun api(dependency: Any) {
-        this.project.dependencies.add("api", dependency)
-    }
-
-    fun implementation(dependency: Any) {
-        this.project.dependencies.add("implementation", dependency)
-    }
-
-    fun compileOnly(dependency: Any) {
-        this.project.dependencies.add("compileOnly", dependency)
-    }
-
-    fun kapt(dependency: Any) {
-        this.project.dependencies.add("kapt", dependency)
-    }
-
-    fun ksp(dependency: Any) {
-        this.project.dependencies.add("ksp", dependency)
-    }
-
 
 
     protected val Project.isAndroidApplication: Boolean
@@ -44,4 +25,7 @@ abstract class Gadget : Plugin<Project> {
 
     protected val Project.isAndroidLibrary: Boolean
         get() = pluginManager.hasPlugin("com.android.library")
+
+    fun Project.getBuildOutputDir(variant: String): File = this.buildDir.resolve("gadget").resolve(variant)
+    fun Project.getBuildAssetsDir(variant: String): File = getBuildOutputDir(variant).resolve("assets")
 }

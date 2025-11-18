@@ -2,6 +2,7 @@ plugins {
     id("gadget.android.application")
     id("gadget.basic") version "0"
     id("gadget.theme") version "0"
+    id("gadget.widget") version "0"
 }
 
 gadget {
@@ -14,10 +15,20 @@ gadget {
 }
 
 GadgetBasic {
-    implementation(android())
+    dependencies {
+        implementation(android())
+    }
 }
 
 GadgetTheme {
     merge()
-    implementation(scheme())
+    dependencies {
+        implementation(scheme())
+    }
+}
+
+GadgetWidget {
+    dependencies {
+        implementation(core())
+    }
 }

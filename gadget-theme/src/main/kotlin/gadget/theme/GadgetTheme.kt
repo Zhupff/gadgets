@@ -13,7 +13,7 @@ class GadgetTheme : Gadget() {
         assert(this.project.isAndroidApplication)
         val appExtension = this.project.extensions.getByType(AppExtension::class.java)
         appExtension.applicationVariants.all variant@ {
-            appExtension.sourceSets.getByName(this@variant.name).assets.srcDir(ThemeMergeTask.getAssetsDir(this@GadgetTheme.project.buildDir, this@variant.name))
+            appExtension.sourceSets.getByName(this@variant.name).assets.srcDir(this@GadgetTheme.project.getBuildAssetsDir(this@variant.name))
             preBuildProvider.get().dependsOn(this@GadgetTheme.project.tasks.create(ThemeMergeTask.getTaskName(this@variant.name)))
         }
     }
@@ -26,7 +26,7 @@ class GadgetTheme : Gadget() {
                     findAllThemeMergeProjects(this@variant.name).forEach {
                         val themePackTask = this@GadgetTheme.project.tasks.register(ThemePackTask.getTaskName(this@variant.name), ThemePackTask::class.java) {
                             inputFilePath = this@output.outputFile.absolutePath
-                            outputFile = ThemePackTask.getOutputDir(it.buildDir, this@variant.name).resolve(this@GadgetTheme.project.name)
+                            outputFile = it.getBuildAssetsDir(this@variant.name).resolve("theme").resolve(this@GadgetTheme.project.name)
                         }
                         it.tasks.named(ThemeMergeTask.getTaskName(this@variant.name)) {
                             themePackTask.dependsOn("package" + this@variant.name.replaceFirstChar { it.uppercaseChar() })

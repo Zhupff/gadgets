@@ -16,13 +16,8 @@ import java.nio.file.StandardCopyOption
 internal open class ThemePackTask : DefaultTask() {
 
     companion object {
-
         fun getTaskName(variant: String): String {
             return ThemePackTask::class.java.simpleName + variant.replaceFirstChar { it.uppercaseChar() }
-        }
-
-        fun getOutputDir(buildDir: File, variant: String): File {
-            return buildDir.resolve("gadget_theme").resolve(variant).resolve("")
         }
     }
 

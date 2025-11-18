@@ -14,9 +14,13 @@ gadget {
 }
 
 GadgetBasic {
-    implementation(android())
+    dependencies {
+        implementation(android())
+    }
 }
 
 GadgetWidget {
-    implementation(core())
+    dependencies {
+        implementation(core())
+    }
 }
