@@ -52,7 +52,7 @@ class InsetFit @JvmOverloads constructor(
         if (this.view !== v) {
             throw IllegalStateException("Not the same view!")
         }
-        val windowInsetsCompat = WindowInsetsCompat.toWindowInsetsCompat(insets, v)
+        val windowInsetsCompat = WindowInsetsCompat.toWindowInsetsCompat(v.rootWindowInsets, v)
         val systemBarInsets = windowInsetsCompat.getInsets(WindowInsetsCompat.Type.systemBars())
         val targetPaddingLeft = if (left) systemBarInsets.left else 0
         val targetPaddingTop = if (top) systemBarInsets.top else 0
