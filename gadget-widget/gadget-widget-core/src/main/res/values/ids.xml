@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <item name="gadget_border_drawer" type="id" />
+    <item name="gadget_corner_clip" type="id" />
+    <item name="gadget_inset_fit" type="id" />
+</resources>

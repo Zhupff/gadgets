@@ -12,14 +12,17 @@ import gadget.widget.core.R
 import androidx.core.content.withStyledAttributes
 import gadget.widget.attribute.BorderDrawer
 import gadget.widget.attribute.CornerClip
+import gadget.widget.attribute.InsetFit
 
 open class GadgetLayout @JvmOverloads constructor(
     context: Context, attrs: AttributeSet? = null, defStyleAttr: Int = 0,
 ) : FrameLayout(context, attrs, defStyleAttr) {
 
-    private val cornerClip: CornerClip<GadgetLayout>
+    private val borderDrawer: BorderDrawer
 
-    private val borderDrawer: BorderDrawer<GadgetLayout>
+    private val cornerClip: CornerClip
+
+    private val insetFit: InsetFit
 
     init {
         var cornerRadius: Float = 0F
@@ -27,15 +30,25 @@ open class GadgetLayout @JvmOverloads constructor(
         var borderWidth: Float = 0F
         var borderFit: Boolean = false
         var borderShader: Drawable? = null
+        var fitLeft: Boolean = false
+        var fitTop: Boolean = false
+        var fitRight: Boolean = false
+        var fitBottom: Boolean = false
         context.withStyledAttributes(attrs, R.styleable.GadgetLayout) {
             cornerRadius = getDimension(R.styleable.GadgetLayout_gadget_corner_radius, cornerRadius)
             cornerGravity = getInt(R.styleable.GadgetLayout_gadget_corner_gravity, cornerGravity)
             borderWidth = getDimension(R.styleable.GadgetLayout_gadget_border_width, borderWidth)
             borderFit = getBoolean(R.styleable.GadgetLayout_gadget_border_fit, borderFit)
             borderShader = getDrawable(R.styleable.GadgetLayout_gadget_border_shader)
+            val fits = getInt(R.styleable.GadgetLayout_gadget_fit_window_insets, 0)
+            fitLeft = fits and InsetFit.L != 0
+            fitTop = fits and InsetFit.T != 0
+            fitRight = fits and InsetFit.R != 0
+            fitBottom = fits and InsetFit.B != 0
         }
         cornerClip = CornerClip(this, cornerRadius, cornerGravity)
         borderDrawer = BorderDrawer(this, borderWidth, borderShader, borderFit)
+        insetFit = InsetFit(this, fitLeft, fitTop, fitRight, fitBottom)
     }
 
     var cornerRadius: Float
@@ -71,7 +84,7 @@ open class GadgetLayout @JvmOverloads constructor(
         if (this.outlineProvider == provider) {
             return
         }
-        if (this.outlineProvider !is CornerClip<*> && provider is CornerClip<*> && !provider.once) {
+        if (this.outlineProvider !is CornerClip && provider is CornerClip && !provider.once) {
             super.setOutlineProvider(provider)
             return
         }

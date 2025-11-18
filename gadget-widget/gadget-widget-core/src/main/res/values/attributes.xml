@@ -16,6 +16,12 @@
     <attr name="gadget_border_width" format="dimension" />
     <attr name="gadget_border_shader" format="color|reference" />
     <attr name="gadget_border_fit" format="boolean" />
+    <attr name="gadget_fit_window_insets">
+        <flag name="L" value="1" />
+        <flag name="T" value="2" />
+        <flag name="R" value="4" />
+        <flag name="B" value="8" />
+    </attr>
 
     <declare-styleable name="GadgetLayout">
         <attr name="gadget_corner_gravity" />
@@ -23,5 +29,6 @@
         <attr name="gadget_border_width" />
         <attr name="gadget_border_shader" />
         <attr name="gadget_border_fit" />
+        <attr name="gadget_fit_window_insets" />
     </declare-styleable>
 </resources>

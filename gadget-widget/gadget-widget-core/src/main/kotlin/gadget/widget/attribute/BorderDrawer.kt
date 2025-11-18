@@ -7,12 +7,17 @@ import android.view.View
 import androidx.core.graphics.withSave
 import kotlin.math.max
 
-class BorderDrawer<V : View> @JvmOverloads constructor(
-    private val view: V,
+class BorderDrawer @JvmOverloads constructor(
+    private val view: View,
     borderWidth: Float = 0F,
     borderShader: Drawable? = null,
     borderFit: Boolean = false,
 ) {
+
+    companion object {
+        @JvmStatic
+        fun get(view: View): BorderDrawer? = view.getTag(gadget.widget.core.R.id.gadget_border_drawer) as? BorderDrawer
+    }
 
     var borderWidth: Float = borderWidth
         set(value) {
@@ -41,8 +46,21 @@ class BorderDrawer<V : View> @JvmOverloads constructor(
             }
         }
 
+    @Volatile
+    var once: Boolean = false
+        private set
+
     private val radius = FloatArray(8)
     private val path = Path()
+
+    init {
+        if (view.getTag(gadget.widget.core.R.id.gadget_border_drawer) != null) {
+            throw IllegalStateException("BorderDrawer already set!")
+        } else {
+            view.setTag(gadget.widget.core.R.id.gadget_border_drawer, this)
+        }
+        once = true
+    }
 
     fun adjustRealBorderWidth(contentWidth: Int, contentHeight: Int): Float {
         realBorderWidth = if (borderWidth <= 0F) {

@@ -10,8 +10,8 @@ import kotlin.math.roundToInt
 /**
  * 圆角裁切，支持单个角、单个边和全角裁切。
  */
-class CornerClip<V : View> @JvmOverloads constructor(
-    private val view: V,
+class CornerClip @JvmOverloads constructor(
+    private val view: View,
     radius: Float = 0F,
     gravity: Int = N,
 ) : ViewOutlineProvider() {
@@ -27,6 +27,9 @@ class CornerClip<V : View> @JvmOverloads constructor(
         const val BR = 7
         const val BL = 8
         const val A  = 9
+
+        @JvmStatic
+        fun get(view: View): CornerClip? = view.getTag(gadget.widget.core.R.id.gadget_corner_clip) as? CornerClip
     }
 
     /**
@@ -57,6 +60,11 @@ class CornerClip<V : View> @JvmOverloads constructor(
         private set
 
     init {
+        if (this.view.getTag(gadget.widget.core.R.id.gadget_corner_clip) != null) {
+            throw IllegalStateException("CornerClip already set!")
+        } else {
+            this.view.setTag(gadget.widget.core.R.id.gadget_corner_clip, this)
+        }
         this.view.clipToOutline = true
         this.view.outlineProvider = this
         this.once = true
