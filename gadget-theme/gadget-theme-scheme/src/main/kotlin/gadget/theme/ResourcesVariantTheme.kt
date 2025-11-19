@@ -11,7 +11,7 @@ open class ResourcesVariantTheme(
     override fun getIdentifier(r: Resource): Int {
         return idCaches.getOrPut(r.id) {
             try {
-                resources.getIdentifier(variant + '_' + r.name, r.type, packageName)
+                resources.getIdentifier(variant + r.name, r.type, packageName)
             } catch (throwable: Throwable) {
                 ResourcesCompat.ID_NULL
             }

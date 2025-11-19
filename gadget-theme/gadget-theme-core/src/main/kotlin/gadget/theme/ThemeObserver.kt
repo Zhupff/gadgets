@@ -25,6 +25,7 @@ class ThemeObserver(
     override val lifecycle: LifecycleRegistry = LifecycleRegistry(this)
 
     init {
+        view.addOnAttachStateChangeListener(this)
         lifecycle.currentState = Lifecycle.State.CREATED
     }
 
