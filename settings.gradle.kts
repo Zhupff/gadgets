@@ -53,6 +53,11 @@ include(
 )
 
 include(
+    ":gadget-toast",
+    ":gadget-toast:gadget-toast-core",
+)
+
+include(
     ":gadget-widget",
 //    ":gadget-widget:app",
     ":gadget-widget:gadget-widget-annotation",
