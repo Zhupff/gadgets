@@ -22,6 +22,7 @@ androidx-recyclerview = { group = "androidx.recyclerview", name = "recyclerview"
 androidx-startup = { group = "androidx.startup", name = "startup-runtime", version = "1.2.0" }
 autoservice-annotation = { group = "com.google.auto.service", name = "auto-service-annotations", version.ref = "autoService" }
 autoservice-processor = { group = "com.google.auto.service", name = "auto-service", version.ref = "autoService" }
+kotlin-ksp-api = { group = "com.google.devtools.ksp", name = "symbol-processing-api", version.ref = "kotlin-ksp" }
 squareup-kotlinpoet = { group = "com.squareup", name = "kotlinpoet-ksp", version = "1.12.0" }
 
 # Dependencies for gradle

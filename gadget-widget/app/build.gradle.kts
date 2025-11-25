@@ -1,5 +1,7 @@
 plugins {
     id("gadget.android.application")
+    alias(libs.plugins.kotlin.kapt)
+    alias(libs.plugins.kotlin.ksp)
     id("gadget.basic") version "0"
     id("gadget.widget") version "0"
 }
@@ -21,6 +23,8 @@ GadgetBasic {
 
 GadgetWidget {
     dependencies {
+        implementation(annotation())
+        ksp(compile())
         implementation(core())
     }
 }
