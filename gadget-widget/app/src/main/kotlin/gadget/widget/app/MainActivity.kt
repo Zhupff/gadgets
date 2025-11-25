@@ -13,7 +13,12 @@ class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(viewBinding.root)
-        viewBinding.logo.setOnClickListener {
+        viewBinding.gramophone.setOnClickListener {
+            if (viewBinding.gramophone.isSpinning) {
+                viewBinding.gramophone.stopSpinning()
+            } else {
+                viewBinding.gramophone.startSpinning()
+            }
         }
     }
 }

@@ -8,6 +8,8 @@ class GadgetWidget : Gadget() {
 
     fun annotation(): String = dependency("gadget-widget-annotation")
 
+    fun blur(): String = dependency("gadget-widget-blur")
+
     fun compile(): String = dependency("gadget-widget-compile")
 
     fun core(): String = dependency("gadget-widget-core")

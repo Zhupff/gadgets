@@ -25,6 +25,7 @@ GadgetWidget {
     dependencies {
         implementation(annotation())
         ksp(compile())
+        implementation(blur())
         implementation(core())
     }
 }
