@@ -41,6 +41,11 @@ include(
 )
 
 include(
+    ":gadget-rxjava",
+    ":gadget-rxjava:gadget-rxjava3-core",
+)
+
+include(
     ":gadget-theme",
 //    ":gadget-theme:app", ":gadget-theme:app:theme-night", ":gadget-theme:app:theme-diy",
     ":gadget-theme:gadget-theme-core",

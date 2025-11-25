@@ -3,6 +3,7 @@ android-gradle-plugin = "8.9.0"
 autoService = "1.1.1"
 kotlin = "2.0.0"
 kotlin-ksp = "2.0.0-1.0.24"
+rxjava3 = "3.1.12"
 
 [plugins]
 android-application = { id = "com.android.application", version.ref = "android-gradle-plugin" }
@@ -23,6 +24,8 @@ androidx-startup = { group = "androidx.startup", name = "startup-runtime", versi
 autoservice-annotation = { group = "com.google.auto.service", name = "auto-service-annotations", version.ref = "autoService" }
 autoservice-processor = { group = "com.google.auto.service", name = "auto-service", version.ref = "autoService" }
 kotlin-ksp-api = { group = "com.google.devtools.ksp", name = "symbol-processing-api", version.ref = "kotlin-ksp" }
+reactivex-rxjava3 = { group = "io.reactivex.rxjava3", name = "rxjava", version.ref = "rxjava3" }
+reactivex-rxandroid3 = { group = "io.reactivex.rxjava3", name = "rxandroid", version.ref = "rxjava3" }
 squareup-kotlinpoet = { group = "com.squareup", name = "kotlinpoet-ksp", version = "1.12.0" }
 
 # Dependencies for gradle
