@@ -17,7 +17,9 @@ import kotlin.concurrent.getOrSet
 open class FilePrinter @JvmOverloads constructor(
     protected val ioThreadName: String,
     protected val fileProvider: FileProvider = object : FileProvider {
-        override fun provide(): File = applicationContext.filesDir.resolve("_LOG_").also(File::mkdirs)
+        override fun provide(): File = applicationContext.filesDir
+            .resolve("_LOG_").also(File::mkdirs)
+            .resolve("${System.currentTimeMillis()}.txt")
     },
     protected val timeFormater: TimeFormater = object : TimeFormater {
         private val date = Date()

@@ -36,6 +36,7 @@ include(
 
 include(
     ":gadget-logger",
+//    ":gadget-logger:app",
     ":gadget-logger:gadget-logger-core",
 )
 
