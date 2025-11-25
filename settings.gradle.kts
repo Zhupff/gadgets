@@ -51,6 +51,7 @@ include(
     ":gadget-widget",
 //    ":gadget-widget:app",
     ":gadget-widget:gadget-widget-annotation",
+    ":gadget-widget:gadget-widget-blur",
     ":gadget-widget:gadget-widget-compile",
     ":gadget-widget:gadget-widget-core",
 )

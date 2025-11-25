@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <!-- Scale down bitmap to improve performance, range from 0-1, recommended below 0.25(default). -->
+    <attr name="gadget_blur_scale" format="float"/>
+
+    <!-- Blur radius, which recommended range is 5-25, It is recommended to use blurScale first. -->
+    <attr name="gadget_blur_radius" format="integer"/>
+
+    <!-- Canvas usage strategy. -->
+    <attr name="gadget_blur_canvas" format="enum">
+        <!-- Use the canvas passed from the lower layer, which is recommended. -->
+        <enum name="inherited" value="0"/>
+        <!-- Use an independent canvas, which will trigger multiple drawing process. -->
+        <enum name="independent" value="1"/>
+    </attr>
+
+    <!-- Drawing strategy. -->
+    <attr name="gadget_blur_draw" format="enum">
+        <!-- Check and ignore identical frames before draw. It will take some time but save drawing times. -->
+        <enum name="ignore_identical_frames" value="0"/>
+        <!-- Draw all frames anyway, may cause continuous drawing. -->
+        <enum name="all_frames" value="1"/>
+    </attr>
+
+
+    <declare-styleable name="BlurLayout">
+        <attr name="gadget_blur_scale"/>
+        <attr name="gadget_blur_canvas"/>
+    </declare-styleable>
+
+    <declare-styleable name="BlurSurfaceView">
+        <attr name="gadget_blur_radius"/>
+    </declare-styleable>
+
+    <declare-styleable name="BlurTextureView">
+        <attr name="gadget_blur_radius"/>
+        <attr name="gadget_blur_draw"/>
+    </declare-styleable>
+
+    <declare-styleable name="BlurView">
+        <attr name="gadget_blur_radius"/>
+        <attr name="gadget_blur_draw"/>
+    </declare-styleable>
+</resources>
