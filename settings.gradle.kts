@@ -35,6 +35,11 @@ include(
 )
 
 include(
+    ":gadget-logger",
+    ":gadget-logger:gadget-logger-core",
+)
+
+include(
     ":gadget-theme",
 //    ":gadget-theme:app", ":gadget-theme:app:theme-night", ":gadget-theme:app:theme-diy",
     ":gadget-theme:gadget-theme-core",
