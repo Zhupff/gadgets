@@ -89,7 +89,13 @@
 
 ## Libraries
 
-- [gadget-basic](./gadget-basic/README.md): 一些基础功能的整理和封装；
+- [gadget-basic](./gadget-basic/readme/README.md): 一些基础功能的整理和封装；
+- [gadget-logger](./gadget-logger/readme/README.md): logcat日志;
+- [gadget-rxjava](./gadget-rxjava/readme/README.md): 一些关于`rxjava`的封装;
+- [gadget-theme](./gadget-theme/readme/README.md): App的主题换肤框架;
+- [gadget-toast](./gadget-toast/readme/README.md): 对系统`Toast`功能的一些封装;
+- [gadget-widget](./gadget-widget/readme/README.md): 一些自定义View以及通用功能的封装等;
+- [version-catalog](./version-catalog/readme/README.md): 整理`gadgets`里使用到的各个依赖的版本，方便项目快速添加依赖并确保兼容性;
 
 
 
