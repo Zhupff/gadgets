@@ -43,6 +43,11 @@ abstract class Theme @JvmOverloads constructor(
             override fun apply(view: View, theme: Theme, resource: Resource) {
                 throw IllegalStateException("NotSupport!")
             }
+            val Flags: Attribute = object : Attribute("gadget_theme_flags") {
+                override fun apply(view: View, theme: Theme, resource: Resource) {
+                    throw IllegalStateException("Should be removed after parse!")
+                }
+            }
         }
 
         /**

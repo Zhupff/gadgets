@@ -18,15 +18,32 @@ import java.util.LinkedList
 class ThemeObserver(
     view: View,
     private val attribute2resource: Map<Theme.Attribute, Theme.Resource>,
+    private var flags: Int = 0,
 ) : WeakReference<View>(view), View.OnAttachStateChangeListener, LifecycleOwner, Observer<Theme> {
 
+    companion object {
+        /** 是否是可变的，即View在Detach之后又重新Attach是否可能改变它所在的视图树（比如某些在不同视图间移动的悬浮View）。 */
+        const val FLAG_MUTABLE: Int = 1 shl 1
+    }
+
     private var current: String = ""
+
+    private var observable: ThemeObservable? = null
 
     override val lifecycle: LifecycleRegistry = LifecycleRegistry(this)
 
     init {
-        view.addOnAttachStateChangeListener(this)
+        if (view.getTag(gadget.theme.core.R.id.gadget_theme_observer) != null) {
+            throw IllegalStateException("Already bind ThemeObserver!")
+        } else {
+            view.setTag(gadget.theme.core.R.id.gadget_theme_observer, this)
+        }
         lifecycle.currentState = Lifecycle.State.CREATED
+        view.addOnAttachStateChangeListener(this)
+        if (view.isAttachedToWindow) {
+            // 对于那些手动添加的View，需要检查一下是否已经attach了，如果是，那么需要主动触发一次attach的逻辑。
+            onViewAttachedToWindow(view)
+        }
     }
 
     /**
@@ -37,8 +54,20 @@ class ThemeObserver(
         if (target == null || target != v) {
             return
         }
-        trace(target).subscribe().observe(this, this)
         lifecycle.currentState = Lifecycle.State.RESUMED
+        if (flags and 1 == 0) { // 首次attach。
+            trace(target).also {
+                flags = flags or 1
+                observable = it
+            }.subscribe().observe(this, this)
+        } else {
+            if (flags and FLAG_MUTABLE != 0) {
+                // 如果是可变的，那么每次attach的时候都需要重新trace一下对应的主题源。
+                trace(target).also {
+                    observable = it
+                }.subscribe().observe(this, this)
+            }
+        }
     }
 
     /**
@@ -50,7 +79,15 @@ class ThemeObserver(
         if (target == null || target != v) {
             return
         }
-        lifecycle.currentState = Lifecycle.State.DESTROYED
+        if (flags and FLAG_MUTABLE != 0) {
+            // 如果是可变的，每次detach的时候将生命周期设为Destroyed，这样Observable就会自动清理该Observer；
+            // 在下次attach的时候再重新trace对应的Observable并observe。
+            lifecycle.currentState = Lifecycle.State.DESTROYED
+            observable = null
+        } else {
+            // 如果不是可变的，那只需要将生命周期设为CREATED（等价于paused）。
+            lifecycle.currentState = Lifecycle.State.CREATED
+        }
     }
 
     override fun onChanged(value: Theme) {
@@ -106,13 +143,20 @@ class ThemeObserver(
                     return fragment
                 }
                 val parent = view.parent
-                if (parent is ThemeObservable) {
+                if (parent is View) {
+                    val observer = parent.getTag(gadget.theme.core.R.id.gadget_theme_observer)
+                    if (observer is ThemeObserver) {
+                        // 首次attach且最近的observable是View的时候，需要处理些flags相关的内容。
+                        if (flags and 1 == 0) {
+                            // 如果父View是可变的，那意味着当前View也是可变的。
+                            this.flags = this.flags or (observer.flags and FLAG_MUTABLE)
+                        }
+                        return observer.observable!!
+                    }
+                } else if (parent is ThemeObservable) {
                     return parent
                 }
-                if (parent == null || parent === view || parent !is View) {
-                    break
-                }
-                view = parent
+                view = parent as? View ?: break
             }
         }
         if (context is ThemeObservable) {

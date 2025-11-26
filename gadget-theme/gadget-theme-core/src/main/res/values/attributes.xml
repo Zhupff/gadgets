@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <attr name="gadget_theme_flags" format="float">
+        <!-- value=1 空出来有他用 -->
+        <!-- 代表该View是否所在的视图树是否会变化，比如一些“悬浮”视图，会从页面A移动到页面B，那就意味着主题源可能会变。
+             所以如果你的View是可能attach到不同主题的页面下的话，那么需要生命该flag；
+             注意：父View声明了该flag之后，其子View都将会带有该flag -->
+        <flag name="mutable" value="2" />
+    </attr>
+</resources>

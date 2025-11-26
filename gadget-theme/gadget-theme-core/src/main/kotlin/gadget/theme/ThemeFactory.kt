@@ -43,38 +43,46 @@ abstract class ThemeFactory(
     /**
      * 解析xml中使用到的主题资源和属性
      */
-    open fun parse(context: Context, attrs: AttributeSet): Map<Theme.Attribute, Theme.Resource>? {
+    open fun parse(context: Context, attrs: AttributeSet): MutableMap<Theme.Attribute, Theme.Resource>? {
         var result: MutableMap<Theme.Attribute, Theme.Resource>? = null
         for (index in 0 until attrs.attributeCount) {
             val attributeName = attrs.getAttributeName(index) ?: continue
-            val attribute = attributeCaches.getOrPut(attributeName) {
-                provide(attributeName) ?: Theme.Attribute.NotSupport
-            }
-            if (attribute === Theme.Attribute.NotSupport) {
-                continue
-            }
-            val attributeValue = attrs.getAttributeValue(index) ?: continue
-            val resourceId = if (attributeValue.startsWith('@')) {
-                attributeValue.substring(1).toIntOrNull()
-            } else { null } ?: continue
-            val resource = resourceCaches.getOrPut(resourceId) {
-                try {
-                    val resourceName = context.resources.getResourceEntryName(resourceId)
-                    val resourceType = context.resources.getResourceTypeName(resourceId)
-                    Theme.Resource(resourceId, resourceName, resourceType).let {
-                        if (filter(it)) it else Theme.Resource.NotFound
-                    }
-                } catch (throwable: Throwable) {
-                    Theme.Resource.NotFound
+            if (attrs.getAttributeNameResource(index) == gadget.theme.core.R.attr.gadget_theme_flags) {
+                val flags = attrs.getAttributeValue(index).substring(2).toIntOrNull(16) ?: continue
+                if (result == null) {
+                    result = HashMap()
                 }
+                result[Theme.Attribute.Flags] = Theme.Resource(flags, "", "")
+            } else {
+                val attribute = attributeCaches.getOrPut(attributeName) {
+                    provide(attributeName) ?: Theme.Attribute.NotSupport
+                }
+                if (attribute === Theme.Attribute.NotSupport) {
+                    continue
+                }
+                val attributeValue = attrs.getAttributeValue(index) ?: continue
+                val resourceId = if (attributeValue.startsWith('@')) {
+                    attributeValue.substring(1).toIntOrNull()
+                } else { null } ?: continue
+                val resource = resourceCaches.getOrPut(resourceId) {
+                    try {
+                        val resourceName = context.resources.getResourceEntryName(resourceId)
+                        val resourceType = context.resources.getResourceTypeName(resourceId)
+                        Theme.Resource(resourceId, resourceName, resourceType).let {
+                            if (filter(it)) it else Theme.Resource.NotFound
+                        }
+                    } catch (throwable: Throwable) {
+                        Theme.Resource.NotFound
+                    }
+                }
+                if (resource === Theme.Resource.NotFound) {
+                    continue
+                }
+                if (result == null) {
+                    result = HashMap()
+                }
+                result[attribute] = resource
             }
-            if (resource === Theme.Resource.NotFound) {
-                continue
-            }
-            if (result == null) {
-                result = HashMap()
-            }
-            result[attribute] = resource
         }
         return result;
     }
@@ -114,7 +122,8 @@ abstract class ThemeFactory(
             view = create(parent, name, context, attrs)
         }
         if (view != null) {
-            view = ThemeObserver(view, attribute2resource).get()
+            val flags = attribute2resource.remove(Theme.Attribute.Flags)?.id ?: 0
+            view = ThemeObserver(view, attribute2resource, flags).get()
         }
         return view
     }
@@ -126,7 +135,8 @@ abstract class ThemeFactory(
             view = create(null, name, context, attrs)
         }
         if (view != null) {
-            view = ThemeObserver(view, attribute2resource).get()
+            val flags = attribute2resource.remove(Theme.Attribute.Flags)?.id ?: 0
+            view = ThemeObserver(view, attribute2resource, flags).get()
         }
         return view
     }
