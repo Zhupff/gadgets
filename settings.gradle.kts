@@ -49,6 +49,7 @@ include(
     ":gadget-theme",
 //    ":gadget-theme:app", ":gadget-theme:app:theme-night", ":gadget-theme:app:theme-diy",
     ":gadget-theme:gadget-theme-core",
+    ":gadget-theme:gadget-theme-mcu",
     ":gadget-theme:gadget-theme-scheme",
 )
 
