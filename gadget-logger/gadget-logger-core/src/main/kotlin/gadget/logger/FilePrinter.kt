@@ -21,12 +21,12 @@ open class FilePrinter @JvmOverloads constructor(
             .resolve("_LOG_").also(File::mkdirs)
             .resolve("${System.currentTimeMillis()}.txt")
     },
-    protected val timeFormater: TimeFormater = object : TimeFormater {
+    protected val contentFormater: ContentFormater = object : ContentFormater {
         private val date = Date()
         private val formater = SimpleDateFormat("yyyy-MM-dd_HH-mm-ss.SSS")
-        override fun format(timestamp: Long): String {
+        override fun format(timestamp: Long, pid: Int, tid: Int, tag: String, content: String): String {
             date.time = timestamp
-            return formater.format(date)
+            return "%s %5s-%-5s %-32s: %s".format(formater.format(date), pid, tid, tag, content)
         }
     },
     protected val errorCatcher: ErrorCatcher = object : ErrorCatcher {
@@ -68,6 +68,7 @@ open class FilePrinter @JvmOverloads constructor(
 
     override fun print(priority: Int, tag: String, content: String, throwable: Throwable?, timestamp: Long) {
         val totalCount = totalCounter.incrementAndGet()
+        val threadId = THREAD_ID.getOrSet { Os.gettid() }
         ioHandler.post {
             synchronized(fileLock) {
                 val pw: PrintWriter? = fileWriter ?: try {
@@ -84,7 +85,7 @@ open class FilePrinter @JvmOverloads constructor(
                     } else {
                         StringBuilder().appendLine(content).appendLine(Log.getStackTraceString(throwable)).toString()
                     }
-                    pw.println("%s %5s-%-5s %-32s: %s".format(timeFormater.format(timestamp), PROCESS_ID, THREAD_ID.getOrSet { Os.gettid() }, tag, finalContent))
+                    pw.println(contentFormater.format(timestamp, PROCESS_ID, threadId, tag, finalContent))
                     val periodCount = periodCounter.incrementAndGet()
                     val sessionCount = sessionCounter.incrementAndGet()
                     if (totalCount >= totalCounter.get() ||
@@ -128,8 +129,8 @@ open class FilePrinter @JvmOverloads constructor(
         fun provide(): File
     }
 
-    interface TimeFormater {
-        fun format(timestamp: Long): String
+    interface ContentFormater {
+        fun format(timestamp: Long, pid: Int, tid: Int, tag: String, content: String): String
     }
 
     interface ErrorCatcher {

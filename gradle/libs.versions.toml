@@ -1,9 +1,11 @@
 [versions]
 android-gradle-plugin = "8.9.0"
+androidxDataStore = "1.1.7"
 autoService = "1.1.1"
 kotlin = "2.0.0"
 kotlin-ksp = "2.0.0-1.0.24"
 rxjava3 = "3.1.12"
+squareupWire = "5.4.0"
 
 [plugins]
 android-application = { id = "com.android.application", version.ref = "android-gradle-plugin" }
@@ -13,17 +15,21 @@ kotlin-dsl = { id = "org.gradle.kotlin.kotlin-dsl", version = "5.1.1" }
 kotlin-jvm = { id = "org.jetbrains.kotlin.jvm", version.ref = "kotlin" }
 kotlin-kapt = { id = "org.jetbrains.kotlin.kapt", version.ref = "kotlin" }
 kotlin-ksp = { id = "com.google.devtools.ksp", version.ref = "kotlin-ksp" }
+squareup-wire = { id = "com.squareup.wire", version.ref = "squareupWire" }
 
 [libraries]
 android-material = { group = "com.google.android.material", name = "material", version = "1.13.0" }
 androidx-appcompat = { group = "androidx.appcompat", name = "appcompat", version = "1.7.0" }
 androidx-constraintlayout = { group = "androidx.constraintlayout", name = "constraintlayout", version = "2.2.1" }
 androidx-core-ktx = { group = "androidx.core", name = "core-ktx", version = "1.16.0" }
+androidx-datastore-preferences = { group = "androidx.datastore", name = "datastore-preferences", version.ref = "androidxDataStore" }
+androidx-datastore-protobuf = { group = "androidx.datastore", name = "datastore", version.ref = "androidxDataStore" }
 androidx-recyclerview = { group = "androidx.recyclerview", name = "recyclerview", version = "1.4.0" }
 androidx-startup = { group = "androidx.startup", name = "startup-runtime", version = "1.2.0" }
 autoservice-annotation = { group = "com.google.auto.service", name = "auto-service-annotations", version.ref = "autoService" }
 autoservice-processor = { group = "com.google.auto.service", name = "auto-service", version.ref = "autoService" }
 kotlin-ksp-api = { group = "com.google.devtools.ksp", name = "symbol-processing-api", version.ref = "kotlin-ksp" }
+kotlinx-coroutines-android = { group = "org.jetbrains.kotlinx", name = "kotlinx-coroutines-android", version = "1.10.2" }
 reactivex-rxjava3 = { group = "io.reactivex.rxjava3", name = "rxjava", version.ref = "rxjava3" }
 reactivex-rxandroid3 = { group = "io.reactivex.rxjava3", name = "rxandroid", version.ref = "rxjava3" }
 squareup-kotlinpoet = { group = "com.squareup", name = "kotlinpoet-ksp", version = "1.12.0" }
@@ -33,6 +39,7 @@ android-gradle-v4 = { group = "com.android.tools.build", name = "gradle", versio
 android-gradle-v8 = { group = "com.android.tools.build", name = "gradle", version.ref = "android-gradle-plugin" }
 kotlin-gradle = { group = "org.jetbrains.kotlin", name = "kotlin-gradle-plugin", version.ref = "kotlin" }
 kotlin-ksp-gradle = { group = "com.google.devtools.ksp", name = "com.google.devtools.ksp.gradle.plugin", version.ref = "kotlin-ksp" }
+squareup-wire-gradle = { group = "com.squareup.wire", name = "wire-gradle-plugin", version.ref = "squareupWire" }
 
 # Dependencies for test
 androidx-espresso = { group = "androidx.test.espresso", name = "espresso-core", version = "3.6.1" }
