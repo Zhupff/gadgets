@@ -53,6 +53,8 @@ class GadgetTheme : Gadget() {
 
     fun core(): String = dependency("gadget-theme-core")
 
+    fun mcu(): String = dependency("gadget-theme-mcu")
+
     fun scheme(): String = dependency("gadget-theme-scheme")
 
     private fun findAllThemeMergeProjects(variant: String): List<Project> {

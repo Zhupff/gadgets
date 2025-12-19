@@ -16,13 +16,23 @@
     <attr name="gadget_border_width" format="dimension" />
     <attr name="gadget_border_shader" format="color|reference" />
     <attr name="gadget_border_fit" format="boolean" />
-    <attr name="gadget_fit_window_insets">
+    <attr name="gadget_fit_window_insets" format="flags">
         <flag name="L" value="1" />
         <flag name="T" value="2" />
         <flag name="R" value="4" />
         <flag name="B" value="8" />
     </attr>
     <attr name="gadget_resizeable_ratio" format="float"/>
+    <attr name="gadget_fit_side" format="enum">
+        <enum name="L" value="1" />
+        <enum name="T" value="2" />
+        <enum name="R" value="4" />
+        <enum name="B" value="8" />
+    </attr>
+
+    <declare-styleable name="FitSideImageView">
+        <attr name="gadget_fit_side" />
+    </declare-styleable>
 
     <declare-styleable name="GadgetLayout">
         <attr name="gadget_corner_gravity" />

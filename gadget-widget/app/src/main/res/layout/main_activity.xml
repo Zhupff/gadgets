@@ -34,6 +34,14 @@
         </gadget.widget.GadgetLayout>
     </gadget.widget.GadgetLayout>
 
+    <gadget.widget.FitSideImageView
+        android:layout_width="256dp"
+        android:layout_height="256dp"
+        android:layout_gravity="center"
+        android:src="@drawable/wallpaper"
+        android:background="#FFF"
+        app:gadget_fit_side="B"/>
+
     <gadget.widget.app.GramophoneView
         android:id="@+id/gramophone"
         android:layout_width="100dp"
