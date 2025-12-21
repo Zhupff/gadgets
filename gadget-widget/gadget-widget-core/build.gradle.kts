@@ -9,3 +9,7 @@ gadget {
         androidx()
     }
 }
+
+dependencies {
+    compileOnly(libs.androidx.recyclerview)
+}
