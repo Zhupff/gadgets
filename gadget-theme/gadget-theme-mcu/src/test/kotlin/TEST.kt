@@ -3,11 +3,15 @@ import gadget.theme.mcu.color.ARGB
 import gadget.theme.mcu.color.CAM16
 import gadget.theme.mcu.color.HCT
 import gadget.theme.mcu.palette.Palette
+import gadget.theme.mcu.quantize.Quantizer
 import hct.Cam16
 import hct.Hct
 import hct.ViewingConditions
 import palettes.TonalPalette
+import quantize.QuantizerCelebi
+import score.Score
 import utils.ColorUtils
+import java.io.File
 import kotlin.random.Random
 
 fun main() {
@@ -226,4 +230,23 @@ private fun testPalette2() {
     }
     val stopTimestamp = System.currentTimeMillis()
     println("testPalette2 ok! cost=${stopTimestamp - startTimestamp}ms")
+}
+
+private fun testQuantize() {
+    // [#FF625141, #FFC4B8A7]
+    val pixelsJson = File("pixels.json").readText(Charsets.UTF_8).replace("[", "").replace("]", "")
+    val pixels = pixelsJson.split(',').map { it.toInt() }.toIntArray()
+    val result1 = QuantizerCelebi.quantize(pixels, 3)
+    val result2 = Score.score(result1)
+    println("quantize result: ${result2.map { "#%02X%02X%02X%02X".format((it shr 24) and 255, (it shr 16) and 255, (it shr 8) and 255, it and 255) }}")
+}
+
+private fun testQuantize1() {
+    val pixelsJson = File("pixels.json").readText(Charsets.UTF_8).replace("[", "").replace("]", "")
+    var pixels = pixelsJson.split(',').map { it.toInt() }.toIntArray()
+    val result1 = QuantizerCelebi.quantize(pixels, 128)
+    val score1 = Score.score(result1)
+
+    pixels = pixelsJson.split(',').map { it.toInt() }.toIntArray()
+    val result2 = Quantizer.quantize("") { pixels }
 }

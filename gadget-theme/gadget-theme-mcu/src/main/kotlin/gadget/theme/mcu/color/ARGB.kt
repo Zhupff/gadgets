@@ -46,7 +46,7 @@ internal class ARGB private constructor(
     )
 
     constructor(a: Int, r: Int, g: Int, b: Int) : this(
-        (a shl 24) or (r shl 16) or (g shl 8) or b, a, r, g, b,
+        ((a and 255) shl 24) or ((r and 255) shl 16) or ((g and 255) shl 8) or (b and 255), a, r, g, b,
     )
 
     override fun toString(): String = "#%02X%02X%02X%02X".format(a, r, g, b)
